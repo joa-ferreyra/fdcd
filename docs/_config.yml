@@ -4,7 +4,7 @@ author: "Facultad de Ciencias Exactas, Ingeniería y Agrimensura - Universidad N
 logo: docs/images/fdcd_logo.png
 only_build_toc_files: false
 repository:
-  url: https://github.com/tuiafceiaunr/fdcd
+  url: https://github.com/tuia-fceia-unr/fdcd
   branch: main
   
 # Execution Settings
