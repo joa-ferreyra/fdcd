@@ -50,12 +50,12 @@ sphinx:
     html_css_files:
       - custom.css
     html_theme_options:
-      repository_url: https://github.com/tuiafceiaunr/fdcd
+      repository_url: https://github.com/tuia-fceia-unr/fdcd
       use_repository_button: true
       use_issues_button: true
       use_edit_page_button: true
       header_organisation: Fundamentos de Ciencia de Datos
-      header_organisation_url: https://tuiafceiaunr.github.io/fdcd/
+      header_organisation_url: https://tuia-fceia-unr.github.io/fdcd/
       color_scheme: none
     thebe_config:
       use_thebe_lite: true
