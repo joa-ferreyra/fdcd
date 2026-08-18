@@ -1,23 +1,29 @@
 # Book settings
-title: Book Fundamentos de Ciencia de Datos
-author: Cátedra de Fundamentos de Ciencia de Datos
+title: TUIA - Fundamentos de Ciencia de Datos
+author: Facultad de Ciencias Exactas, Ingeniería y Agrimensura - Universidad Nacional de Rosario
 logo: docs/images/fdcd_logo.png
 only_build_toc_files: false
-
 repository:
   url: https://github.com/tuiafceiaunr/fdcd
   branch: main
-
+  
 # Execution Settings
 execute:
   execute_notebooks: auto
 
 html:
   use_repository_button: true
-  use_thebe: true  # Enable Thebe
+  use_thebe: true
 
 launch_buttons:
   thebe: true
+  
+exclude_patterns:
+  - .venv
+  - _build
+  - .git
+  - .github
+  - "**/__pycache__"
 
 parse:
   myst_enable_extensions:
@@ -34,15 +40,22 @@ bibtex_bibfiles:
 # Sphinx settings
 sphinx:
   config:
+    language: es
+    html_theme: quantecon_book_theme
     html_show_copyright: false
     html_last_updated_fmt: "%b %d, %Y"
     html_js_files:
-    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+      - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
     html_static_path: ['docs/_static']
     html_css_files:
       - custom.css
     html_theme_options:
-      logo:
-        text: "Fundamentos de Ciencia de Datos"
+      repository_url: https://github.com/tuiafceiaunr/fdcd
+      use_repository_button: true
+      use_issues_button: true
+      use_edit_page_button: true
+      header_organisation: Fundamentos de Ciencia de Datos
+      header_organisation_url: https://tuiafceiaunr.github.io/fdcd/
+      color_scheme: none
     thebe_config:
       use_thebe_lite: true

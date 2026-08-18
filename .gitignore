@@ -1,7 +1,9 @@
 # Files
 #*.html
 #*.csv
+*.venv/
 **/_build/
 .idea/
 *.Rproj
 .Rproj.user/
+.gfs

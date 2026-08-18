@@ -9,7 +9,7 @@ kernelspec:
   name: python3
 ---
 
-# Unidad 2 - Manipulación de datos
+# Unidad 2 - Manipulación de Datos
 
 ## ¿Qué son los datos?
 
@@ -266,7 +266,7 @@ Es decir, cada columna almacena consecutivamente los valores de ese atributo.
 
 ```{figure} imagenes/row_column_oriented.svg
 ---
-width: 95%
+width: 100%
 align: center
 ---
 Comparación esquemática entre el almacenamiento orientado a filas y el orientado a columnas, usando el mismo conjunto de datos.
@@ -496,26 +496,26 @@ Ejemplo de una tabla HTML:
 - Requiere tareas adicionales de parseo para transformar la información en datos tabulares utilizables.
 
 
-## Pandas
+## Primeros pasos con **pandas**
 
 ``` {admonition} **Sobre este apartado**
 :class: important
 En esta sección se retoman conceptos vistos en Programación III y se incorporan nuevas ideas que serán fundamentales para el trabajo con datos tabulares.
 ```
 
-**pandas** es una librería de Python para el análisis y manipulación de datos. Proporciona **estructuras de datos** eficientes para almacenar y organizar información, y un conjunto de **funciones y métodos** que permiten realizar una gran variedad de operaciones, como filtrar, transformar, agrupar o resumir datos, entre muchas otras.
+**`pandas`** es una librería de Python para el análisis y manipulación de datos. Proporciona **estructuras de datos** eficientes para almacenar y organizar información, y un conjunto de **funciones y métodos** que permiten realizar una gran variedad de operaciones, como filtrar, transformar, agrupar o resumir datos, entre muchas otras.
 
-### Estructuras de datos básicas en pandas
+### Estructuras de datos básicas en **pandas**
 
-pandas proporciona dos estructuras principales para trabajar con datos:
+`pandas` proporciona dos estructuras principales para trabajar con datos:
 
-- **`Series`:** una `Series` de pandas es un array unidimensional capaz de contener cualquier tipo de dato: números enteros, cadenas de texto, números decimales, objetos de Python, etc. Cada elemento de la `Series` posee un identificador único llamado **índice** (*index*).
+- **`Series`:** una `Series` de `pandas` es un array unidimensional capaz de contener cualquier tipo de dato: números enteros, cadenas de texto, números decimales, objetos de Python, etc. Cada elemento de la `Series` posee un identificador único llamado **índice** (*index*).
 
 - **`DataFrame`:** un `DataFrame` es una estructura bidimensional tabular formada por filas y columnas. Cada fila está identificada por un índice, y las distintas columnas pueden almacenar datos de diferente tipo.
 
 ```{figure} imagenes/pandas_series_dataframe.svg
 ---
-width: 90%
+width: 100%
 align: center
 ---
 Una `Series` es un array unidimensional con índice. Un `DataFrame` es un conjunto de `Series` que comparten el mismo índice, una por cada columna.
@@ -544,7 +544,7 @@ En el trabajo con datos tabulares es habitual encontrarse con valores faltantes.
 
 **None:** es el valor nulo propio de Python y se utiliza para indicar la ausencia de un valor en un sentido general. No está pensado específicamente para el análisis de datos y, cuando se trabaja con estructuras como `DataFrame`, suele convertirse internamente en un valor faltante del tipo `NaN` o `NA`.
 
-**NA:** es una representación de valor faltante utilizada en el análisis de datos, originalmente asociada al lenguaje R. En pandas existe como `pd.NA` y está diseñada para representar datos faltantes de manera explícita, independientemente del tipo de dato (numérico, texto o booleano).
+**NA:** es una representación de valor faltante utilizada en el análisis de datos, originalmente asociada al lenguaje R. En `pandas` existe como `pd.NA` y está diseñada para representar datos faltantes de manera explícita, independientemente del tipo de dato (numérico, texto o booleano).
 
 Comprender estas diferencias es importante, ya que la forma en que se representan los valores faltantes influye en las operaciones disponibles, las conversiones de tipo y el comportamiento de los métodos de análisis.
 ```
@@ -555,7 +555,7 @@ En muchos lenguajes existen distintos tipos de enteros (por ejemplo, 8, 16, 32 o
 
 En cambio, los valores de punto flotante (`float`) suelen almacenarse internamente en doble precisión (64 bits), siguiendo el estándar IEEE 754.
 
-En pandas, los tipos numéricos suelen representarse explícitamente con tamaños fijos, como:
+En `pandas`, los tipos numéricos suelen representarse explícitamente con tamaños fijos, como:
 
 - `int64`: enteros de 64 bits
 
@@ -564,7 +564,7 @@ En pandas, los tipos numéricos suelen representarse explícitamente con tamaño
 
 ### Lectura de archivos con datos tabulares
 
-pandas permite leer datos desde múltiples formatos de archivo y convertirlos directamente en `DataFrame`. Algunos de los formatos más comunes son: archivos CSV (`.csv`), archivos Excel (`.xlsx`, `.xls`), archivos JSON (`.json`), archivos de texto delimitados (`.txt`) y archivos Parquet (`.parquet`). La lectura de datos se realiza mediante funciones específicas para cada tipo de archivo:
+`pandas` permite leer datos desde múltiples formatos de archivo y convertirlos directamente en `DataFrame`. Algunos de los formatos más comunes son: archivos CSV (`.csv`), archivos Excel (`.xlsx`, `.xls`), archivos JSON (`.json`), archivos de texto delimitados (`.txt`) y archivos Parquet (`.parquet`). La lectura de datos se realiza mediante funciones específicas para cada tipo de archivo:
 
 - **`read_csv()`**. Si bien el archivo `.csv` sigue siendo orientado a filas, la función se encarga de convertirlo en un `DataFrame`. `read_csv()` también permite leer archivos `.txt`.
 
@@ -574,7 +574,7 @@ pandas permite leer datos desde múltiples formatos de archivo y convertirlos di
 
 - **`read_parquet()`**. La función `read_parquet()` permite leer archivos con este formato. Algunos de sus parámetros más habituales son:
 
-  - **`engine`**: indica qué librería utiliza pandas por detrás para leer el archivo Parquet. Las opciones son `'pyarrow'`, `'fastparquet'` (ambas son librerías externas especializadas en este formato) o `'auto'`, que es el valor por defecto y deja que pandas elija automáticamente según lo que esté instalado en el entorno.
+  - **`engine`**: indica qué librería utiliza `pandas` por detrás para leer el archivo Parquet. Las opciones son `'pyarrow'`, `'fastparquet'` (ambas son librerías externas especializadas en este formato) o `'auto'`, que es el valor por defecto y deja que `pandas` elija automáticamente según lo que esté instalado en el entorno.
 
   - **`columns`**: permite indicar una lista con los nombres de las columnas que se quieren leer, en lugar de cargar el archivo completo. Este parámetro es un buen ejemplo concreto de la ventaja de un formato orientado a columnas como Parquet: si solo se necesitan dos o tres columnas de un archivo con cien, `columns` evita leer del disco las columnas restantes.
 
@@ -593,7 +593,7 @@ df = pd.read_parquet(
 )
 ```
 
-```{dropdown} Nota sobre versiones de pandas
+```{dropdown} Nota sobre versiones de **pandas**
 `read_parquet()` tiene además un parámetro llamado `dtype_backend`, que permite elegir con qué tipo de estructura interna se representan los datos leídos (por ejemplo, `'numpy_nullable'` o `'pyarrow'`). Es una opción más avanzada, pensada sobre todo para el manejo fino de valores faltantes, y no es necesaria para el uso habitual de la función en esta asignatura.
 ```
 
@@ -603,57 +603,286 @@ Estas funciones permiten especificar opciones adicionales, como el delimitador, 
 
 Como se comentó anteriormente, los archivos CSV no almacenan información explícita sobre el tipo de dato de cada columna, ya que todo el contenido se guarda como texto plano.
 
-Cuando se lee un archivo CSV con herramientas básicas, toda la información se interpreta inicialmente como texto. Sin embargo, cuando se utiliza pandas, la librería intenta inferir automáticamente el tipo de dato más apropiado para cada columna. Además, es posible especificar manualmente los tipos deseados mediante el parámetro `dtype`:
+Cuando se lee un archivo CSV con herramientas básicas, toda la información se interpreta inicialmente como texto. Sin embargo, cuando se utiliza `pandas`, la librería intenta inferir automáticamente el tipo de dato más apropiado para cada columna. Además, es posible especificar manualmente los tipos deseados mediante el parámetro `dtype`:
 
 ```{code-cell} python3
 :tags: ["skip-execution"]
 
-pd.read_csv('listings.csv', dtype={'price': 'float'})
+pd.read_csv('listings.csv', dtype = {'price' : 'float'})
 ```
 
 Esto fuerza a que la columna `price` sea interpretada como número de punto flotante.
 
-### Inspección de tipos de datos en un DataFrame
+### Inspección de un DataFrame
 
-pandas permite inspeccionar rápidamente los tipos de datos de cada columna utilizando el método **`info()`**.
+Para ilustrar esta sección y algunas de las próximas que se presentan en esta unidad, vamos a trabajar con un dataset de terremotos construido a partir de la **API pública del USGS** (*United States Geological Survey*). Cada fila representa un sismo, con información como su magnitud, ubicación, momento en que ocurrió, y si estuvo asociado a un tsunami o a una alerta del sistema PAGER de USGS.
 
-Tomemos como ejemplo el dataset que contiene información sobre los pasajeros que viajaban en el Titanic:
+El enfoque de trabajar con estos datos está inspirado en el libro *Hands-On Data Analysis with Pandas*, de Stefanie Molin ([repositorio de GitHub](https://github.com/stefmolin/Hands-On-Data-Analysis-with-Pandas-2nd-edition)). A diferencia del dataset original del libro, el que usamos en este apunte se descargó directamente desde la API de USGS, filtrando los sismos de magnitud 4.5 o mayor, ocurridos en el último año. Además, el archivo fue modificado ligeramente con fines pedagógicos, para poder ilustrar más adelante algunas situaciones de validación de datos que suelen aparecer en la práctica.
 
-```{code-cell} python3
+```{code-cell} python
 import pandas as pd
 
-# Descarga el dataset "titanic.csv" y lo carga en un DataFrame
-df = pd.read_csv('https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv')
-
-# Imprime información del DataFrame
-print(df.info())
+df_quakes = pd.read_csv('datasets/earthquakes.csv')
 ```
 
-Esta salida muestra, para cada columna, la siguiente información:
+Antes de empezar a trabajar con un dataset, conviene hacer una primera inspección para entender su tamaño, sus columnas y los tipos de datos que contiene. Además, esta primera inspección nos va a dar pistas sobre hacia dónde dirigir las operaciones de *data wrangling* que veremos más adelante. `pandas` ofrece varios atributos y métodos para esto, y este es un buen momento para dejar completamente clara una distinción que venimos usando de manera intuitiva.
 
-- El nombre
-
-- La cantidad de valores no nulos
-
-- El tipo de dato asignado por pandas
-
-```{admonition} **El método info()**
+```{admonition} Función, método o atributo
 :class: tip
 
-La utilización de este método es una buena práctica luego de importar los datos, ya que permite detectar inconsistencias entre el tipo de dato esperado y el tipo asignado, e identificar columnas que contienen valores faltantes. Por este motivo, `info()` suele ser uno de los primeros comandos que se ejecutan al comenzar a explorar un nuevo conjunto de datos.
+Pensemos en un objeto cualquiera, como un auto. Un auto **tiene** ciertas propiedades ya definidas, como su color, su marca, la cantidad de puertas, y las mismas no requieren ningún cálculo para conocerlas: alcanza con consultarlas. Pero un auto también **hace** cosas, como ponerse en marcha, frenar o cambiar de dirección, acciones que se ejecutan cada vez que se las solicita. Esta misma distinción existe en los objetos de Python:
+
+- Un **atributo** es una propiedad que el objeto ya tiene calculada, a la que se accede directamente, sin paréntesis. Por ejemplo, `df_quakes.shape` no *hace* nada: simplemente devuelve una propiedad que el `DataFrame` ya conoce sobre sí mismo.
+
+- Un **método** es una acción que el objeto puede ejecutar, y por eso siempre se invoca con paréntesis, incluso si no recibe ningún argumento. Por ejemplo, `df_quakes.head()` ejecuta una operación (tomar las primeras filas, como veremos más adelante) cada vez que se lo llama.
+
+- Una **función**, a diferencia de un método, no pertenece a ningún objeto en particular: se invoca directamente desde el módulo que la define, como `pd.read_csv(...)`. La diferencia con un método es que una función necesita que se le pase explícitamente todo lo que va a usar, mientras que un método ya "conoce" al objeto sobre el que actúa, porque se invoca sobre él.
+
+| | Se invoca así | Ejemplo |
+|---|---|---|
+| **Función** | `modulo.algo()` | `pd.read_csv(...)` |
+| **Método** | `objeto.algo()` | `df_quakes.head()` |
+| **Atributo** | `objeto.algo` (sin paréntesis) | `df_quakes.shape` |
 ```
+
+#### Atributos
+
+Como se mencionó anteriormente, los atributos son propiedades del objeto que devuelven información directamente.
+
+- **`shape`**: devuelve una tupla `(cantidad_de_filas, cantidad_de_columnas)` que nos permite conocer el número de observaciones (filas) y el número de variables (columnas) de nuestro dataset.
+
+```{code-cell} python
+df_quakes.shape
+```
+
+- **`columns`**: devuelve los nombres de las columnas del `DataFrame`.
+
+```{code-cell} python
+df_quakes.columns
+```
+
+- **`dtypes`**: devuelve el tipo de dato asignado a cada columna. Es un atributo útil para advertir columnas que no contienen el tipo esperado de dato.
+
+```{code-cell} python
+df_quakes.dtypes
+```
+
+#### Métodos
+
+Además de los atributos mencionados anteriormente, hay varios métodos útiles para una primera inspección:
+
+- **`head()`**: muestra las primeras filas del `DataFrame` (por defecto, 5). Es útil para tener una primera idea de cómo lucen los datos.
+
+```{code-cell} python
+df_quakes.head()
+```
+
+- **`tail()`**: análogo a `head()`, pero muestra las últimas filas. Es una buena práctica revisarlas también, ya que a veces hay filas con datos corruptos o incompletos al final de un archivo.
+
+```{code-cell} python
+df_quakes.tail()
+```
+
+- **`info()`**: combina buena parte de la información anterior en una única salida: cantidad de filas y columnas, tipo de dato y cantidad de valores no nulos por columna. Los valores nulos que reporta (*Null*) son los valores faltantes que ya presentamos al principio de esta sección (`NaN`, `None` o `NA`, según el caso).
+
+```{code-cell} python
+df_quakes.info()
+```
+
+La utilización de este método es una buena práctica luego de importar los datos, ya que permite detectar inconsistencias entre el tipo de dato esperado y el tipo asignado, e identificar columnas que contienen valores faltantes. Por este motivo, `info()` suele ser uno de los primeros comandos que se ejecutan al comenzar a explorar un nuevo conjunto de datos.
 
 #### object *vs.* str
 
-En pandas, las columnas que contienen texto suelen representarse con el tipo de dato `object`, en lugar del tipo `str` de Python. Esto ocurre porque `object` es un tipo general que puede contener cualquier objeto de Python, incluyendo cadenas de texto. Además, las columnas de texto pueden contener valores faltantes (`NaN`), y el tipo `object` es compatible con esta situación.
+En `pandas`, las columnas que contienen texto suelen representarse con el tipo de dato `object`, en lugar del tipo `str` de Python. Esto ocurre porque `object` es un tipo general que puede contener cualquier objeto de Python, incluyendo cadenas de texto. Además, las columnas de texto pueden contener valores faltantes (`NaN`), y el tipo `object` es compatible con esta situación.
 
 En términos prácticos, cuando una columna aparece como `object`, generalmente contiene texto. Sin embargo, también podría contener una mezcla de tipos, por lo que es importante inspeccionar los datos cuando sea necesario.
 
-*Nota: versiones recientes de pandas incorporan un tipo específico llamado `string`, orientado exclusivamente a texto, pero el uso de `object` sigue siendo muy común.*
+*Nota: versiones recientes de `pandas` incorporan un tipo específico llamado `string`, orientado exclusivamente a texto, pero el uso de `object` sigue siendo muy común.*
+
+### Selección de subconjuntos de datos
+
+Una vez que conocemos la estructura general del dataset, el siguiente paso habitual es seleccionar subconjuntos de interés: algunas columnas, algunas filas, o combinaciones de ambas.
+
+#### Selección de columnas
+
+Podemos acceder a una columna como si fuera un atributo del `DataFrame`. Es oportuno recordar que una columna es, en sí misma, un objeto `Series`, por lo que al seleccionar la columna `mag` del objeto `df_quakes` obtenemos las magnitudes de los sismos como una `Series`:
+
+```{code-cell} python
+df_quakes.mag.head()
+```
+
+Como alternativa a esta notación de atributo, también es posible seleccionar una columna utilizando su nombre entre corchetes:
+
+```{code-cell} python
+df_quakes['mag'].head()
+```
+
+```{admonition} ¿Cuál conviene usar?
+:class: note
+
+La notación de corchetes (`df_quakes['mag']`) es, en general, la más segura y la que se recomienda usar por defecto. La notación de atributo (`df_quakes.mag`) solo funciona si el nombre de la columna es un identificador válido de Python (sin espacios ni caracteres especiales) y si no coincide con el nombre de algún método o atributo ya existente del `DataFrame`. Por ejemplo, no podríamos acceder así a una columna llamada `count` o `shape`, porque esos nombres ya están ocupados.
+```
+
+Para seleccionar varias columnas a la vez, se pasa una lista de nombres. El resultado, en este caso, es un `DataFrame`:
+
+```{code-cell} python
+df_quakes[['place', 'mag', 'tsunami']].head()
+```
+
+#### Slicing
+
+El *slicing* permite seleccionar un rango de filas, utilizando su posición numérica:
+
+```{code-cell} python
+df_quakes[100:103]
+```
+
+Esto devuelve las filas ubicadas entre la posición 100 (inclusive) y la 103 (exclusive).
+
+Podemos combinar la selección de columnas y de filas utilizando lo que se conoce como ***chaining***:
+
+```{code-cell} python
+df_quakes[['place', 'mag', 'tsunami']][100:103]
+```
+
+El *chaining* es útil para inspeccionar datos, como en el ejemplo anterior. Sin embargo, no es recomendable utilizarlo para **modificar** valores, ya que puede generar resultados inesperados o una advertencia de pandas (`SettingWithCopyWarning`). Para modificar datos, es preferible utilizar `.loc[]`, que vamos a ver a continuación.
+
+#### Indexación con `.loc[]` y `.iloc[]`
+
+`pandas` ofrece dos formas distintas de acceder a filas y columnas de manera más precisa, y es importante no confundirlas:
+
+- **`.loc[]`** selecciona **por etiqueta** (el nombre del índice o de la columna).
+
+- **`.iloc[]`** selecciona **por posición** (un número entero, sin importar cómo se llame el índice).
+
+Por ejemplo, para seleccionar la fila con índice `10` y únicamente las columnas `place` y `mag`:
+
+```{code-cell} python
+df_quakes.loc[10, ['place', 'mag']]
+```
+
+Y para seleccionar la fila que se encuentra en la **posición** 10 (es decir, la undécima fila, sin importar qué índice tenga asignado) y las dos primeras columnas:
+
+```{code-cell} python
+df_quakes.iloc[10, :2]
+```
+
+Es importante tener en cuenta que mientras el índice de un `DataFrame` sea el numérico por defecto (`0, 1, 2, ...`), `df.loc[10]` y `df.iloc[10]` van a devolver lo mismo. Sin embargo, la diferencia se vuelve importante cuando el índice no es un rango numérico simple (por ejemplo, si se estableció una columna como índice, o si el `DataFrame` es el resultado de un filtro previo y el índice quedó con "huecos"). En esos casos, `.loc[]` sigue buscando la etiqueta indicada, mientras que `.iloc[]` sigue contando posiciones desde cero.
+
+Podemos seleccionar todas las filas utilizando `:` como indexador de filas. Por ejemplo, seleccionemos todas las filas de la columna `title` con `.loc[]`:
+
+```{code-cell} python
+df_quakes.loc[:, 'title']
+```
+
+También podemos seleccionar múltiples filas y columnas al mismo tiempo:
+
+```{code-cell} python
+df_quakes.loc[10:15, ['title', 'mag']]
+```
+
+Notar que, al utilizar `.loc[]`, el límite final del rango es **inclusivo**. No ocurre lo mismo con `.iloc[]`, que se comporta como el *slicing* habitual de Python:
+
+```{code-cell} python
+df_quakes.iloc[10:15, [19, 8]]
+```
+
+Aquí las posiciones `19` y `8` corresponden a las columnas `title` y `mag`, respectivamente, el mismo par de columnas que usamos en el ejemplo anterior con `.loc[]`.
+
+#### Filtrado
+
+`pandas` ofrece varias formas de filtrar datos, entre ellas las **máscaras booleanas**. Una máscara booleana se construye evaluando una condición sobre una columna: el resultado es una `Series` de la misma longitud que el `DataFrame` original, compuesta enteramente por valores `True` o `False`, uno por cada fila, según si esa fila cumple o no la condición. Existen infinitas formas de construir una máscara booleana: alcanza con cualquier expresión que devuelva un único valor booleano por fila.
+
+Por ejemplo, podemos ver qué filas corresponden a sismos asociados a un tsunami:
+
+```{code-cell} python
+df_quakes['tsunami'] == 1
+```
+
+Esta `Series` booleana, por sí sola, no filtra nada. Solo indica, fila por fila, si se cumple la condición. Para quedarnos efectivamente con las filas donde el resultado es `True`, pasamos esta máscara entre corchetes, junto al `DataFrame` que queremos filtrar:
+
+```{code-cell} python
+# Se agrega .head() a los fines de acortar la salida
+df_quakes[df_quakes['tsunami'] == 1].head()
+```
+
+También es posible combinar más de una condición. Por ejemplo, seleccionemos únicamente los sismos de magnitud mayor a 7 que además estuvieron asociados a un tsunami. Para combinar máscaras es importante encerrar cada condición entre paréntesis, y utilizar el operador **AND** (`&`) para requerir que **ambas condiciones sean ciertas**:
+
+```{code-cell} python
+df_quakes[(df_quakes['mag'] > 7) & (df_quakes['tsunami'] == 1)]
+```
+
+Si, en cambio, quisiéramos que **al menos una de las condiciones sea cierta**, usamos el operador **OR** (`|`):
+
+```{code-cell} python
+# Se agrega .head() a los fines de acortar la salida
+df_quakes[(df_quakes['mag'] > 7) | (df_quakes['tsunami'] == 1)].head()
+```
+
+En los ejemplos anteriores, combinamos condiciones de igualdad y de comparación numérica. Sin embargo, no estamos limitados a esto: también podemos construir máscaras a partir de métodos que operan sobre el contenido de una columna. Como ejemplo, seleccionemos todos los sismos ocurridos en Alaska que no tengan un valor faltante en la columna `alert`. ¿Cómo podríamos lograr esto?
+
+Los objetos `Series` tienen métodos especiales para trabajar con cadenas de texto, accesibles a través del accesor `str`. Usando esto, podemos crear una máscara booleana de todas las filas donde la columna `place` contiene la palabra `Alaska`:
+
+```{code-cell} python
+df_quakes['place'].str.contains('Alaska')
+```
+
+Por otro lado, para identificar todas las filas en las que hay datos en la columna `alert`, podemos usar el método `notnull()` (que funciona tanto para objetos `Series` como para `DataFrame`) para crear una máscara booleana:
+
+```{code-cell} python
+df_quakes['alert'].notnull()
+```
+
+Finalmente, combinamos ambas condiciones con el operador **AND** (`&`) para completar la máscara:
+
+```{code-cell} python
+# Se agrega .head() a los fines de acortar la salida
+df_quakes[(df_quakes['place'].str.contains('Alaska')) & (df_quakes['alert'].notnull())].head()
+```
+
+```{admonition} MANOS A LA OBRA N° 1
+:class: manos-a-la-obra
+
+Considerando el archivo `earthquakes.csv`:
+
+1. Seleccionar del dataset todos los terremotos ocurridos en California con una magnitud de al menos 3.8. Tener en cuenta que el lugar puede estar escrito como `CA` o `California`.
+
+2. Seleccionar todos los terremotos con magnitudes comprendidas entre 6.5 y 7.5 (inclusive).
+```
+
+El método `isin()` permite construir una máscara booleana que identifica los valores que coinciden con alguno de los elementos de una lista dada. Esto evita tener que escribir una condición separada para cada valor posible y unirlas con el operador `|`. Por ejemplo, filtremos los terremotos cuya magnitud fue medida utilizando el método `mw` o `mwb`:
+
+```{code-cell} python
+df_quakes.loc[df_quakes['magType'].isin(['mw', 'mwb']), ['mag', 'title']]
+```
+
+#### Obtención de índices con valores extremos
+
+En muchas ocasiones, no alcanza con conocer el valor máximo o mínimo de una columna: también queremos acceder a la fila completa a la que pertenece ese valor. Para esto, pandas ofrece los métodos **`idxmin()`** e **`idxmax()`**, que devuelven la etiqueta del índice donde se encuentra, respectivamente, el valor mínimo o máximo de una `Series`.
+
+La columna `sig` mide la significancia de un sismo, en una escala calculada por USGS que combina la magnitud con otros factores del evento. Busquemos el índice de los sismos de menor y mayor significancia:
+
+```{code-cell} python
+df_quakes['sig'].idxmin(), df_quakes['sig'].idxmax()
+```
+
+Una vez que contamos con estos índices, podemos combinarlos con `.loc[]` para obtener las filas completas correspondientes:
+
+```{code-cell} python
+df_quakes.loc[[df_quakes['sig'].idxmin(), df_quakes['sig'].idxmax()]]
+```
+
+Notar que, al pasarle a `.loc[]` una lista de índices (en lugar de un único valor), el resultado es un `DataFrame` con ambas filas, en vez de una `Series` con una sola.
+
+```{admonition} ¿Y la magnitud máxima?
+:class: note
+
+Sería natural preguntarse, con esta misma técnica, cuál es el sismo de mayor magnitud registrado en `df_quakes`. Vamos a responder esa pregunta en la sección de Validación de datos, más adelante en esta unidad — porque, como vamos a ver, la columna `mag` esconde algo que conviene detectar y corregir antes de confiar en su valor máximo.
+```
 
 ### Conversión de tipos de datos
 
-En muchos casos, al leer un conjunto de datos, el tipo asignado automáticamente por pandas a una columna no coincide con el tipo deseado. Son ejemplos de estas situaciones los siguientes:
+En muchos casos, al leer un conjunto de datos, el tipo asignado automáticamente por `pandas` a una columna no coincide con el tipo deseado. Algunos ejemplos de estas situaciones son los siguientes:
 
 - Números almacenados como texto.
 
@@ -663,70 +892,66 @@ En muchos casos, al leer un conjunto de datos, el tipo asignado automáticamente
 
 Para convertir explícitamente el tipo de una columna se utiliza el método **`astype()`**.
 
-**Conversión de una columna:**
+#### Conversión de una columna
 
-A través de la siguiente línea, se convierte la columna `Age` del dataset de pasajeros del Titanic al tipo entero de 64 bits:
+La columna `tsunami` de nuestro dataset de terremotos indica, con `1` o `0`, si el sismo estuvo asociado a un tsunami. Es decir, conceptualmente es una variable booleana, aunque se lee como entero, como se muestra a continuación:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
-
-df['Age'] = df['Age'].astype('int64')
+df_quakes['tsunami'].dtype
 ```
 
-También es posible convertir a otros tipos, como `float`, `object` o `bool`, utilizando el mismo método. Tomando como ejemplo tres columnas de otro `DataFrame`:
+La convertimos con `astype()`:
 
 ```{code-cell} python
 :tags: ["skip-execution"]
 
-data['precio'] = data['precio'].astype('float64')
-data['categoria'] = data['categoria'].astype('object')
-data['esta_activo'] = data['esta_activo'].astype('bool')
+df_quakes['tsunami'] = df_quakes['tsunami'].astype('bool')
 ```
 
-**Conversión de varias columnas a la vez:**
+El mismo método sirve para convertir a cualquier otro tipo, como por ejemplo `float`, `object` o `category`.
 
-Se puede pasar un diccionario indicando el tipo deseado para cada columna:
+#### Conversión de varias columnas a la vez
+
+Se puede pasar un diccionario indicando el tipo deseado para cada columna. Convirtamos `tsunami` a `bool`, tal como hicimos recién, y de paso `magType` a `category` (ya que es una columna de texto con un conjunto acotado de valores que se repiten):
 
 ```{code-cell} python
 :tags: ["skip-execution"]
 
-df = df.astype({
-    'Age': 'float64',
-    'Survived': 'int64',
-    'Sex': 'object'
+df_quakes = df_quakes.astype({
+    'tsunami': 'bool',
+    'magType': 'category'
 })
 ```
 
 #### Errores frecuentes en la conversión
 
-Definir el tipo de dato de una columna suele ser una tarea intuitiva y, en muchos casos, pandas (u otras librerías) realiza una inferencia adecuada de forma automática. Sin embargo, en la práctica aparecen situaciones en las que una elección incorrecta del tipo de dato puede conducir a errores o a la pérdida de información.
+Definir el tipo de dato de una columna suele ser una tarea intuitiva y, en muchos casos, pandas realiza una inferencia adecuada de forma automática. Sin embargo, en la práctica aparecen situaciones en las que una elección incorrecta del tipo de dato puede conducir a errores o a la pérdida de información.
 
 Algunos problemas habituales son los siguientes:
 
-- **Pérdida de información al leer identificadores numéricos como enteros.** En muchos conjuntos de datos existen columnas numéricas que representan identificadores o códigos y no cantidades. Por ejemplo, una columna de seis dígitos que codifica una localización con la estructura ***ccdddd***, donde los primeros dos dígitos representan la ciudad y los últimos cuatro el distrito. Si el código de ciudad puede comenzar con 0 y la columna se lee como `int`, ese cero inicial se pierde. Por ejemplo, el valor `013349` pasará a leerse como `13349`. Luego, al intentar recuperar la ciudad extrayendo los dos primeros dígitos, se obtendrá `13` en lugar de `01`, introduciendo un error en la información. En estos casos, el tipo de dato adecuado es `str`, ya que el valor debe interpretarse como un código y no como un número.
+- **Pérdida de información al leer identificadores numéricos como enteros.** En muchos conjuntos de datos existen columnas que representan identificadores o códigos y no cantidades. Por ejemplo, una columna de seis dígitos que codifica una localización con la estructura ***ccdddd***, donde los primeros dos dígitos representan la ciudad y los últimos cuatro el distrito. Si el código de ciudad puede comenzar con 0 y la columna se lee como `int`, ese cero inicial se pierde: el valor `013349` pasaría a leerse como `13349`, y al recuperar la ciudad extrayendo los dos primeros dígitos se obtendría `13` en lugar de `01`. En estos casos, el tipo de dato adecuado es `str`, ya que el valor debe interpretarse como un código y no como un número. La columna `code` de nuestro dataset de terremotos es un ejemplo de esto ya resuelto correctamente: al combinar letras y números (por ejemplo, `ci37389218`), pandas la infiere directamente como texto, sin que perdamos ningún dígito.
 
-- **Conversión a texto en presencia de valores faltantes.**
-Intentar convertir una columna completa a `str` cuando contiene valores faltantes puede generar comportamientos no deseados. Los valores nulos (`NaN`) pueden coexistir naturalmente con datos numéricos, pero no con cadenas de texto estándar. Una estrategia recomendada es tratar primero los valores faltantes (por ejemplo, imputándolos o eliminándolos, acciones que se abordarán más adelante) y luego realizar la conversión al tipo `str`.
+- **Conversión a texto en presencia de valores faltantes.** Intentar convertir una columna completa a `str` cuando contiene valores faltantes puede generar comportamientos no deseados. Los valores nulos (`NaN`) pueden coexistir naturalmente con datos numéricos, pero no con cadenas de texto estándar. Una estrategia recomendada es tratar primero los valores faltantes (imputándolos o eliminándolos, algo que abordamos en la sección de Data Wrangling) y luego realizar la conversión al tipo `str`. La columna `alert` de nuestro dataset, con una gran cantidad de valores faltantes, es un buen candidato para tener esta precaución en cuenta.
 
-- **Valores incompatibles con el tipo de dato al que se quiere convertir.** Si una columna contiene valores incompatibles con el tipo solicitado, el método `astype()` producirá un error. Por ejemplo, si se intenta convertir una columna con valores faltantes a un tipo entero (`int`), la conversión fallará, ya que los enteros estándar no admiten `NaN`. Por este motivo, suele ser necesario limpiar o tratar los datos faltantes antes de realizar la conversión de tipos.
+- **Valores incompatibles con el tipo de dato al que se quiere convertir.** Si una columna contiene valores incompatibles con el tipo solicitado, el método `astype()` produce un error. Por ejemplo, si se intenta convertir una columna con valores faltantes a un tipo entero (`int`), la conversión falla, ya que los enteros estándar no admiten `NaN`. Por este motivo, suele ser necesario limpiar o tratar los datos faltantes antes de realizar la conversión de tipos.
 
-#### Conversión segura con **to_numeric()**
+#### Conversión segura con `to_numeric()`
 
-En situaciones donde una columna contiene números almacenados como texto, puede utilizarse la función:
+En situaciones donde una columna contiene números almacenados como texto, junto con algunos valores que no pueden interpretarse como número, puede utilizarse la función `to_numeric()`. Por ejemplo:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
+valores = pd.Series(['1.4', '2.1', 'ml', '3.0'])
 
-pd.to_numeric(df['Age'], errors = 'coerce')
+pd.to_numeric(valores, errors = 'coerce')
 ```
 
-Este comando convierte valores numéricos válidos y reemplaza valores inválidos por `NaN`. Luego, si es necesario, se puede aplicar `astype()`.
+Con `errors = 'coerce'`, los valores que sí pueden interpretarse como número se convierten correctamente, y los que no (como `'ml'`, en este ejemplo) se reemplazan por `NaN`, en lugar de que la conversión falle por completo. Luego, si es necesario, se puede aplicar `astype()` sobre el resultado.
 
 ### Escritura de datos tabulares en archivos
 
 Desde Python es posible escribir datos tabulares en distintos formatos de archivo. Entre los más utilizados se encuentran CSV y Parquet, cada uno con objetivos y características diferentes.
 
-En la práctica, la escritura de datos suele realizarse a partir de estructuras como listas, diccionarios o —muy especialmente— objetos `pandas.DataFrame`.
+En la práctica, la escritura de datos suele realizarse a partir de estructuras como listas, diccionarios o —muy especialmente— objetos ``pandas`.DataFrame`.
 
 #### Escritura de datos en formato CSV
 
@@ -762,7 +987,7 @@ En este ejemplo, los datos se organizan como una lista de listas, donde cada sub
 
 👉 Esta forma es útil para entender cómo funciona el formato CSV “desde abajo”, pero **no es la más habitual cuando se trabaja con datos en análisis de datos.**
 
-**Opción 2: usando pandas (mucho más habitual)**
+**Opción 2: usando `pandas` (mucho más habitual)**
 
 En contextos de análisis de datos, la forma más común y conveniente de escribir un CSV es a partir de un `DataFrame`.
 
@@ -796,11 +1021,11 @@ Aquí:
 
 - El argumento `index = False` evita que se guarde el índice del DataFrame como una columna adicional.
 
-👉 Esta es la forma recomendada cuando los datos ya están en pandas, ya que es más clara, menos propensa a errores y fácilmente extensible.
+👉 Esta es la forma recomendada cuando los datos ya están en `pandas`, ya que es más clara, menos propensa a errores y fácilmente extensible.
 
 #### Escritura de datos en formato Parquet
 
-Como se mencionó previamente, el formato Parquet es un formato binario, columnar y comprimido, muy utilizado en entornos de *Big Data* y análisis de grandes volúmenes de información. Para trabajar con Parquet en Python, suele utilizarse la librería `pyarrow` junto con pandas.
+Como se mencionó previamente, el formato Parquet es un formato binario, columnar y comprimido, muy utilizado en entornos de *Big Data* y análisis de grandes volúmenes de información. Para trabajar con Parquet en Python, suele utilizarse la librería `pyarrow` junto con `pandas`.
 
 ```{code-cell} python
 :tags: ["skip-execution"]
@@ -809,7 +1034,7 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-# Creamos un DataFrame de pandas
+# Creamos un DataFrame de `pandas`
 datos = pd.DataFrame({
     'nombre': ['Juan', 'Ana', 'Agustina', 'Pedro'],
     'edad': [25, 30, 48, 74],
@@ -823,7 +1048,7 @@ tabla = pa.Table.from_pandas(datos)
 pq.write_table(tabla, 'personas.parquet')
 ```
 
-En este ejemplo, los datos se crean como un `DataFrame` de pandas y posteriormente se convierten a un objeto `pa.Table`, que es la estructura interna que utiliza `pyarrow`. Finalmente, se escriben en un archivo Parquet con `write_table()`. El archivo resultante puede ser leído por cualquier herramienta que soporte el formato Parquet, incluyendo pandas, Spark y otros motores de procesamiento de datos.
+En este ejemplo, los datos se crean como un `DataFrame` de `pandas` y posteriormente se convierten a un objeto `pa.Table`, que es la estructura interna que utiliza `pyarrow`. Finalmente, se escriben en un archivo Parquet con `write_table()`. El archivo resultante puede ser leído por cualquier herramienta que soporte el formato Parquet, incluyendo `pandas`, Spark y otros motores de procesamiento de datos.
 
 ## Manejo de fechas
 
@@ -886,21 +1111,43 @@ Desde la versión 3.9 de Python, la librería estándar incluye el módulo `zone
 
 ### Manejo de fechas en pandas
 
-Cuando los datos se leen desde archivos como .csv, no se conserva información sobre los tipos de datos de cada columna. Si una columna contiene fechas, Pandas la interpreta inicialmente como texto.
+Cuando los datos se leen desde archivos como `.csv`, no se conserva información sobre los tipos de datos de cada columna. Si una columna contiene fechas, `pandas` no siempre las reconoce automáticamente como tales.
 
-Para convertir una columna al tipo fecha se utiliza la función **`pd.to_datetime()`**:
+Retomando nuestro dataset de terremotos, la columna `time` indica el momento en que ocurrió cada sismo. Sin embargo, si inspeccionamos su tipo de dato:
 
-```{code-cell} python
-:tags: ["skip-execution"]
+````{code-cell} python
+df_quakes['time'].dtype
+````
 
-df['fecha'] = pd.to_datetime(df['fecha'])
+Vemos que `pandas` la interpretó como `int64`, no como una fecha. Esto se debe a que el USGS no almacena esta columna como texto, sino como la cantidad de milisegundos transcurridos desde el 1 de enero de 1970, una forma de representar fechas muy habitual en APIs y sistemas informáticos.
+
+Para convertir una columna al tipo fecha se utiliza la función **`pd.to_datetime()`**. Sin embargo, en este caso no alcanza con aplicarla directamente:
+
+````{code-cell} python
+pd.to_datetime(df_quakes['time']).head(3)
+````
+
+El resultado anterior no tiene sentido: todas las fechas caen en enero de 1970. Esto pasa porque, al recibir una columna numérica, `pd.to_datetime()` asume por defecto que esos números representan **nanosegundos** desde el 1 de enero de 1970. Sin embargo, en nuestro caso representan **milisegundos**. Como la conversión no falla ni genera ningún error, es un problema fácil de pasar por alto si no se revisa el resultado con cuidado.
+
+La solución es indicar explícitamente la unidad correcta mediante el argumento `unit`:
+
+````{code-cell} python
+df_quakes['time'] = pd.to_datetime(df_quakes['time'], unit = 'ms')
+
+df_quakes['time'].head(3)
+````
+
+Como resultado, la columna se transforma al tipo de dato especial de `pandas` llamado `datetime64`, que permite realizar operaciones temporales de manera eficiente.
+
+En este punto, podemos retomar la distinción entre los tipos de fechas que presentamos al inicio de esta sección. Y es que, al hacer la transformación a `datetime64` que realizamos, obtuvimos un datetime de tipo *naive*. Dado que los datos con los que contamos están expresados en UTC, si quisiéramos conservar esa información explícitamente podemos agregar el argumento `utc = True`:
+
+```python
+pd.to_datetime(df_quakes['time'], unit = 'ms', utc = True)
 ```
-
-Como resultado, la columna se transforma al tipo de dato especial de pandas llamado `datetime64`, que permite realizar operaciones temporales de manera eficiente.
 
 #### Sobre `datetime64`
 
-`datetime64` es un tipo de dato numérico que se representa internamente como un entero de 64 bits. Cada valor corresponde a la cantidad de unidades de tiempo transcurridas desde una fecha de referencia, conocida como *epoch*, que es el 1 de enero de 1970.
+`datetime64` es un tipo de dato numérico que se representa internamente como un entero, donde cada valor corresponde a la cantidad de unidades de tiempo transcurridas desde una fecha de referencia conocida como *epoch* y que es el 1 de enero de 1970 que mencionamos recién.
 
 La precisión puede ajustarse según la unidad de tiempo utilizada, por ejemplo:
 
@@ -910,83 +1157,57 @@ La precisión puede ajustarse según la unidad de tiempo utilizada, por ejemplo:
 
 `datetime64[us]`: precisión en microsegundos
 
-Este tipo de dato está optimizado para trabajar con grandes volúmenes de datos y permite realizar operaciones vectorizadas, como ordenar fechas, calcular diferencias temporales o extraer componentes como año, mes o día.
+De hecho, como convertimos `time` indicando `unit = 'ms'`, `pandas` conservó esa misma precisión: el resultado quedó directamente en `datetime64[ms]`, sin necesidad de especificarlo por separado.
+
+Este tipo de dato está optimizado para trabajar con grandes volúmenes de datos y permite realizar operaciones vectorizadas, como ordenar fechas, calcular diferencias temporales o extraer componentes como año, mes o día. Mencionaremos algunas de ellas a continuación.
 
 ### Operaciones frecuentes con fechas en pandas
 
-Una vez que una columna fue convertida al tipo `datetime64`, pandas permite realizar de forma sencilla distintas operaciones temporales. Estas operaciones son muy habituales en el análisis de datos y justifican la importancia de convertir correctamente las fechas.
-
-Supongamos un `DataFrame` con una columna llamada `fecha`, ya convertida:
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df['fecha'] = pd.to_datetime(df['fecha'])
-```
+Una vez que una columna fue convertida al tipo `datetime64`, `pandas` permite realizar de forma sencilla distintas operaciones temporales. Estas operaciones son muy habituales en el análisis de datos y justifican la importancia de convertir correctamente las fechas.
 
 #### Extracción de componentes temporales
 
-Es posible extraer fácilmente partes de la fecha, como el año, el mes o el día, utilizando el atributo `.dt`:
+Es posible extraer fácilmente partes de la fecha, como el año, el mes o el día, utilizando el accesor `.dt`:
 
-```{code-cell} python
-:tags: ["skip-execution"]
+````{code-cell} python
+df_quakes['time'].dt.year
+````
 
-df['fecha'].dt.year
-df['fecha'].dt.month
-df['fecha'].dt.day
-```
+````{code-cell} python
+df_quakes['time'].dt.month
+````
 
-Esto resulta útil, por ejemplo, para agrupar observaciones por año o analizar comportamientos estacionales.
+````{code-cell} python
+df_quakes['time'].dt.day
+````
 
-```{admonition} ¿Función, método o atributo?
-:class: note
-
-`year`, `month` y `day` se escriben sin paréntesis: no son funciones ni métodos, sino **atributos** (propiedades) del accesor `.dt`. Devuelven directamente un valor ya calculado, en vez de ejecutar una operación. Es un caso a tener en cuenta porque no sigue la convención de "función/método" que usamos para el resto del material.
-```
+`year`, `month` y `day` son **atributos** del accesor `.dt`. Devuelven directamente un valor ya calculado, en vez de ejecutar una operación. Esto resulta útil, por ejemplo, para agrupar observaciones por año o mes y analizar comportamientos estacionales. Como nuestro dataset abarca aproximadamente un año completo, esta información permite reconocer que los sismos registrados se distribuyen a lo largo de dos años calendario distintos.
 
 #### Diferencias entre fechas
 
-También es posible calcular diferencias entre fechas. Por ejemplo, si queremos saber cuántos días transcurrieron desde el épico partido de la Selección Argentina contra Inglaterra en el Mundial 2026, podemos calcular la diferencia entre la fecha actual y la fecha del partido.
+También es posible calcular diferencias entre fechas. Por ejemplo, podemos saber cuánto tiempo transcurrió entre el sismo más antiguo y el más reciente registrado en nuestro dataset:
 
-Supongamos que hoy es **18 de agosto de 2026**:
+````{code-cell} python
+diferencia = df_quakes['time'].max() - df_quakes['time'].min()
 
-```{code-cell} python
+diferencia
+````
 
-fecha_hoy = zona_arg.localize(datetime(2026, 8, 18))
-fecha_partido = zona_arg.localize(datetime(2026, 7, 15))
+El resultado es un objeto de tipo `timedelta`, que representa la cantidad de tiempo transcurrida entre ambos instantes. A partir de este objeto es posible obtener, por ejemplo, el número de días:
 
-dias_desde_partido = fecha_hoy - fecha_partido
-```
-
-El resultado es un objeto de tipo `timedelta`, que representa la cantidad de tiempo que transcurrió desde el partido. A partir de este objeto es posible obtener, por ejemplo, el número de días:
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-dias_desde_partido.days
-```
-
-```{admonition} En un caso real
-:class: tip
-
-En una aplicación real, en lugar de fijar `fecha_hoy` manualmente, se utilizaría `datetime.now()` para obtener la fecha y hora actuales del sistema. Acá se fijó un valor concreto (18 de agosto de 2026) para que el resultado de este ejemplo sea siempre el mismo, sin importar cuándo se ejecute.
-```
-
-Este tipo de cálculo es habitual en aplicaciones que trabajan con eventos futuros, como calendarios, recordatorios o sistemas de planificación.
+````{code-cell} python
+diferencia.days
+````
 
 #### Ordenamiento temporal
 
-Al tratarse de un tipo de dato específico, las fechas pueden ordenarse cronológicamente sin necesidad de conversiones adicionales:
+Al tratarse de un tipo de dato específico, las fechas pueden ordenarse cronológicamente sin necesidad de conversiones adicionales. Por ejemplo, para ver los sismos más recientes primero recurrimos al método `sort_values()`, seteando apropiadamente el parámetro `ascending = False`:
 
-```{code-cell} python
-:tags: ["skip-execution"]
+````{code-cell} python
+df_quakes.sort_values('time', ascending = False)[['time', 'place', 'mag']]
+````
 
-df.sort_values('fecha')
-```
-
-Esto permite analizar la evolución temporal de los datos o preparar series de tiempo para visualización y modelado.
-
-Para concluir esta sección, es oportuno mencionar que el manejo adecuado de fechas es fundamental en muchos problemas reales, como el análisis de series temporales, el estudio de eventos en el tiempo o la comparación entre períodos.
+Para concluir esta sección, es oportuno mencionar que el manejo adecuado de fechas es fundamental en muchos problemas reales, como el análisis de series temporales, el estudio de eventos en el tiempo o la comparación entre períodos. 
 
 
 ```{figure} imagenes/date.png
@@ -996,27 +1217,18 @@ align: center
 ---
 ```
 
-```{admonition} 🤓 MANOS A LA OBRA N° 1
+```{admonition} MANOS A LA OBRA N° 2
 :class: manos-a-la-obra
 
-1. Leé el archivo [`lista_personas.csv`](https://drive.google.com/drive/folders/1ZBdU_g8DXv4-8_ubM5gpeML4BZVYMHKP?usp=sharing).
+Considerando el archivo `earthquakes.csv`, con la columna `time` ya convertida al tipo de dato correspondiente, como se realizó en esta sección:
 
-2. ¿Cuántas filas y columnas tiene el dataset?
+1. Generá una nueva columna llamada `nombre_mes`, que contenga el nombre del mes en español en el que tuvo lugar cada sismo. *Pista: `pandas` no tiene una forma automática de traducir nombres de meses al español. Una opción es construir un diccionario con la equivalencia numérica de cada mes (por ejemplo, `{1: 'enero', 2: 'febrero', ...}`) y aplicarlo sobre la columna con el método `map()`, que reemplaza cada valor de una `Series` según el diccionario provisto. Vamos a volver a usar este mismo método más adelante, en la sección de Validación de datos.*
 
-3. ¿Hay alguna columna que contenga datos faltantes?
+2. Utilizando la columna `nombre_mes` recién creada, ¿cuál fue el mes con mayor cantidad de sismos registrados?
 
-4. Observá los nombres de las columnas.  
-   ¿Detectás alguna inconsistencia?
+3. Extraé la hora del día (0 a 23) en la que ocurrió cada sismo, en una nueva columna. ¿Existe alguna hora en la que se hayan registrado notablemente más sismos que en las demás? 
 
-5. ¿Qué tipo de dato contiene cada columna?  
-   ¿Es el esperado en cada caso?
-
-6. ¿Cuántos nombres diferentes de personas hay en el dataset?  
-   ¿Observás algún error?
-   
-7. ¿Quién es la persona de mayor edad entre las personas del dataset?
-
-8. Extraer el mes de nacimiento de cada persona en una nueva columna. ¿Cuál fue el mes con mayor cantidad de nacimientos?
+4. Quedate únicamente con los sismos ocurridos durante el último mes registrado en el dataset, es decir, entre la fecha máxima de `time` y esa misma fecha menos 30 días. ¿Cuántos sismos cumplen esa condición?
 ```
 
 ## Manipulación de datos
@@ -1036,7 +1248,7 @@ Antes de ver técnicas puntuales, vale la pena repasar por qué motivos los dato
 
 - **Errores del sistema.** Fallas técnicas que interrumpen el registro de información durante un período, generando datos faltantes que no tienen que ver con el fenómeno en sí, sino con un problema de captura.
 
-- **Valores inesperados.** Por ejemplo, si alguien decide representar un dato faltante con un signo de interrogación dentro de una columna numérica, pandas va a interpretar toda la columna como texto (`object`) en lugar de como un tipo numérico, aunque casi todos los valores sean números.
+- **Valores inesperados.** Por ejemplo, si alguien decide representar un dato faltante con un signo de interrogación dentro de una columna numérica, `pandas` va a interpretar toda la columna como texto (`object`) en lugar de como un tipo numérico, aunque casi todos los valores sean números.
 
 - **Información incompleta.** Es el caso típico de una encuesta con preguntas opcionales: no todas las personas las responden, y eso genera valores faltantes que no se deben a ningún error, sino a que la información directamente no existe.
 
@@ -1048,11 +1260,11 @@ Antes de ver técnicas puntuales, vale la pena repasar por qué motivos los dato
 
 - **Errores de configuración en el registro.** Cuando los datos provienen de fuentes automáticas (sensores, formularios web, integraciones entre sistemas), una mala configuración puede hacer que falten campos o que lleguen en un orden distinto al esperado.
 
-No todos estos problemas tienen solución: por ejemplo, si los datos se registraron a diario y el análisis requiere resolución horaria, esa información simplemente no está disponible y no hay forma de reconstruirla. Sin embargo, la mayoría de los problemas de calidad de datos sí pueden abordarse, y es responsabilidad de quien analiza los datos identificarlos y tratarlos adecuadamente antes de sacar conclusiones. El resto de esta sección presenta algunas de las herramientas más importantes de pandas para esa tarea.
+No todos estos problemas tienen solución: por ejemplo, si los datos se registraron a diario y el análisis requiere resolución horaria, esa información simplemente no está disponible y no hay forma de reconstruirla. Sin embargo, la mayoría de los problemas de calidad de datos sí pueden abordarse, y es responsabilidad de quien analiza los datos identificarlos y tratarlos adecuadamente antes de sacar conclusiones. El resto de esta sección presenta algunas de las herramientas más importantes de `pandas` para esa tarea.
 
 ### Datos en forma larga o ancha
 
-Reformar un `DataFrame` de pandas es una de las tareas de manipulación de datos más comunes en el mundo del análisis de datos y consiste en su transformación desde un **formato ancho** (*wide*) a uno **largo** (*long*), o viceversa. A continuación, abordaremos esta operación trabajando con un ejemplo concreto.
+Reformar un `DataFrame` de `pandas` es una de las tareas de manipulación de datos más comunes en el mundo del análisis de datos y consiste en su transformación desde un **formato ancho** (*wide*) a uno **largo** (*long*), o viceversa. A continuación, abordaremos esta operación trabajando con un ejemplo concreto.
 
 Supongamos una encuesta de movilidad urbana en la que a cada persona se le pregunta cuánto tiempo tarda en ir de su casa al trabajo utilizando distintos medios de transporte: auto, moto, colectivo y bicicleta. Además, se registra cuál es el modo de transporte que la persona utiliza habitualmente.
 
@@ -1087,7 +1299,7 @@ Este formato es especialmente útil para realizar agrupamientos, generar visuali
 
 #### De formato ancho a formato largo
 
-Para pasar de formato ancho a formato largo en pandas se utiliza la función **`pd.melt()`**, que permite agrupar varias columnas en una sola, generando un `DataFrame` con mayor cantidad de filas.
+Para pasar de formato ancho a formato largo en `pandas` se utiliza la función **`pd.melt()`**, que permite agrupar varias columnas en una sola, generando un `DataFrame` con mayor cantidad de filas.
 
 A continuación, generamos un conjunto de datos sintético que representa la encuesta de movilidad en formato ancho:
 
@@ -1157,7 +1369,7 @@ df_largo.info()
 
 En algunas situaciones, el formato largo no resulta el más conveniente. Al momento de comparar los tiempos de viaje entre distintos modos para cada persona, calcular diferencias entre ellos, o construir tablas resumen donde cada modo de transporte aparezca como una columna, resulta más conveniente trabajar con los datos en formato ancho.
 
-En pandas, esta transformación puede realizarse mediante el método **`pivot()`**, que reorganiza un `DataFrame` a partir de tres componentes clave:
+En `pandas`, esta transformación puede realizarse mediante el método **`pivot()`**, que reorganiza un `DataFrame` a partir de tres componentes clave:
 
 - un índice, que identifica las filas,
 
@@ -1177,7 +1389,7 @@ print(df_ancho)
 ```
 Como resultado, obtenemos un `DataFrame` en el que cada fila corresponde a una persona y cada columna representa el tiempo de viaje asociado a un modo de transporte.
 
-```{admonition} **Punto importante**
+````{admonition} **Punto importante**
 :class: important
 
 Notar que el `DataFrame` generado presenta un **índice multinivel**, ya que cada observación está identificada simultáneamente por `persona_id` y por `modo_elegido`. Este tipo de índice surge de manera natural cuando se combinan múltiples variables para identificar las filas.
@@ -1197,8 +1409,8 @@ modo  persona_id modo_elegido  auto  bici  bus  moto
 4              5         moto    24    48   23    29
 ```
 
-La palabra `modo` que aparece arriba de la fila de encabezados no es una columna: es el nombre que pandas le asigna al índice de columnas, heredado del parámetro `columns = 'modo'` que usamos en el `pivot()`.
-```
+La palabra `modo` que aparece arriba de la fila de encabezados no es una columna: es el nombre que `pandas` le asigna al índice de columnas, heredado del parámetro `columns = 'modo'` que usamos en el `pivot()`.
+````
 
 **¿Por qué volver al formato ancho?**
 
@@ -1221,7 +1433,7 @@ align: center
 ---
 ```
 
-En el análisis de datos es muy común encontrarnos con valores faltantes, usualmente representados como `NaN` (*Not a Number*) en pandas. La presencia de estos valores puede deberse a múltiples razones: errores en la recolección de datos, problemas en la carga de la base, o simplemente al hecho de que no todas las variables son relevantes o aplicables para todos los registros. Un ejemplo de esto último podría ser el caso de una base de datos compuesta por información recolectada a partir de una encuesta a todas las personas que componen un grupo de hogares. Si en una de las preguntas se indaga a cada persona acerca de la edad a la cual consiguió su primer trabajo, no sería esperable recibir una respuesta en el caso de un niño de 5 años.
+En el análisis de datos es muy común encontrarnos con valores faltantes, usualmente representados como `NaN` (*Not a Number*) en `pandas`. La presencia de estos valores puede deberse a múltiples razones: errores en la recolección de datos, problemas en la carga de la base, o simplemente al hecho de que no todas las variables son relevantes o aplicables para todos los registros. Un ejemplo de esto último podría ser el caso de una base de datos compuesta por información recolectada a partir de una encuesta a todas las personas que componen un grupo de hogares. Si en una de las preguntas se indaga a cada persona acerca de la edad a la cual consiguió su primer trabajo, no sería esperable recibir una respuesta en el caso de un niño de 5 años.
 
 ```{admonition} Importante
 :class: important
@@ -1246,9 +1458,7 @@ Por defecto, el método `dropna()` elimina cualquier fila del `DataFrame` que co
 Consideremos el siguiente `DataFrame` de ejemplo:
 
 ```{code-cell} python
-
 import numpy as np
-import pandas as pd
 
 data = pd.DataFrame(
     [[1., 6.5, 3.],
@@ -1309,7 +1519,7 @@ En este apartado nos enfocaremos en las estrategias más simples y habituales.
 
 **Ejemplo: imputación del precio de viviendas**
 
-Supongamos que contamos con un dataset de propiedades en la ciudad de Rosario ([aquí](https://drive.google.com/drive/u/1/folders/1yM-pDArLgGsHi3SQPv5zxIQToFVuPWu9?usp=sharing) puede descargarse el utilizado en el ejemplo). El resumen de la información del DataFrame muestra que existen valores faltantes en la variable `precio_usd`:
+Para ilustrar esta sección vamos a trabajar con un dataset de propiedades en la ciudad de Rosario, que puede descargarse [acá](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/hogares.xlsx) (también listado en la sección de *Datasets utilizados* del `README`). El resumen de la información del `DataFrame` muestra que existen valores faltantes en la variable `precio_usd`:
 
 ```{code-cell} python
 
@@ -1426,6 +1636,7 @@ $$\frac{x_1 - x_0}{x_i - x_0} = \frac{y_1 - y_0}{y_i - y_0}$$
 ```{figure} imagenes/interpolacion_lineal.png
 ---
 align: center
+width: 50%
 ---
 Interpolación lineal: estimación del valor desconocido $y_i$ mediante el segmento de recta que une los puntos observados más cercanos.
 ```
@@ -1455,6 +1666,7 @@ Este enfoque utiliza toda la información disponible de manera global para const
 ```{figure} imagenes/interpolacion_polinomica.png
 ---
 align: center
+width: 50%
 ---
 Interpolación polinómica: el polinomio de grado adecuado se ajusta de modo que atraviese todos los puntos observados.
 ```
@@ -1485,7 +1697,7 @@ $$f_{2}(x) = y_{1} + \frac{y_{2}-y_{1}}{x_{2} - x_{1}}(x_{i} - x_{1})\qquad , \q
 
 ```{figure} imagenes/interpolacion_tramos.png
 ---
-width: 85%
+width: 50%
 align: center
 ---
 Interpolación lineal por intervalos: en lugar de utilizar un único polinomio global, se construyen rectas independientes en cada intervalo entre puntos consecutivos.
@@ -1495,184 +1707,102 @@ Este tipo de interpolación resulta especialmente útil cuando el comportamiento
 
 ### Validación de datos
 
-Una vez que los datos fueron limpiados e imputados, todavía queda un paso importante antes de pasar al análisis: **verificar que efectivamente cumplen con lo que se espera de ellos**. Un dataset puede tener los tipos de dato correctos, sin valores faltantes, y aun así contener errores: una edad que no tiene sentido, una categoría mal codificada, una fecha de nacimiento posterior a la fecha actual, o una clave que no tiene correspondencia en ninguna otra tabla.
+Una vez que los datos fueron limpiados e imputados, todavía queda un paso importante antes de pasar al análisis: **verificar que efectivamente cumplen con lo que se espera de ellos**. Un dataset puede tener los tipos de datos correctos, sin valores faltantes, y aun así contener errores: un valor numérico fuera de todo rango físicamente posible, o una categoría registrada de más de una forma distinta.
 
-A este proceso se lo conoce como **validación de datos**, y consiste en aplicar un conjunto de reglas o chequeos que permiten detectar inconsistencias antes de que afecten un análisis posterior. Es una buena práctica realizarlo luego de la limpieza y la imputación, ya que estas operaciones pueden introducir nuevos errores, o dejar en evidencia inconsistencias que antes estaban ocultas detrás de valores faltantes.
+A este proceso se lo conoce como **validación de datos**, y consiste en aplicar un conjunto de reglas o chequeos que permiten detectar inconsistencias antes de que afecten un análisis posterior.
 
-Para ilustrar esta sección vamos a trabajar con un extracto de la **Encuesta Nacional de Factores de Riesgo (ENFR)**, una encuesta real realizada por el INDEC (Instituto Nacional de Estadística y Censos) en 2018. Releva comportamientos y condiciones de vida que pueden afectar la salud de la población argentina de 18 años y más, como el consumo de tabaco y alcohol, la alimentación y la actividad física, así como la prevalencia de enfermedades no transmisibles como la hipertensión, la diabetes y la obesidad. Los datos originales, el manual de operaciones y los resultados de la encuesta están disponibles públicamente en la [página del INDEC](https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-2).
-
-Cabe aclarar que no haremos uso de la base original completa, sino un extracto con una selección de variables, sobre 29224 personas encuestadas, con algunas modificaciones introducidas con fines pedagógicos.
-
-```{dropdown} Diccionario de variables del dataset ENFR
-:class: seealso
-
-- `id`: identificador único del caso.
-- `region`: región del país, según la clasificación del INDEC.
-- `sexo`: codificado como `1` = varón, `2` = mujer.
-- `edad`: edad en años cumplidos. Rango esperado: 0 a 104.
-- `ingreso_mensual`: ingreso total mensual del hogar, en pesos. Rango esperado: 0 a 300000.
-- `educacion`: máximo nivel educativo alcanzado (`hasta primario incompleto`, `hasta secundario incompleto`, `secundario completo y más`).
-- `condicion_laboral`: condición de actividad laboral (`ocupado`, `desocupado`, `inactivo`).
-- `depresion_ansiedad`: si la persona se sintió ansiosa o deprimida el día de la entrevista (`sin`, `moderada`, `alta`).
-- `nivel_actividad_fisica`: nivel de actividad física (`alta`, `media`, `baja`).
-- `fumador`: hábito de fumar (`no fumador`, `ex fumador`, `fumador`).
-- `dejar_fumar`: si intentó dejar de fumar en el último año (`Sí`, `No`, `Ns/Nc`).
-- `peso`: peso corporal, en kilogramos.
-- `altura`: altura, en centímetros.
-- `hipertension`: presión arterial elevada por autorreporte (`Sí`, `No`, o el código `99` para "no sabe/no contesta").
-- `diabetes`: diabetes por autorreporte (`Sí`, `No`, `Ns/Nc`).
-```
-
-Comencemos importando la base:
-
-````{code-cell} python
-df_enfr = pd.read_excel('datasets/datos_ENFR.xlsx')
-
-df_enfr.head()
-````
+Para esta sección retomamos el dataset de terremotos utilizado anteriormente.
 
 #### Validación de atributos numéricos
 
-Para validar una variable cuantitativa, resulta útil preguntarse cuál es el rango de valores razonables que puede tomar, y comparar eso contra lo que efectivamente aparece en los datos. El método **`describe()`** es un buen punto de partida, ya que devuelve un resumen con algunas medidas descriptivas útiles que veremos en la próxima unidad, entre las que se encuentran el mínimo y el máximo.
+Para validar una variable cuantitativa, resulta útil preguntarse cuál es el rango de valores físicamente posibles, y compararlo contra lo que efectivamente aparece en los datos. La escala de magnitud sismológica que utiliza este dataset es la escala Richter. De acuerdo a los [registros](https://www.usgs.gov/media/images/10-largest-earthquakes-ever-recorded), el terremoto más fuerte registrado fue en 1960 en Chile, con una magnitud de 9.5. Teniendo en cuenta esta información, analicemos qué ocurre con los registros en el dataset.
 
-Tomemos como ejemplo la variable `edad`:
-
-````{code-cell} python
-df_enfr['edad'].describe()
-````
-
-Sabemos, según la metadata de la encuesta, que la edad máxima esperable en este relevamiento es de 104 años. Sin embargo, al observar la salida de `describe()`, el valor máximo es notoriamente más alto que eso. Esto es una señal de que hay al menos un valor fuera de rango, aunque todavía no sabemos si se trata de un único caso aislado o de un problema más extendido.
-
-Para investigarlo, filtramos el `DataFrame` quedándonos únicamente con las filas donde la edad supera el máximo esperado:
-
-````{code-cell} python
-df_enfr[df_enfr['edad'] > 104]
-````
-
-Supongamos que, tras revisar el registro original, se determina que la edad correcta para ese caso era 25 años. Podemos corregir el valor utilizando indexación booleana junto con `.loc[]`:
+Con el método `describe()`, que retomaremos en la unidad siguiente, podemos ver si el rango de valores registrados en el dataset para la magnitud tiene sentido:
 
 ```{code-cell} python
-# Hacemos una copia del DataFrame original para realizar las modificaciones
-df_enfr_val = df_enfr.copy()
-
-df_enfr_val.loc[df_enfr_val['edad'] > 104, 'edad'] = 25
+df_quakes['mag'].describe()
 ```
 
-**`df.loc[condicion, 'columna']`** selecciona, dentro de la columna indicada, únicamente las filas que cumplen la condición booleana, y permite asignarles un nuevo valor directamente a esa selección.
-
-Después de aplicar la corrección, conviene volver a ejecutar `describe()` sobre la columna para confirmar que el valor máximo ahora se encuentra dentro del rango esperado.
+Vemos que el valor máximo es de 75.0, lo que no tiene sentido. Realizamos un filtrado para identificar registros sísmicos en los que la magnitud supera el máximo histórico conocido:
 
 ```{code-cell} python
-df_enfr_val['edad'].describe()
+df_quakes[df_quakes['mag'] > 9.5]
+```
+
+Se trata del par de terremotos ocurridos en Venezuela, en junio del 2026. Según la información oficial de ambos eventos ([acá uno](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zp/executive) y [acá el otro](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zc)), los mismos tuvieron una magnitud real de 7.2 y 7.5, por lo que todo indica que, en algún punto de la carga de estos datos, se perdió el separador decimal. Corregimos dichos valores utilizando `.loc[]`:
+
+```{code-cell} python
+df_quakes_val = df_quakes.copy()
+df_quakes_val.loc[df_quakes_val['mag'] > 9.5, 'mag'] = [7.5, 7.2]
+```
+
+Teniendo en cuenta los índices correspondientes a dichos registros, podemos chequear que la modificación se haya realizado de manera correcta:
+
+```{code-cell} python
+df_quakes_val.loc[[910,911], 'mag']
 ```
 
 #### Validación de atributos categóricos
 
-Al validar variables categóricas suele aparecer más de un tipo de problema. Dos de los más frecuentes son que pandas interprete una variable categórica como si fuera numérica, y que existan valores que no pertenecen al conjunto de categorías esperadas.
-
-**Variables categóricas mal tipadas.** En nuestro dataset, la columna `sexo` está codificada como `1` (masculino) y `2` (femenino). Si inspeccionamos su tipo de dato:
+La columna `alert` indica el nivel de alerta asociado a un sismo, y en este dataset debería tomar únicamente los valores `'green'`, `'yellow'`, `'orange'` o `'red'`, o quedar vacía (`NaN`) cuando no se asignó ninguna alerta. Inspeccionemos qué valores aparecen realmente:
 
 ```{code-cell} python
-df_enfr['sexo'].dtype
+df_quakes_val['alert'].value_counts(dropna=False)
 ```
 
-pandas la va a reportar como `int64`, ya que no tiene forma de saber, únicamente a partir de los valores `1` y `2`, que en realidad representan categorías y no cantidades. Esto es un problema porque, si no se corrige, alguien podría por error calcular un promedio de la columna `sexo`, lo cual no tiene ningún sentido conceptual. Podemos corregirlo traduciendo los códigos a etiquetas legibles y convirtiendo la columna al tipo `category`:
+Aparecen dos problemas distintos: algunas filas tienen `'GREEN'` en mayúscula y otras tienen `'YelloW'`, con mayúsculas al inicio y al final de la cadena. Deberemos resolver estos inconvenientes, ya que de lo contrario se considerarán como categorías separadas de `'green'` y `'yellow'`.
+
+Cuando, como en este caso, el problema es únicamente de mayúsculas, podemos estandarizar todo el texto con `str.lower()`:
 
 ```{code-cell} python
-df_enfr_val['sexo_cat'] = df_enfr_val['sexo'].map({1: 'masculino', 2: 'femenino'}).astype('category')
+df_quakes_val['alert'] = df_quakes_val['alert'].str.lower()
+
+df_quakes_val['alert'].value_counts(dropna = False)
 ```
 
-El método `map()` reemplaza cada valor de la columna según el diccionario provisto, y `astype('category')` le indica explícitamente a pandas que se trata de una variable categórica.
-
-**Categorías inconsistentes.** Otro problema habitual es que una misma categoría esté registrada de más de una forma distinta dentro de los datos, por ejemplo, por errores de tipeo o por la presencia o ausencia de tildes. El método `value_counts()` es una buena herramienta para detectar este tipo de casos, ya que muestra de un vistazo todas las categorías presentes junto con su frecuencia. Lo usamos acá de forma anticipada, aunque se presenta con más detalle en la sección ***Listado de métodos útiles***, más adelante en esta unidad.
+En otras ocasiones, podemos encontrarnos con categorías escritas de otra forma, aunque se trate del mismo nivel. Esto podría ocurrir ya sea por un error de tipeo o por usar directamente una palabra distinta para referirse al mismo nivel de la variable. Por ejemplo, podríamos tener algún registro de `alert` que figure erróneamente como `'greeen'`. En este caso, el problema no es de mayúsculas, así que `str.lower()` no soluciona nada, y hace falta `replace()`:
 
 ```{code-cell} python
-df_enfr['region'].value_counts()
-```
-
-Si observamos el resultado con atención, aparecen dos pares de categorías que en realidad representan la misma región, pero escrita de forma distinta: `'Patagonica'` / `'Patagónica'` (con y sin tilde) y `'Nordeste'` / `'Noreste'` (dos formas de referirse a la misma región según el criterio del INDEC). Este tipo de inconsistencia es fácil de pasar por alto, pero distorsiona cualquier análisis posterior que dependa de la variable `region`, ya que reparte los casos de una misma región entre dos categorías en lugar de una.
-
-Para corregir ambos casos a la vez, usamos el método `replace()`, pasándole un diccionario con las correspondencias necesarias:
-
-```{code-cell} python
-df_enfr_val['region'] = df_enfr_val['region'].replace({
-    'Patagonica': 'Patagónica',
-    'Nordeste': 'Noreste'
-})
-```
-
-```{admonition} `replace()` vs. `map()`
-:class: tip
-
-Para este tipo de corrección puntual conviene usar `replace()` y no `map()`. La diferencia es importante: `map()` reemplaza el valor de **cada fila** según el diccionario provisto, y cualquier valor que no aparezca como clave en ese diccionario se convierte en `NaN`. Si acá hubiéramos usado `map()` con un diccionario que solo contiene las dos correcciones, el resto de las regiones (`'Cuyo'`, `'Metropolitana'`, `'Pampeana'`, etc.) se hubiera convertido en valores faltantes, ya que ninguna de ellas está en el diccionario. `replace()`, en cambio, solo modifica los valores que coinciden con alguna clave del diccionario y deja el resto sin tocar, el comportamiento correcto cuando se quiere corregir algunos casos puntuales sin afectar el resto del dataset.
-```
-
-Verificamos que ambas correcciones hayan funcionado, volviendo a contar las categorías:
-
-```{code-cell} python
-df_enfr_val['region'].value_counts()
-```
-
-Ahora `'Patagónica'` y `'Noreste'` aparecen como categorías únicas, cada una con la suma de los casos que antes estaban repartidos entre las dos variantes.
-
-#### Detección de duplicados
-
-Otro chequeo habitual consiste en identificar registros repetidos. Consideremos el siguiente `DataFrame` de ejemplo, con mediciones de muestras de laboratorio:
-
-````{code-cell} python
-
-mediciones = pd.DataFrame({
-    'id_muestra': [1, 2, 3, 3, 4],
-    'area': [3.2, 2.7, 2.9, 2.9, 2.6],
-    'volumen': [8.2, 6.9, 7.7, 7.7, 6.9]
-})
-
-print(mediciones)
-````
-
-El método `duplicated()` devuelve una `Series` booleana que marca con `True` cada fila que es una repetición exacta de una fila anterior:
-
-````{code-cell} python
-mediciones.duplicated()
-````
-
-Para quedarnos únicamente con las filas que no se repiten, se utiliza el método `drop_duplicates()`:
-
-````{code-cell} python
-mediciones.drop_duplicates()
-````
-
-En muchos casos, sin embargo, no interesa detectar filas *enteramente* duplicadas, sino verificar la unicidad de una columna puntual que debería identificar de forma única a cada observación, como un identificador. En nuestro dataset, la columna `id` debería identificar sin ambigüedades a cada persona encuestada:
-
-````{code-cell} python
-duplicados = df_enfr['id'].duplicated()
-print(df_enfr[duplicados])
-````
-
-Si el resultado no está vacío, significa que hay identificadores repetidos, lo cual normalmente no debería ocurrir.
-
-#### Consistencia entre columnas
-
-Algunos chequeos no dependen de una sola columna, sino de la relación entre varias. El dataset ENFR no tiene un caso de este tipo, pero es un chequeo frecuente en otros contextos: si un dataset tuviera columnas `fecha_inicio` y `fecha_fin`, sería razonable esperar que la segunda sea siempre posterior a la primera:
-
-````{code-cell} python
 :tags: ["skip-execution"]
 
-inconsistencias = df['fecha_fin'] < df['fecha_inicio']
-print(df[inconsistencias])
-````
+df_quakes_val['alert'] = df_quakes_val['alert'].replace({'greeen': 'green'})
+```
 
-#### Más allá de pandas
+#### Validar con `assert`
+
+Además de inspeccionar visualmente las filas problemáticas, es habitual utilizar la sentencia `assert` de Python para que el propio código interrumpa su ejecución si una condición de validación no se cumple. Esto es particularmente útil en scripts o notebooks que se ejecutan de forma repetida, ya que evita que un análisis continúe corriendo sobre datos inválidos sin que nadie lo note.
+
+Ejemplifiquemos su uso con la columna `mag` de `df_quakes_val` (recordar que las modificaciones las hicimos sobre una copia del mismo, y se encuentran guardadas en el objeto `df_quakes_val`):
+
+```python
+assert df_quakes['mag'].between(4.5, 9.5).all(), 
+'¡CUIDADO! Hay magnitudes fuera de rango en el dataset'
+```
+
+```python
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+Cell In[60], line 1
+----> 1 assert df_quakes['mag'].between(4.5, 9.5).all(), "¡CUIDADO! Hay magnitudes fuera de rango en el dataset"
+
+AssertionError: ¡CUIDADO! Hay magnitudes fuera de rango en el dataset
+```
+
+El método `all()` devuelve `True` únicamente si **todas** las filas cumplen la condición. Si `assert` recibe un valor `False`, interrumpe la ejecución del programa con un error (`AssertionError`) y muestra el mensaje indicado, lo que facilita identificar rápidamente qué chequeo falló.
+
+#### Más allá de `pandas`
+
 Para proyectos más grandes, donde conviene declarar de forma reutilizable qué reglas debe cumplir un dataset, existen librerías especializadas en validación de datos, como `pandera`. Permiten definir un "esquema" con las reglas esperadas para cada columna y validar un `DataFrame` completo de una sola vez:
 
 ```python
 import pandera as pa
 
 esquema = pa.DataFrameSchema({
-    'edad': pa.Column(int, pa.Check.between(0, 104)),
+    'mag': pa.Column(float, pa.Check.between(4.5, 9.5)),
+    'alert': pa.Column(str, pa.Check.isin(['green', 'yellow', 'orange' 'red']), nullable = True),
 })
 
-esquema.validate(df_enfr)
+esquema.validate(df_quakes_val)
 ```
 
 También existen herramientas orientadas a validar datos dentro de flujos de trabajo más grandes y automatizados, como `Great Expectations`. No forman parte del contenido de este curso, pero vale la pena saber que existen para cuando el volumen o la complejidad de los datos lo justifique.
@@ -1683,7 +1813,7 @@ En muchos análisis, la información relevante no se encuentra en un único conj
 
 Este tipo de operaciones es fundamental en el trabajo con datos y constituye el núcleo del funcionamiento de las bases de datos relacionales (como aquellas basadas en SQL).
 
-En Pandas, los métodos más utilizados para combinar DataFrames son:
+En `pandas`, los métodos más utilizados para combinar DataFrames son:
 
 - `concat()`
 
@@ -1776,7 +1906,7 @@ Es útil cuando:
 
 #### Unión mediante claves con merge()
 
-El método `merge()` es la herramienta más flexible y utilizada para combinar DataFrames. Permite unir tablas en función de una o más columnas que actúan como claves (*keys*). Es el equivalente en Pandas a los JOIN de SQL. 
+El método `merge()` es la herramienta más flexible y utilizada para combinar DataFrames. Permite unir tablas en función de una o más columnas que actúan como claves (*keys*). Es el equivalente en `pandas` a los JOIN de SQL. 
 
 ##### Tipos de uniones
 
@@ -1824,7 +1954,7 @@ En la siguiente tabla, cada fila representa una persona encuestada, `id_persona`
 | 3450       | no_trabajo   | masculino | 450956   |
 | 3451       | trabajo      | masculino | 450958   |
 
-A continuación, creamos ambas tablas utilizando funciones de Pandas:
+A continuación, creamos ambas tablas utilizando funciones de `pandas`:
 
 ```{code-cell} python
 
@@ -1891,27 +2021,18 @@ align: center
 Esquema visual de la unión cruzada realizada en el ejemplo anterior.
 ```
 
-La unión cruzada es útil cuando queremos construir el espacio completo de posibilidades antes de aplicar un modelo o una simulación. Por ejemplo, supongamos que una tienda en línea vende productos electrónicos y quiere diseñar paquetes promocionales combinando un producto principal (laptop, smartphone y tablet) y un accesorio complementario (cargador, auriculares, estuche). El objetivo es generar todas las combinaciones posibles entre productos y accesorios para evaluar qué paquetes podrían ofrecerse. Desde el punto de vista matemático, queremos construir el producto cartesiano entre ambos conjuntos.
+La unión cruzada es útil cuando queremos construir el espacio completo de posibilidades antes de aplicar un modelo o una simulación. Por ejemplo, supongamos que un comercio en línea vende productos electrónicos y quiere diseñar paquetes promocionales combinando un producto principal (laptop, smartphone y tablet) y un accesorio complementario (cargador, auriculares, estuche). El objetivo es generar todas las combinaciones posibles entre productos y accesorios para evaluar qué paquetes podrían ofrecerse. Desde un punto de vista matemático, estaríamos interesados en obtener el producto cartesiano entre ambos conjuntos.
 
-```python
+```{code-cell} python
+productos_electronicos = pd.DataFrame({'Producto': ['Laptop', 'Smartphone', 'Tablet']})
+accesorios = pd.DataFrame({'Accesorio': ['Cargador', 'Auriculares', 'Estuche']})
+
 combinaciones = pd.merge(productos_electronicos, accesorios, how = 'cross')
+
+print(combinaciones)
 ```
 
-El resultado es el siguiente:
-
-| Producto   | Accesorio   |
-| ---------- | ----------- |
-| Laptop     | Cargador    |
-| Laptop     | Auriculares |
-| Laptop     | Estuche     |
-| Smartphone | Cargador    |
-| Smartphone | Auriculares |
-| Smartphone | Estuche     |
-| Tablet     | Cargador    |
-| Tablet     | Auriculares |
-| Tablet     | Estuche     |
-
-En este ejemplo, se ha utilizado un *cross join* para generar todas las posibles combinaciones de productos electrónicos y accesorios que se podrían ofrecer juntos en un paquete promocional. Esto podría ayudar a identificar combinaciones de productos y accesorios que se venden bien juntos y a diseñar paquetes promocionales efectivos para los clientes.
+En este ejemplo, hicimos uso de un *cross join* para generar todas las posibles combinaciones de productos electrónicos y accesorios que se podrían ofrecer juntos en un paquete promocional. Esto podría ayudar a identificar combinaciones de productos y accesorios que se venden bien juntos y a diseñar paquetes promocionales efectivos para los clientes.
 
 ```{admonition} Importante
 :class: warning
@@ -1964,158 +2085,106 @@ Si queremos unir usando la columna `A` de `df1`:
 
 ```{code-cell} python
 
-df1.join(df3.set_index('A'), on='A')
+df1.join(df3.set_index('A'), on = 'A')
 ```
 
 Aquí ocurre lo siguiente: primero convertimos `A` en índice de `df3`, y posteriormente `join()` busca coincidencias entre la columna `A` de `df1` y el índice de `df3`.
 
 ### Listado de métodos útiles
 
-Además de las transformaciones estructurales (como cambiar entre formato largo y ancho) y el tratamiento de datos faltantes, existen numerosos métodos en Pandas que facilitan la limpieza, exploración y transformación de los datos. A continuación se presentan algunos de los más utilizados en tareas de *data wrangling*. No es una lista exhaustiva, pero sí reúne las herramientas más frecuentes en etapas iniciales de trabajo con datos.
+Llegados a este punto de este capítulo, ya hemos echado mano a una buena cantidad de métodos de `pandas` a lo largo de las secciones previas: `astype()`, `to_numeric()`, `sort_values()`, `pd.melt()`, `pivot()`, `dropna()`, `fillna()`, `groupby()` junto con `transform()`, `describe()`, `value_counts()`, `str.lower()`, `replace()`, `duplicated()`, `drop_duplicates()`, `map()`, entre otros. Esta sección suma las herramientas que todavía faltaban, para completar una caja de herramientas básica de *data wrangling* con `pandas`.
 
-#### Renombrar columnas o índices
+#### Renombrar columnas
 
-Con frecuencia los nombres de las variables no son claros, contienen espacios o no siguen una convención consistente. El método `rename()` permite modificar esos nombres de forma explícita.
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df.rename(columns={'nombre_viejo': 'nombre_nuevo'})
-```
-
-Por defecto, el método devuelve una copia del DataFrame. Si se desea modificar el objeto original, puede utilizarse el argumento `inplace=True`.
-
-Renombrar columnas suele ser un primer paso importante para mejorar la legibilidad y evitar errores posteriores.
-
-#### Reemplazo de cadenas de texto
-
-Cuando trabajamos con variables categóricas o de texto, puede ser necesario reemplazar ciertos caracteres o estandarizar etiquetas.
+Con frecuencia los nombres de las columnas no son claros, contienen espacios o no siguen una convención consistente. El método `rename()` permite modificarlos de una manera explícita.
 
 ```{code-cell} python
 :tags: ["skip-execution"]
 
-df['col'].str.replace('str_a_reemplazar', 'str_nuevo')
+df_quakes.rename(columns={'mag': 'magnitud', 'place': 'lugar'})
 ```
 
-Este método resulta útil, por ejemplo, para unificar categorías escritas de distintas maneras o eliminar caracteres no deseados.
+#### Reemplazo de subcadenas de texto
 
+A diferencia de `replace()` (que compara el **valor completo** de cada celda, como vimos en la sección *Validación de datos*), el método `str.replace()` busca **una subcadena** dentro del texto y la reemplaza donde aparezca, sin importar en qué parte del valor esté:
+
+
+```{code-cell} python
+etiquetas = pd.Series(['nivel_bajo', 'nivel_medio', 'nivel_alto'])
+
+etiquetas.str.replace('nivel_', '')
+```
 #### Eliminación de espacios en blanco
 
 Es habitual que los datos importados contengan espacios al inicio o al final de las cadenas, lo que puede generar categorías duplicadas aparentemente distintas.
 
 ```{code-cell} python
-:tags: ["skip-execution"]
+texto_con_espacios = pd.Series(['  green', 'red  ', ' yellow '])
 
-df['col'].str.strip()
+texto_con_espacios.str.strip()
 ```
-
-Esto elimina espacios en blanco al comienzo y al final de cada cadena.
-
-#### Conversión a minúsculas o mayúsculas
-
-Para evitar inconsistencias en variables de texto, puede ser útil homogeneizar el formato:
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df['col'].str.lower()
-df['col'].str.upper()
-```
-
-Estandarizar el uso de mayúsculas y minúsculas facilita comparaciones y agrupamientos posteriores.
-
-#### Cambio de tipo de dato
-
-En muchos casos, las variables no se importan con el tipo adecuado. Por ejemplo, una variable numérica puede haber sido leída como texto. El método `astype()`, presentado anteriormente en este apunte, permite convertir el tipo de dato:
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df['col'] = df['col'].astype(float)
-```
-
-La correcta definición del tipo de dato es clave para evitar errores en cálculos, gráficos o modelos.
 
 #### Detección de valores faltantes
 
-El tratamiento de datos faltantes comienza por su identificación. Para ello, además de las herramientas presentadas anteriormente, pueden utilizarse:
+Ya usamos `notnull()` en la sección de *Filtrado*. `isna()` (equivalente a `isnull()`) es su complemento: devuelve `True` donde el valor **es** faltante. Es habitual combinarlo con `sum()` para contar cuántos valores faltantes tenemos en una columna del `DataFrame`:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
-
-df['col'].isna()
-df['col'].notna()
+df_quakes_val['alert'].isna().sum()
 ```
 
-Los métodos `isna()` e `isnull()` son equivalentes en Pandas. Devuelven una Serie booleana que indica si cada observación es faltante (`True`) o no (`False`). Esto permite luego contar, filtrar o imputar valores faltantes según el caso.
+#### Valores únicos
 
-#### Valores únicos y frecuencias
-
-Explorar los valores presentes en una variable es un paso fundamental en cualquier proceso de limpieza. El método `unique()` devuelve un array con los valores únicos observados:
+El método `unique()` devuelve un array con los valores únicos observados en una columna:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
-
-df['col'].unique()
+df_quakes_val['alert'].unique()
 ```
 
-Por otro lado, el método `value_counts()` devuelve una Serie con la frecuencia de cada valor. Es especialmente útil en variables categóricas para detectar errores tipográficos o categorías inesperadas.
+Cuando sólo interesa **cuántos** valores distintos hay, sin necesidad de listarlos, es más directo usar `nunique()`:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
-
-df['col'].value_counts()
+df_quakes_val['alert'].nunique()
 ```
 
 #### Eliminación de columnas o filas
 
-En ocasiones es necesario eliminar variables irrelevantes o registros específicos.
+El método `drop()` es útil para eliminar columnas de un `DataFrame`.
 
 ```{code-cell} python
-:tags: ["skip-execution"]
-
-df.drop(columns=['columna'])
-df.drop(index=[0, 1])
+df_quakes.drop(columns = ['tz']).head()
 ```
 
-Este método devuelve una copia del DataFrame salvo que se indique `inplace=True`.
+También es posible eliminar filas específicas indicando su índice, con `df.drop(index = [...])`. En ambos casos, el método devuelve una copia del `DataFrame`, salvo que se indique `inplace = True` como argumento.
 
-#### Eliminación de duplicados
+#### Aplicar una función a cada valor
 
-Para detectar y eliminar observaciones repetidas puede utilizarse:
+El método `apply()` permite aplicar una función propia a cada valor de una columna, cuando la transformación necesaria no está disponible como un método directo de `pandas`. Por ejemplo, podemos clasificar cada sismo según su magnitud:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
+# Definimos una función
+def clasificar_magnitud(mag):
+    if mag < 5:
+        return 'moderado'
+    elif mag < 7:
+        return 'fuerte'
+    else:
+        return 'mayor'
 
-df.drop_duplicates()
+# Aplicamos la función a través del método apply()
+df_quakes_val['categoria_mag'] = df_quakes_val['mag'].apply(clasificar_magnitud)
+
+df_quakes_val[['mag', 'categoria_mag']].head()
 ```
 
-También puede especificarse un subconjunto de columnas para definir qué significa “duplicado”.
+`apply()` tiene la ventajade ser un método muy flexible, pero a la vez es más lento que los métodos vectorizados de `pandas` como `astype()`, `str.lower()` o las operaciones aritméticas directas sobre columnas, especialmente en datasets grandes. Es buena práctica reservarlo para los casos en que realmente no existe una alternativa vectorizada, como en el ejemplo anterior, donde la lógica de clasificación no se resuelve con un único método existente.
 
-#### Ordenamiento de datos
-
-Ordenar un dataset facilita la inspección y el análisis exploratorio.
+Cuando la lógica es lo suficientemente simple como para expresarse en una sola línea, es común evitar definir una función aparte y usar en su lugar una **función anónima** (o `lambda`), directamente dentro de `apply()`. Por ejemplo, para crear una columna booleana que indique si un sismo fue de magnitud considerable:
 
 ```{code-cell} python
-:tags: ["skip-execution"]
+df_quakes_val['mag_considerable'] = df_quakes_val['mag'].apply(lambda mag: mag >= 6)
 
-df.sort_values(by='col')
+df_quakes_val[['mag', 'mag_considerable']].head()
 ```
-
-Puede indicarse `ascending=False` para ordenar de mayor a menor.
-
-#### Agrupamiento y agregación
-
-Uno de los métodos más potentes en Pandas, también mencionado anteriormente, es `groupby()`, que permite dividir el dataset en grupos y calcular estadísticas resumen.
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df.groupby('col').mean()
-df.groupby('col')['otra_col'].sum()
-```
-
-Es central en análisis descriptivo y preparación de datos.
 
 ## Expresiones regulares
 
@@ -2248,9 +2317,9 @@ re.sub() permite reemplazar las coincidencias del patrón por otro valor. Devuel
 re.sub(r'30', '15', texto)
 ```
 
-#### Expresiones regulares en Pandas
+#### Expresiones regulares en `pandas`
 
-En análisis de datos es muy frecuente necesitar extraer información específica desde columnas que contienen texto. En muchos casos, los datos relevantes se encuentran formando parte de cadenas más largas (por ejemplo, valores numéricos acompañados de símbolos o unidades). Para este tipo de tareas, Pandas integra el uso de expresiones regulares a través del accesor `str`.
+En análisis de datos es muy frecuente necesitar extraer información específica desde columnas que contienen texto. En muchos casos, los datos relevantes se encuentran formando parte de cadenas más largas (por ejemplo, valores numéricos acompañados de símbolos o unidades). Para este tipo de tareas, `pandas` integra el uso de expresiones regulares a través del accesor `str`.
 
 Supongamos el siguiente DataFrame:
 
@@ -2296,6 +2365,6 @@ print(precios_deptos)
 En cada fila existen dos valores numéricos, pero el método extrae únicamente el primero que coincide con el patrón. Cuando se requiere recuperar todas las coincidencias dentro de cada cadena, puede utilizarse la variante `str.extractall()`, que devuelve todas las capturas en una estructura indexada adecuadamente.
 ````
 
-En la práctica, la combinación de expresiones regulares con los métodos del accesor `str` convierte a Pandas en una herramienta muy potente para el preprocesamiento de datos textuales, permitiendo transformar información no estructurada en variables listas para el análisis cuantitativo.
+En la práctica, la combinación de expresiones regulares con los métodos del accesor `str` convierte a `pandas` en una herramienta muy potente para el preprocesamiento de datos textuales, permitiendo transformar información no estructurada en variables listas para el análisis cuantitativo.
 
 
