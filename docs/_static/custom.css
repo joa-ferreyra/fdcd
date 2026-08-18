@@ -193,3 +193,7 @@ div.admonition > .admonition-title {
 code.literal {
     font-size: 1rem !important;
 }
+
+.logo.logo-img {
+  content: url('https://tuiafceiaunr.github.io/fdcd/_static/fdcd_logo.png');
+}
