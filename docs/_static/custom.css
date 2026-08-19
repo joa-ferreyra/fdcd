@@ -243,14 +243,10 @@ code.literal {
     display: none;
 }
 
-/* NOTA: el bug del logo roto en páginas anidadas (ruta relativa
-   mal calculada por el theme) se resuelve en fix-logo.js, cargado
-   desde _config.yml (html_js_files). La siguiente regla quedó de
-   un intento anterior con content: url(), descartado por soporte
-   inconsistente entre navegadores para <img>. Se deja comentada
-   como referencia; se puede borrar sin problema.
-
+/* Oculta el ícono roto mientras fix-logo.js corrige el src;
+   el propio script lo revela (opacity: 1) cuando la imagen
+   correcta terminó de cargar. */
 .logo.logo-img {
-    content: url('https://tuia-fceia-unr.github.io/fdcd/_static/fdcd_logo.png');
+    opacity: 0;
+    transition: opacity .15s ease-in;
 }
-*/

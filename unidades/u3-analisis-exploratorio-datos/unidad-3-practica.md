@@ -1,4 +1,4 @@
-# Unidad 3 - Análisis exploratorio de datos: Medidas de Resumen
+# Unidad 3. Medidas de Resumen - Práctica
 
 ```{admonition} 📂 Descargar archivos  
 [Descargar los archivos para la práctica desde el Campus Virtual](https://campusv.fceia.unr.edu.ar/course/view.php?id=471)
