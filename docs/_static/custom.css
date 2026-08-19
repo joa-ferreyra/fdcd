@@ -1,45 +1,84 @@
-/* Importar Montserrat para los títulos */
+/* ============================================================
+   FDCD - custom.css
+   Hoja de estilos del tema quantecon-book-theme para el book
+   "Fundamentos de Ciencia de Datos" (TUIA).
+
+   Índice:
+     1. Fuentes
+     2. Variables de color
+     3. Portada (README)
+     4. Header de todas las páginas
+     5. Admonitions
+     6. Toolbar superior
+     7. Sidebar / traducciones de textos fijos del theme
+     8. Colores personalizados
+     9. Tipografía de código
+    10. Fixes puntuales (bugs del theme)
+   ============================================================ */
+
+/* ============================================
+   1. Fuentes
+   ============================================ */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap');
 
-/* === PORTADA (README) === */
+/* ============================================
+   2. Variables de color
+   Centraliza la paleta de la materia para no repetir
+   hex sueltos por todo el archivo.
+   ============================================ */
+:root {
+    --fdcd-navy: #14213d;   /* toolbar, título del header de página */
+    --fdcd-blue: #0072bc;   /* barra divisoria, botón "Manos a la obra" hover... */
+    --fdcd-gold: #e6c200;   /* admonition "Manos a la obra", hover del logo */
+}
 
+/* ============================================
+   3. Portada (README)
+   ============================================ */
 .main-index h1 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 0; /* antes 0.25rem */
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 0;
 }
 
 .main-index #qe-page-author-links {
-  color: #666;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  line-height: 1.3;   /* nuevo: reduce el aire que agregaba el line-height heredado */
-  padding: 0 0 1.25rem;
-  margin: 0 0 2.5rem;
+    color: #666;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    line-height: 1.3; /* reduce el aire que agregaba el line-height heredado */
+    padding: 0 0 1.25rem;
+    margin: 0 0 2.5rem;
+    /* Nota: el border-bottom azul de esta barra viene por defecto
+       del theme (.main-index #qe-page-author-links), no está
+       redeclarado acá. */
 }
 
-/* === HEADER DE TODAS LAS PÁGINAS === */
+/* ============================================
+   4. Header de todas las páginas
+   ============================================ */
 
-/* Recupera la barra divisoria que se perdió al ocultar el botón de "last changed" */
+/* Barra divisoria bajo el título de cada página. Necesaria porque
+   el theme la traía incluida en el botón de "last changed" (ver
+   sección 10), que ocultamos. */
 .qe-page__header {
-  border-bottom: 5px solid #000000;
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
+    border-bottom: 5px solid #000000;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
-/* Título del header ("TUIA - Fundamentos de Ciencia de Datos"), consistente con la portada */
+/* Título del header ("TUIA - Fundamentos de Ciencia de Datos"),
+   consistente con la tipografía de la portada. */
 .qe-page__header-heading {
-  font-family: "Montserrat", sans-serif;
-  letter-spacing: -0.5px;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: -0.5px;
 }
 
-/* Oculta el botón de "Last Changed" con el historial de commits */
-.qe-page__header-changed {
-  display: none;
-}
-
-.admonition, div.admonition {
+/* ============================================
+   5. Admonitions
+   ============================================ */
+.admonition,
+div.admonition {
     font-size: 1rem !important;
 }
 
@@ -48,31 +87,31 @@ div.admonition > .admonition-title {
     color: #000 !important;
 }
 
-/* ============================================
-   Admonition "Manos a la obra"
-   ============================================ */
+/* --- Admonition "Manos a la obra" --- */
 .manos-a-la-obra {
     background-color: #ffff82 !important;
-    border-left: 4px solid #e6c200 !important;
+    border-left: 4px solid var(--fdcd-gold) !important;
 }
 
 .manos-a-la-obra > .admonition-title {
-    background-color: #e6c200 !important;
+    background-color: var(--fdcd-gold) !important;
     font-weight: 700 !important;
     padding-left: 1rem !important;
 }
 
+/* El theme inyecta el ícono de Font Awesome por ::after (versiones
+   nuevas) en vez de ::before (versiones viejas); lo ocultamos acá. */
 .manos-a-la-obra > .admonition-title::after {
     display: none !important;
 }
 
 /* ============================================
-   Toolbar superior
+   6. Toolbar superior
    ============================================ */
 
 /* Fondo azul oscuro de la toolbar */
 .qe-toolbar {
-    background-color: #14213d !important;
+    background-color: var(--fdcd-navy) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
@@ -84,9 +123,9 @@ div.admonition > .admonition-title {
     color: #ffffff !important;
 }
 
-/* Reemplazo del logo de QuantEcon por el nombre de la materia, en texto.
-   Se libera el tamano de caja original (pensado para un logo de 105x30px)
-   para que el texto entre sin cortarse. */
+/* Reemplazo del logo de QuantEcon por el nombre de la materia, en
+   texto. Se libera el tamaño de caja original (pensado para un
+   logo de 105x30px) para que el texto entre sin cortarse. */
 .qe-toolbar__inner > ul > li.btn__qelogo a {
     background: none !important;
     width: auto !important;
@@ -103,7 +142,7 @@ div.admonition > .admonition-title {
     opacity: 1 !important;
 }
 
-/* Texto del header: "Fundamentos de Ciencia de Datos" */
+/* Texto del toolbar: "TUIA - Fundamentos de Ciencia de Datos" */
 .qe-toolbar__inner > ul > li.btn__qelogo a::before {
     content: "TUIA - Fundamentos de Ciencia de Datos";
     font-family: "PT Serif", Georgia, serif;
@@ -116,22 +155,22 @@ div.admonition > .admonition-title {
 
 /* Hover: pasa a dorado (mismo tono que "Manos a la obra") */
 .qe-toolbar__inner > ul > li.btn__qelogo:hover a::before {
-    color: #e6c200;
-}
-
-/* Boton flotante "Back to top" (agregado en versiones nuevas del theme):
-   se oculta porque es redundante con el link "Volver arriba" del
-   pie del indice, que ademas ya esta traducido. */
-.qe-page__toc .back-to-top-btn {
-    display: none !important;
+    color: var(--fdcd-gold);
 }
 
 /* ============================================
-   Traduccion de textos fijos del theme
-   (no cubiertos por el "language: es" de _config.yml
-   porque son texto hardcodeado en las plantillas,
-   no del sistema de localizacion de Sphinx)
+   7. Sidebar / traducciones de textos fijos del theme
+   No cubiertos por el "language: es" de _config.yml porque son
+   texto hardcodeado en las plantillas, no del sistema de
+   localización de Sphinx.
    ============================================ */
+
+/* Botón flotante "Back to top" (agregado en versiones nuevas del
+   theme): se oculta porque es redundante con el link "Volver
+   arriba" del pie del índice, que ya está traducido más abajo. */
+.qe-page__toc .back-to-top-btn {
+    display: none !important;
+}
 
 /* "Back to top" -> "Volver arriba" */
 .qe-page__toc-footer strong {
@@ -142,7 +181,7 @@ div.admonition > .admonition-title {
     font-size: 1rem;
 }
 
-/* "On this page" -> "En esta pagina" */
+/* "On this page" -> "En esta página" */
 .qe-page__toc-header {
     font-size: 0;
 }
@@ -165,35 +204,53 @@ div.admonition > .admonition-title {
 }
 
 /* ============================================
-   Colores personalizados
+   8. Colores personalizados
    ============================================ */
 
-/* Seccion activa en "En esta pagina": azul oscuro en vez del
+/* Sección activa en "En esta página": azul oscuro en vez del
    --pst-color-primary por defecto del theme (evitamos tocar esa
-   variable global porque tambien define el color de los links). */
+   variable global porque también define el color de los links). */
 .toc-entry a.nav-link.active {
-    box-shadow: inset max(3px, .1875rem) 0 0 #14213d;
-    color: #14213d;
+    box-shadow: inset max(3px, .1875rem) 0 0 var(--fdcd-navy);
+    color: var(--fdcd-navy);
 }
 
 /* ============================================
-   Tamano de fuente del codigo
-   (con !important porque hay ~5 reglas de distintas hojas de
-   estilo -Bootstrap, PyData theme, JupyterLab widgets- peleando
+   9. Tipografía de código
+   Con !important porque hay ~5 reglas de distintas hojas de
+   estilo (Bootstrap, PyData theme, JupyterLab widgets) peleando
    por el mismo font-size; sin !important no se puede garantizar
-   cual gana)
+   cuál gana.
    ============================================ */
 
-/* Bloques de codigo */
+/* Bloques de código */
 .highlight pre {
     font-size: .9rem !important;
 }
 
-/* Codigo inline, ej. `describe()` dentro de una oracion */
+/* Código inline, ej. `describe()` dentro de una oración */
 code.literal {
     font-size: 1rem !important;
 }
 
-.logo.logo-img {
-  content: url('https://tuia-fceia-unr.github.io/fdcd/_static/fdcd_logo.png');
+/* ============================================
+   10. Fixes puntuales (bugs del theme)
+   ============================================ */
+
+/* Oculta el botón "Last Changed" (historial de commits vía git)
+   que el theme agrega al inicio de cada página desde la v0.12. */
+.qe-page__header-changed {
+    display: none;
 }
+
+/* NOTA: el bug del logo roto en páginas anidadas (ruta relativa
+   mal calculada por el theme) se resuelve en fix-logo.js, cargado
+   desde _config.yml (html_js_files). La siguiente regla quedó de
+   un intento anterior con content: url(), descartado por soporte
+   inconsistente entre navegadores para <img>. Se deja comentada
+   como referencia; se puede borrar sin problema.
+
+.logo.logo-img {
+    content: url('https://tuia-fceia-unr.github.io/fdcd/_static/fdcd_logo.png');
+}
+*/
