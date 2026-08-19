@@ -9,7 +9,7 @@ kernelspec:
   name: python3
 ---
 
-# Unidad 4 - Análisis exploratorio de datos: Visualizaciones
+# Unidad 4. Visualización de datos - Práctica
 
 ```{admonition} 📂 Descargar archivos  
 [Descargar los archivos para la práctica desde el Campus Virtual](https://campusv.fceia.unr.edu.ar/course/view.php?id=471)

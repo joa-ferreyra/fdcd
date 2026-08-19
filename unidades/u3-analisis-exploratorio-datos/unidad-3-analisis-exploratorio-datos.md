@@ -9,7 +9,7 @@ kernelspec:
   name: python3
 ---
 
-# Unidad 3 - Análisis exploratorio de datos: medidas de resumen
+# Unidad 3 - Análisis exploratorio de datos: Medidas de Resumen
 
 ## Introducción
 

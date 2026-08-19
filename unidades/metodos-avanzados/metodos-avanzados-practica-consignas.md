@@ -1,4 +1,4 @@
-# Métodos Avanzados: medidas de similaridad y distancia
+# Unidades 2.3. Métodos Avanzados: medidas de similaridad y distancia - Práctica
 
 ```{admonition} 📂 Descargar archivos  
 [Descargar los archivos para la práctica desde el Campus Virtual](https://campusv.fceia.unr.edu.ar/course/view.php?id=471)
