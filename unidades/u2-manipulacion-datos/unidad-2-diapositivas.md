@@ -2,7 +2,7 @@
 
 ## Parte 1
 
-Datos estructurados, no estructurados y semi-estructurados. Formatos XML, JSON y YAML. Datos tabulares. Archivos orientados a filas y a columnas. Formatos de archivos para el almacenamiento de datos tabulares. Pandas. Estructuras básicas: Series y DataFrames. Tipos de datos usuales. Manejo de fechas. 
+¿Qué son los datos? Datos estructurados, no estructurados y semi-estructurados. Formatos XML, JSON y YAML. Datos tabulares. Formatos de archivos para el almacenamiento de datos tabulares. Pandas. Estructuras básicas: Series y DataFrames. Tipos de datos usuales. Herramientas básicas de manipulación de datos con Pandas: selección de columnas, *slicing*, *chaining*, indexación y filtrado. Creación de columnas. Validación de datos. Manejo de fechas. 
 
 <iframe src="./slides/u2-manipulacion-datos-p1.html" width="100%" height="600px"></iframe>
 
