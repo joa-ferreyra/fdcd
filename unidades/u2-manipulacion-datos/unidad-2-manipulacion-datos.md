@@ -848,6 +848,8 @@ Considerando el archivo `earthquakes.csv`:
 1. Seleccionar del dataset todos los terremotos ocurridos en California con una magnitud de al menos 3.8. Tener en cuenta que el lugar puede estar escrito como `CA` o `California`.
 
 2. Seleccionar todos los terremotos con magnitudes comprendidas entre 6.5 y 7.5 (inclusive).
+
+3. Seleccionar los sismos que fueron evaluados por el sistema PAGER (es decir, que tengan algún valor esperado en la columna `alert`), pero cuya alerta **no haya sido `'red'`**.
 ```
 
 El método `isin()` permite construir una máscara booleana que identifica los valores que coinciden con alguno de los elementos de una lista dada. Esto evita tener que escribir una condición separada para cada valor posible y unirlas con el operador `|`. Por ejemplo, filtremos los terremotos cuya magnitud fue medida utilizando el método `mw` o `mwb`:
@@ -1222,13 +1224,13 @@ align: center
 
 Considerando el archivo `earthquakes.csv`, con la columna `time` ya convertida al tipo de dato correspondiente, como se realizó en esta sección:
 
-1. Generá una nueva columna llamada `nombre_mes`, que contenga el nombre del mes en español en el que tuvo lugar cada sismo. *Pista: `pandas` no tiene una forma automática de traducir nombres de meses al español. Una opción es construir un diccionario con la equivalencia numérica de cada mes (por ejemplo, `{1: 'enero', 2: 'febrero', ...}`) y aplicarlo sobre la columna con el método `map()`, que reemplaza cada valor de una `Series` según el diccionario provisto. Vamos a volver a usar este mismo método más adelante, en la sección de Validación de datos.*
+1. Generar una nueva columna llamada `nombre_mes`, que contenga el nombre del mes en español en el que tuvo lugar cada sismo. *Pista: `pandas` no tiene una forma automática de traducir nombres de meses al español. Una opción es construir un diccionario con la equivalencia numérica de cada mes (por ejemplo, `{1: 'enero', 2: 'febrero', ...}`) y aplicarlo sobre la columna con el método `map()`, que reemplaza cada valor de una `Series` según el diccionario provisto. Vamos a volver a usar este mismo método más adelante, en la sección de Validación de datos.*
 
 2. Utilizando la columna `nombre_mes` recién creada, ¿cuál fue el mes con mayor cantidad de sismos registrados?
 
-3. Extraé la hora del día (0 a 23) en la que ocurrió cada sismo, en una nueva columna. ¿Existe alguna hora en la que se hayan registrado notablemente más sismos que en las demás? 
+3. Obtener la hora del día (0 a 23) en la que ocurrió cada sismo y generar una nueva columna que contenga dicha información. ¿Existe alguna hora en la que se hayan registrado notablemente más sismos que en las demás? 
 
-4. Quedate únicamente con los sismos ocurridos durante el último mes registrado en el dataset, es decir, entre la fecha máxima de `time` y esa misma fecha menos 30 días. ¿Cuántos sismos cumplen esa condición?
+4. Extraer únicamente los sismos ocurridos durante el último mes registrado en el dataset, es decir, entre la fecha máxima de `time` y esa misma fecha menos 30 días. ¿Cuántos sismos cumplen esa condición?
 ```
 
 ## Manipulación de datos
@@ -1423,6 +1425,120 @@ df_ancho['diferencia_auto_bus'] = df_ancho['auto'] - df_ancho['bus']
 ```
 
 Este tipo de operaciones resulta mucho más simple cuando cada modo de transporte se encuentra en su propia columna.
+
+### Validación de datos
+
+Una pregunta que es importante hacerse en las primeras instancias de trabajo con un conjunto de datos es: **¿los valores que tenemos son plausibles?** Un dataset puede tener los tipos de datos correctos y ninguna columna problemática a simple vista, y aun así contener errores: un valor numérico fuera de todo rango físicamente posible, o una misma categoría registrada en más de una forma distinta. Resulta importante dedicar algo de tiempo a **verificar que nuestros datos efectivamente cumplen con lo que se espera de ellos**.
+
+A este proceso se lo conoce como **validación de datos**, y consiste en aplicar un conjunto de reglas o chequeos que permiten detectar inconsistencias antes de que afecten un análisis posterior.
+
+Para esta sección retomamos el dataset de terremotos utilizado anteriormente.
+
+#### Validación de atributos numéricos
+
+Para validar una variable cuantitativa, resulta útil preguntarse cuál es el rango de valores físicamente posibles, y compararlo contra lo que efectivamente aparece en los datos. La escala de magnitud sismológica que utiliza este dataset es la escala Richter. De acuerdo a los [registros](https://www.usgs.gov/media/images/10-largest-earthquakes-ever-recorded), el terremoto más fuerte registrado fue en 1960 en Chile, con una magnitud de 9.5. Teniendo en cuenta esta información, analicemos qué ocurre con los registros en el dataset.
+
+Con el método `describe()`, que retomaremos en la unidad siguiente, podemos ver si el rango de valores registrados en el dataset para la magnitud tiene sentido:
+
+```{code-cell} python
+df_quakes['mag'].describe()
+```
+
+Vemos que el valor máximo es de 75.0, lo que no tiene sentido. Realizamos un filtrado para identificar registros sísmicos en los que la magnitud supera el máximo histórico conocido:
+
+```{code-cell} python
+df_quakes[df_quakes['mag'] > 9.5]
+```
+
+Se trata del par de terremotos ocurridos en Venezuela, en junio del 2026. Según la información oficial de ambos eventos ([acá uno](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zp/executive) y [acá el otro](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zc)), los mismos tuvieron una magnitud real de 7.2 y 7.5, por lo que todo indica que, en algún punto de la carga de estos datos, se perdió el separador decimal. Corregimos dichos valores utilizando `.loc[]`:
+
+```{code-cell} python
+df_quakes_val = df_quakes.copy()
+df_quakes_val.loc[df_quakes_val['mag'] > 9.5, 'mag'] = [7.5, 7.2]
+```
+
+Teniendo en cuenta los índices correspondientes a dichos registros, podemos chequear que la modificación se haya realizado de manera correcta:
+
+```{code-cell} python
+df_quakes_val.loc[[910,911], 'mag']
+```
+
+````{admonition} **Punto importante**
+:class: important
+
+Hay un punto importante a remarcar aquí y es que, en el ejemplo anterior, pudimos corregir las magnitudes **porque conocíamos su valor real, publicado por el USGS y documentado en múltiples fuentes**. Esto no siempre es posible: cuando detectamos un valor imposible pero no tenemos forma de saber cuál era el correcto, **la práctica habitual (y más segura) es reemplazarlo por `NaN`**, es decir, tratarlo explícitamente como un dato faltante en lugar de conservar un número que sabemos que es falso.
+
+``` python
+df_quakes.loc[df_quakes['mag'] > 9.5, 'mag'] = np.nan
+```
+
+Esto tiene una consecuencia importante: la validación no sólo detecta errores, sino que muchas veces **genera nuevos valores faltantes que se suman a los que ya pudieran estar presentes en el dataset**. El tratamiento de esos faltantes es, entonces, el paso que sigue naturalmente, y es un tema que abordaremos en la próxima sección, luego de presentar algunas ideas acerca de la validación de atributos categóricos.
+```` 
+
+#### Validación de atributos categóricos
+
+La columna `alert` indica el nivel de alerta asociado a un sismo, y en este dataset debería tomar únicamente los valores `'green'`, `'yellow'`, `'orange'` o `'red'`, o quedar vacía (`NaN`) cuando no se asignó ninguna alerta. Inspeccionemos qué valores aparecen realmente:
+
+```{code-cell} python
+df_quakes_val['alert'].value_counts(dropna = False)
+```
+
+Aparecen dos problemas distintos: algunas filas tienen `'GREEN'` en mayúscula y otras tienen `'YelloW'`, con mayúsculas al inicio y al final de la cadena. Deberemos resolver estos inconvenientes, ya que de lo contrario se considerarán como categorías separadas de `'green'` y `'yellow'`.
+
+Cuando, como en este caso, el problema es únicamente de mayúsculas, podemos estandarizar todo el texto con `str.lower()`:
+
+```{code-cell} python
+df_quakes_val['alert'] = df_quakes_val['alert'].str.lower()
+
+df_quakes_val['alert'].value_counts(dropna = False)
+```
+
+En otras ocasiones, podemos encontrarnos con categorías escritas de otra forma, aunque se trate del mismo nivel. Esto podría ocurrir ya sea por un error de tipeo o por usar directamente una palabra distinta para referirse al mismo nivel de la variable. Por ejemplo, podríamos tener algún registro de `alert` que figure erróneamente como `'greeen'`. En este caso, el problema no es de mayúsculas, así que `str.lower()` no soluciona nada, y hace falta `replace()`:
+
+```{code-cell} python
+:tags: ["skip-execution"]
+
+df_quakes_val['alert'] = df_quakes_val['alert'].replace({'greeen': 'green'})
+```
+
+#### Validar con `assert`
+
+Además de inspeccionar visualmente las filas problemáticas, es habitual utilizar la sentencia `assert` de Python para que el propio código interrumpa su ejecución si una condición de validación no se cumple. Esto es particularmente útil en scripts o notebooks que se ejecutan de forma repetida, ya que evita que un análisis continúe corriendo sobre datos inválidos sin que nadie lo note.
+
+Ejemplifiquemos su uso con la columna `mag` de `df_quakes` (recordar que las modificaciones las hicimos sobre una copia del mismo, y se encuentran guardadas en el objeto `df_quakes_val`):
+
+```python
+assert df_quakes['mag'].between(4.5, 9.5).all(), 
+'¡CUIDADO! Hay magnitudes fuera de rango en el dataset'
+```
+
+```python
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+Cell In[60], line 1
+----> 1 assert df_quakes['mag'].between(4.5, 9.5).all(), "¡CUIDADO! Hay magnitudes fuera de rango en el dataset"
+
+AssertionError: ¡CUIDADO! Hay magnitudes fuera de rango en el dataset
+```
+
+El método `all()` devuelve `True` únicamente si **todas** las filas cumplen la condición. Si `assert` recibe un valor `False`, interrumpe la ejecución del programa con un error (`AssertionError`) y muestra el mensaje indicado, lo que facilita identificar rápidamente qué chequeo falló.
+
+#### Más allá de `pandas`
+
+Para proyectos más grandes, donde conviene declarar de forma reutilizable qué reglas debe cumplir un dataset, existen librerías especializadas en validación de datos, como `pandera`. Permiten definir un "esquema" con las reglas esperadas para cada columna y validar un `DataFrame` completo de una sola vez:
+
+```python
+import pandera as pa
+
+esquema = pa.DataFrameSchema({
+    'mag': pa.Column(float, pa.Check.between(4.5, 9.5)),
+    'alert': pa.Column(str, pa.Check.isin(['green', 'yellow', 'orange', 'red']), nullable = True),
+})
+
+esquema.validate(df_quakes_val)
+```
+
+También existen herramientas orientadas a validar datos dentro de flujos de trabajo más grandes y automatizados, como `Great Expectations`. No forman parte del contenido de este curso, pero vale la pena saber que existen para cuando el volumen o la complejidad de los datos lo justifique.
 
 ### Manejo de datos faltantes
 
@@ -1704,108 +1820,6 @@ Interpolación lineal por intervalos: en lugar de utilizar un único polinomio g
 ```
 
 Este tipo de interpolación resulta especialmente útil cuando el comportamiento de los datos cambia entre distintos tramos, y es común en el análisis de series temporales.
-
-### Validación de datos
-
-Una vez que los datos fueron limpiados e imputados, todavía queda un paso importante antes de pasar al análisis: **verificar que efectivamente cumplen con lo que se espera de ellos**. Un dataset puede tener los tipos de datos correctos, sin valores faltantes, y aun así contener errores: un valor numérico fuera de todo rango físicamente posible, o una categoría registrada de más de una forma distinta.
-
-A este proceso se lo conoce como **validación de datos**, y consiste en aplicar un conjunto de reglas o chequeos que permiten detectar inconsistencias antes de que afecten un análisis posterior.
-
-Para esta sección retomamos el dataset de terremotos utilizado anteriormente.
-
-#### Validación de atributos numéricos
-
-Para validar una variable cuantitativa, resulta útil preguntarse cuál es el rango de valores físicamente posibles, y compararlo contra lo que efectivamente aparece en los datos. La escala de magnitud sismológica que utiliza este dataset es la escala Richter. De acuerdo a los [registros](https://www.usgs.gov/media/images/10-largest-earthquakes-ever-recorded), el terremoto más fuerte registrado fue en 1960 en Chile, con una magnitud de 9.5. Teniendo en cuenta esta información, analicemos qué ocurre con los registros en el dataset.
-
-Con el método `describe()`, que retomaremos en la unidad siguiente, podemos ver si el rango de valores registrados en el dataset para la magnitud tiene sentido:
-
-```{code-cell} python
-df_quakes['mag'].describe()
-```
-
-Vemos que el valor máximo es de 75.0, lo que no tiene sentido. Realizamos un filtrado para identificar registros sísmicos en los que la magnitud supera el máximo histórico conocido:
-
-```{code-cell} python
-df_quakes[df_quakes['mag'] > 9.5]
-```
-
-Se trata del par de terremotos ocurridos en Venezuela, en junio del 2026. Según la información oficial de ambos eventos ([acá uno](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zp/executive) y [acá el otro](https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zc)), los mismos tuvieron una magnitud real de 7.2 y 7.5, por lo que todo indica que, en algún punto de la carga de estos datos, se perdió el separador decimal. Corregimos dichos valores utilizando `.loc[]`:
-
-```{code-cell} python
-df_quakes_val = df_quakes.copy()
-df_quakes_val.loc[df_quakes_val['mag'] > 9.5, 'mag'] = [7.5, 7.2]
-```
-
-Teniendo en cuenta los índices correspondientes a dichos registros, podemos chequear que la modificación se haya realizado de manera correcta:
-
-```{code-cell} python
-df_quakes_val.loc[[910,911], 'mag']
-```
-
-#### Validación de atributos categóricos
-
-La columna `alert` indica el nivel de alerta asociado a un sismo, y en este dataset debería tomar únicamente los valores `'green'`, `'yellow'`, `'orange'` o `'red'`, o quedar vacía (`NaN`) cuando no se asignó ninguna alerta. Inspeccionemos qué valores aparecen realmente:
-
-```{code-cell} python
-df_quakes_val['alert'].value_counts(dropna=False)
-```
-
-Aparecen dos problemas distintos: algunas filas tienen `'GREEN'` en mayúscula y otras tienen `'YelloW'`, con mayúsculas al inicio y al final de la cadena. Deberemos resolver estos inconvenientes, ya que de lo contrario se considerarán como categorías separadas de `'green'` y `'yellow'`.
-
-Cuando, como en este caso, el problema es únicamente de mayúsculas, podemos estandarizar todo el texto con `str.lower()`:
-
-```{code-cell} python
-df_quakes_val['alert'] = df_quakes_val['alert'].str.lower()
-
-df_quakes_val['alert'].value_counts(dropna = False)
-```
-
-En otras ocasiones, podemos encontrarnos con categorías escritas de otra forma, aunque se trate del mismo nivel. Esto podría ocurrir ya sea por un error de tipeo o por usar directamente una palabra distinta para referirse al mismo nivel de la variable. Por ejemplo, podríamos tener algún registro de `alert` que figure erróneamente como `'greeen'`. En este caso, el problema no es de mayúsculas, así que `str.lower()` no soluciona nada, y hace falta `replace()`:
-
-```{code-cell} python
-:tags: ["skip-execution"]
-
-df_quakes_val['alert'] = df_quakes_val['alert'].replace({'greeen': 'green'})
-```
-
-#### Validar con `assert`
-
-Además de inspeccionar visualmente las filas problemáticas, es habitual utilizar la sentencia `assert` de Python para que el propio código interrumpa su ejecución si una condición de validación no se cumple. Esto es particularmente útil en scripts o notebooks que se ejecutan de forma repetida, ya que evita que un análisis continúe corriendo sobre datos inválidos sin que nadie lo note.
-
-Ejemplifiquemos su uso con la columna `mag` de `df_quakes_val` (recordar que las modificaciones las hicimos sobre una copia del mismo, y se encuentran guardadas en el objeto `df_quakes_val`):
-
-```python
-assert df_quakes['mag'].between(4.5, 9.5).all(), 
-'¡CUIDADO! Hay magnitudes fuera de rango en el dataset'
-```
-
-```python
----------------------------------------------------------------------------
-AssertionError                            Traceback (most recent call last)
-Cell In[60], line 1
-----> 1 assert df_quakes['mag'].between(4.5, 9.5).all(), "¡CUIDADO! Hay magnitudes fuera de rango en el dataset"
-
-AssertionError: ¡CUIDADO! Hay magnitudes fuera de rango en el dataset
-```
-
-El método `all()` devuelve `True` únicamente si **todas** las filas cumplen la condición. Si `assert` recibe un valor `False`, interrumpe la ejecución del programa con un error (`AssertionError`) y muestra el mensaje indicado, lo que facilita identificar rápidamente qué chequeo falló.
-
-#### Más allá de `pandas`
-
-Para proyectos más grandes, donde conviene declarar de forma reutilizable qué reglas debe cumplir un dataset, existen librerías especializadas en validación de datos, como `pandera`. Permiten definir un "esquema" con las reglas esperadas para cada columna y validar un `DataFrame` completo de una sola vez:
-
-```python
-import pandera as pa
-
-esquema = pa.DataFrameSchema({
-    'mag': pa.Column(float, pa.Check.between(4.5, 9.5)),
-    'alert': pa.Column(str, pa.Check.isin(['green', 'yellow', 'orange' 'red']), nullable = True),
-})
-
-esquema.validate(df_quakes_val)
-```
-
-También existen herramientas orientadas a validar datos dentro de flujos de trabajo más grandes y automatizados, como `Great Expectations`. No forman parte del contenido de este curso, pero vale la pena saber que existen para cuando el volumen o la complejidad de los datos lo justifique.
 
 ### Combinaciones de conjuntos de datos
 
