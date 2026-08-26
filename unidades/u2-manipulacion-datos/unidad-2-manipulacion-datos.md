@@ -691,13 +691,41 @@ df_quakes.info()
 
 La utilización de este método es una buena práctica luego de importar los datos, ya que permite detectar inconsistencias entre el tipo de dato esperado y el tipo asignado, e identificar columnas que contienen valores faltantes. Por este motivo, `info()` suele ser uno de los primeros comandos que se ejecutan al comenzar a explorar un nuevo conjunto de datos.
 
-#### object *vs.* str
+#### El tipo de dato de las columnas de texto
 
-En `pandas`, las columnas que contienen texto suelen representarse con el tipo de dato `object`, en lugar del tipo `str` de Python. Esto ocurre porque `object` es un tipo general que puede contener cualquier objeto de Python, incluyendo cadenas de texto. Además, las columnas de texto pueden contener valores faltantes (`NaN`), y el tipo `object` es compatible con esta situación.
+Cuando inspeccionamos un `DataFrame` utilizando el método `info()`, las columnas que contienen cadenas de texto pueden aparecer con dos tipos de dato distintos según la versión de `pandas` que estemos utilizando. 
 
-En términos prácticos, cuando una columna aparece como `object`, generalmente contiene texto. Sin embargo, también podría contener una mezcla de tipos, por lo que es importante inspeccionar los datos cuando sea necesario.
+Históricamente, `pandas` no contaba con un tipo de dato específico para texto: las columnas de cadenas se representaban con el tipo `object`, un tipo general de `NumPy` capaz de almacenar cualquier objeto de Python y de aceptar tanto `None` como `NaN` como representación de valores faltantes. En enero de 2026, salió a la luz la [**versión 3.0 de `pandas`**](https://pandas.pydata.org/community/blog/pandas-3.0.html), la cual, entre sus novedades, incorpora un tipo de dato dedicado especialmente cadenas de texto que se identifica como `str`. Se trata de una variante del tipo de dato `string`, ya existente, pero que utiliza `NaN` como indicador de valores faltantes, por lo que resulta consistente con los otros tipos de datos existentes.
 
-*Nota: versiones recientes de `pandas` incorporan un tipo específico llamado `string`, orientado exclusivamente a texto, pero el uso de `object` sigue siendo muy común.*
+````{code-cell} python
+import pandas as pd
+
+# Chequeo de la versión de pandas que tenemos instalada
+print('Versión de pandas:', pd.__version__)
+
+# Definimos una Series "de juguete" para ejemplificar y vemos el tipo de dato de Pandas
+ciudades = pd.Series(['Rosario', 'Santa Fe', None])
+ciudades.dtype
+````
+
+En la salida anterior pueden observarse dos cosas. Primero, el tipo de dato reportado es `str` y no `object`, como ocurría en versiones anteriores de `pandas`. Segundo, el valor `None` que pasamos al construir la `Series` fue convertido automáticamente a `NaN`. Con el nuevo tipo de dato, el valor faltante se representa siempre de la misma manera, de forma consistente con lo que ocurre en las columnas numéricas.
+
+A diferencia de `object`, el tipo `str` **sólo admite cadenas de texto**. Si intentamos asignar un valor de otro tipo, `pandas` devuelve un error:
+
+````{code-cell} python
+:tags: ["raises-exception"]
+
+ciudades[1] = 2.5
+````
+
+**¿El tipo `object` desapareció?** No. Cabe aclarar que el tipo `object` sigue existiendo y sigue siendo el que aparece cuando una columna contiene objetos de Python que no son cadenas, o una mezcla de tipos. Por ejemplo:
+
+```{code-cell} python
+mezcla = pd.Series(['Rosario', 3, [1, 2]])
+
+print(mezcla.dtype)
+```
+Para más información al respecto, puede consultarse la [guía para la migración hacia el nuevo tipo `str`](https://pandas.pydata.org/docs/dev/user_guide/migration.html#the-new-string-data-type)
 
 ### Selección de subconjuntos de datos
 
