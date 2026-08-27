@@ -3,7 +3,9 @@
 
 # Unidad 2. Manipulación de Datos - Práctica
 
-## Datasets
+```{rubric} Datasets
+:class: rubric-datasets
+```
 
 | Dataset | Ejercicio/s | Descripción | 
 |---|---|---|
@@ -13,12 +15,14 @@
 | [`conicet_ref_grado_academico.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/conicet_ref_grado_academico.xlsx) | 7 | Tabla de referencia que traduce cada `grado_academico_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
 | [`conicet_ref_sexo.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/conicet_ref_sexo.xlsx) | 7 | Tabla de referencia que traduce `sexo_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
 | [`incendios-cantidad-causas-provincia_2022.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/incendios-cantidad-causas-provincia_2022.csv) | 8 y 9 | Cantidad de incendios forestales por provincia y causa para el periodo 1993-2022, publicado en datos.gob.ar. |
-| [`Me_gustas_tuManu_Chao.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/Me_gustas_tuManu_Chao.txt) | 10 | Letra de la canción *Me Gustas Tú* de Manu Chao, en texto plano. |
+| [`Me_gustas_tu-Manu_Chao.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/Me_gustas_tu-Manu_Chao.txt) | 10 | Letra de la canción *Me Gustas Tú* de Manu Chao, en texto plano. |
 
 
-### Ejercicio 1
+```{rubric} Ejercicio 1
+:class: rubric-ejercicio
+```
 
-En un parque de diversiones existe la necesidad brindar acceso rápido a los visitantes. La información del ticket en PDF a escanear en el sistema de validación de visitantes de la entrada del parque contiene características  de la reserva y de la persona a ser validada.
+En un parque de diversiones existe la necesidad de brindar acceso rápido a los visitantes. La información del ticket en PDF a escanear en el sistema de validación de visitantes de la entrada del parque contiene características  de la reserva y de la persona a ser validada.
 
 En lo referente a la reserva se registra en el PDF del ticket:
 
@@ -48,7 +52,9 @@ b) Elabore un diccionario de las variables. Para cada una, indique tipo de dato 
 
 c) ¿Cuáles serían formas razonables de almacenamiento de esta información? ¿Por cuánto tiempo considera necesario que se almacene?
 
-### Ejercicio 2
+```{rubric} Ejercicio 2
+:class: rubric-ejercicio
+```
 
 Lea el dataset simulado de autos **`dataset_autos_sintetico.csv`** y realice cualquier tarea de adecuación o limpieza que considere necesaria.
 
@@ -60,9 +66,11 @@ c) ¿Cuáles son los autos más viejos del dataset?
 
 d) ¿Cuántos modelos diferentes de *Nissan* aparecen en el dataset?
 
-### Ejercicio 3
+```{rubric} Ejercicio 3
+:class: rubric-ejercicio
+```
 
-El partido Argentina-Inglaterra de la Copa Mundial FIFA 2026 se comenzó a jugar a las 16:00 hs. del 15 de julio de 2026 (horario de Argentina). El entretiempo tuvo una duración de 16 minutos y los goles se convirtieron en los siguientes minutos del partido: Gordon 55', Fernádez 85' y Martínez 92'
+El partido Argentina-Inglaterra de la Copa Mundial FIFA 2026 se comenzó a jugar a las 16:00 hs. del 15 de julio de 2026 (horario de Argentina). Cada tiempo tuvo una duración reglamentaria de 45 minutos, aunque se adicionaron 4 minutos al final del primero y 12 al final del segundo. El entretiempo tuvo una duración de 16 minutos y los goles se convirtieron en los siguientes minutos del partido: Gordon 55\', Fernández 85\' y Martínez 92\'. En relación a esta última información, considere que los minutos indicados corresponden a la numeración habitual del fútbol: los minutos 1 a 45 pertenecen al primer tiempo (más su adición) y, a partir del minuto 46, al segundo tiempo (más su adición). Es decir que, bajo esta convención, el minuto 55\' ocurre a los 10 minutos de iniciado el segundo tiempo.
 
 a) Cree una tabla en `pandas` con la siguiente información del partido: fecha y hora de inicio, resultado final y el detalle de los goles: quiénes los anotaron, en qué minuto de juego y a qué hora del día.
 
@@ -70,7 +78,9 @@ b) ¿A qué hora exacta de Argentina se convirtió cada uno de los 3 goles del p
 
 c) Utilizando `pytz.timezone()` modifique la tabla del punto a) para expresarla en el horario de Inglaterra. ¿Cambia la fecha de alguno de los eventos al pasar a ese huso horario?
 
-### Ejercicio 4
+```{rubric} Ejercicio 4
+:class: rubric-ejercicio
+```
 
 A partir de los datos de la siguiente tabla, construya una función que realice una interpolación lineal por tramos. La función debe recibir como entrada un valor $x$ y devolver como salida el valor interpolado de $y$, utilizando los intervalos definidos por los puntos dados.
 
@@ -81,7 +91,9 @@ A partir de los datos de la siguiente tabla, construya una función que realice 
 | 3 | 5 |
 | 10 | 6 |
 
-### Ejercicio 5
+```{rubric} Ejercicio 5
+:class: rubric-ejercicio
+```
 
 La siguiente tabla resume la evolución de la población total argentina desde 1960 a la actualidad según los censos nacionales de población (fuente: [INDEC](https://www.indec.gob.ar/indec/web/Nivel4-Tema-2-18-77#:~:text=Aqu%C3%AD%20presentamos%20los%20datos%20del,de%20la%20poblaci%C3%B3n%20del%20pa%C3%ADs.&text=La%20poblaci%C3%B3n%20nacional%20est%C3%A1%20compuesta,mujeres%20hay%2094%2C8%20varones.)):
 
@@ -100,7 +112,9 @@ La siguiente tabla resume la evolución de la población total argentina desde 1
 
 Utilizando una interpolación lineal, completar la información sobre **Población total** para aquellos años en los que no se cuenta con datos de censos nacionales.
 
-### Ejercicio 6
+```{rubric} Ejercicio 6
+:class: rubric-ejercicio
+```
 
 Usando los datos de `listings_ba.csv` de Buenos Aires, realizar la imputación de los precios de alquiler faltantes empleando:
 
@@ -114,11 +128,15 @@ d) Los 10 puntos más cercanos geográficamente a cada dato faltante usando las 
 
 En cada uno de los casos indicar la cantidad de datos que se usaron para la imputación.
 
-### Ejercicio 7
+```{rubric} Ejercicio 7
+:class: rubric-ejercicio
+```
 
 Utilizando los archivos `conicet_personas_2020.xlsx`, `conicet_ref_sexo.xlsx` y `conicet_ref_grado_academico.xlsx`, genere una tabla en la cual se informe cuántos empleados de CONICET hay de cada sexo para cada máximo grado académico en 2020.
 
-### Ejercicio 8 
+```{rubric} Ejercicio 8
+:class: rubric-ejercicio
+```
 
 Lea el archivo `incendios-cantidad-causas-provincia_2022.csv` y realice cualquier tarea de limpieza y/o adecuación del dataset que considere necesaria.
 
@@ -130,11 +148,15 @@ c) Realice una tabla en la que se muestre, para cada año del periodo 1993-2021,
 
 d) Obtenga el número promedio de incendios intencionales, por negligencia y naturales para la provincia de Río Negro durante el periodo 1993-2021.
 
-### Ejercicio 9
+```{rubric} Ejercicio 9
+:class: rubric-ejercicio
+```
 
 Utilizando el archivo `incendios-cantidad-causas-provincia_2022.csv` del ejercicio anterior, genere una tabla que muestre el número de incendios intencionales por provincia para cada año de los incluidos en dicho dataset. 
 
-### Ejercicio 10
+```{rubric} Ejercicio 10
+:class: rubric-ejercicio
+```
 
 Utilizando *regex*: 
 
@@ -152,7 +174,9 @@ d) Utilizando el archivo `Me_gustas_tu-Manu_Chao.txt` , que contiene la letra de
 
 - Realice una lista de todas las cosas que le gustan a Manu Chao. Por ejemplo: cosas_que_le_gusta = [los aviones, viajar, la mañana, el viento, soñar, la mar …. etc].
 
-### Ejercicio 11
+```{rubric} Ejercicio 11
+:class: rubric-ejercicio
+```
 
 a) Represente la siguiente tabla en cada uno de los formatos estudiados en la Unidad 2, utilizando un procesador de texto:
 
