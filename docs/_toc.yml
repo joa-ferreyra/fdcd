@@ -8,8 +8,8 @@ parts:
         title: Material de lectura
       - file: unidades/u1-planilla-calculo/unidad-1-diapositivas.md
         title: Diapositivas
-      - file: unidades/u1-planilla-calculo/unidad-1-practica.md
-        title: Práctica
+      # - file: unidades/u1-planilla-calculo/unidad-1-practica.md
+      #   title: Práctica
   
   - caption: 2. Manipulación de datos
     chapters:
@@ -20,8 +20,8 @@ parts:
         # sections:
         #   - file: unidades/u2-manipulacion-datos/unidad-2-slides-p1.md
         #   - file: unidades/u2-manipulacion-datos/unidad-2-slides-p2.md
-      # - file: unidades/u2-manipulacion-datos/unidad-2-practica.md
-      #   title: Práctica
+      - file: unidades/u2-manipulacion-datos/unidad-2-practica.md
+        title: Práctica
       # - file: unidades/u2-manipulacion-datos/ejemplos-apoyo.md
       #   title: Ejemplos de apoyo
       #   sections:
@@ -67,8 +67,8 @@ parts:
       
   - caption: 6. Ajustes y modelos
     chapters:
-      - file: unidades/u6-ajustes-y-modelos/unidad-6-ajustes-y-modelos.md
-        title: Material de lectura
+      # - file: unidades/u6-ajustes-y-modelos/unidad-6-ajustes-y-modelos.md
+      #   title: Material de lectura
       - file: unidades/u6-ajustes-y-modelos/unidad-6-diapositivas.md
         title: Diapositivas
         # sections:
