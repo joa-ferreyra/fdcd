@@ -250,3 +250,30 @@ code.literal {
     opacity: 0;
     transition: opacity .15s ease-in;
 }
+
+/* ============================================
+   11. .md Prácticas
+   ============================================ */
+
+/* Título de sección */
+p.rubric.rubric-datasets {
+  font-family: inherit;
+  font-size: 1.6rem;    
+  font-weight: 600;
+  color: var(--fdcd-navy);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: none;  
+}
+
+
+/* Títulos de ejercicio */
+p.rubric.rubric-ejercicio {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--fdcd-navy);
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2.5px solid var(--fdcd-navy);
+}
