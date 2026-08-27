@@ -1,3 +1,6 @@
+```{tocdepth} 1
+```
+
 # Unidad 2. Manipulación de Datos - Práctica
 
 ## Datasets
@@ -6,11 +9,11 @@
 |---|---|---|
 | [`dataset_autos_sintetico.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/dataset_autos_sintetico.csv) | 2 | Dataset sintético de autos usados. |
 | [`listings_ba.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/listings_ba.csv) | 6 | Listado de publicaciones de alojamientos tipo Airbnb en Buenos Aires. |
-| [`conicet_personas_2020.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/conicet_personas_2020.xlsx) | 7 | Dataset del CONICET con 75991 investigadores/as registrados en 2020. |
-| [`conicet_ref_grado_academico.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/conicet_ref_grado_academico.xlsx) | 7 | Tabla de referencia que traduce cada `grado_academico_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
-| [`conicet_ref_sexo.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/conicet_ref_sexo.xlsx) | 7 | Tabla de referencia que traduce `sexo_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
-| [`incendios-cantidad-causas-provincia_2022.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/incendios-cantidad-causas-provincia_2022.csv) | 8 y 9 | Cantidad de incendios forestales por provincia y causa para el periodo 1993-2022, publicado en datos.gob.ar. |
-| [`Me_gustas_tuManu_Chao.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/Me_gustas_tuManu_Chao.txt) | 10 | Letra de la canción *Me Gustas Tú* de Manu Chao, en texto plano. |
+| [`conicet_personas_2020.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/conicet_personas_2020.xlsx) | 7 | Dataset del CONICET con 75991 investigadores/as registrados en 2020. |
+| [`conicet_ref_grado_academico.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/conicet_ref_grado_academico.xlsx) | 7 | Tabla de referencia que traduce cada `grado_academico_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
+| [`conicet_ref_sexo.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/conicet_ref_sexo.xlsx) | 7 | Tabla de referencia que traduce `sexo_id` de `conicet_personas_2020.xlsx` a su descripción correspondiente. |
+| [`incendios-cantidad-causas-provincia_2022.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/incendios-cantidad-causas-provincia_2022.csv) | 8 y 9 | Cantidad de incendios forestales por provincia y causa para el periodo 1993-2022, publicado en datos.gob.ar. |
+| [`Me_gustas_tuManu_Chao.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/Me_gustas_tuManu_Chao.txt) | 10 | Letra de la canción *Me Gustas Tú* de Manu Chao, en texto plano. |
 
 
 ### Ejercicio 1
