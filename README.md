@@ -47,7 +47,7 @@ Para cada una de las unidades anteriores, podés encontrar tres tipos de materia
 
 ## Datasets utilizados
 
-Los siguientes archivos se utilizan a lo largo del libro y deben descargarse para poder ejecutar el código de las unidades correspondientes.
+Los siguientes archivos se utilizan a lo largo de los diferentes *Materiales de lectura*:
 
 | Dataset | Unidad | Descripción |
 |---|---|---|

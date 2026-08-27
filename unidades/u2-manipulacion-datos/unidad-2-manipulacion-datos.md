@@ -695,37 +695,53 @@ La utilización de este método es una buena práctica luego de importar los dat
 
 Cuando inspeccionamos un `DataFrame` utilizando el método `info()`, las columnas que contienen cadenas de texto pueden aparecer con dos tipos de dato distintos según la versión de `pandas` que estemos utilizando. 
 
-Históricamente, `pandas` no contaba con un tipo de dato específico para texto: las columnas de cadenas se representaban con el tipo `object`, un tipo general de `NumPy` capaz de almacenar cualquier objeto de Python y de aceptar tanto `None` como `NaN` como representación de valores faltantes. En enero de 2026, salió a la luz la [**versión 3.0 de `pandas`**](https://pandas.pydata.org/community/blog/pandas-3.0.html), la cual, entre sus novedades, incorpora un tipo de dato dedicado especialmente cadenas de texto que se identifica como `str`. Se trata de una variante del tipo de dato `string`, ya existente, pero que utiliza `NaN` como indicador de valores faltantes, por lo que resulta consistente con los otros tipos de datos existentes.
+Históricamente, `pandas` no contaba con un tipo de dato específico para texto: las columnas de cadenas se representaban con el tipo `object`, un tipo general de `NumPy` capaz de almacenar cualquier objeto de Python y de aceptar tanto `None` como `NaN` como representación de valores faltantes. En enero de 2026 salió a la luz la [**versión 3.0 de `pandas`**](https://pandas.pydata.org/community/blog/pandas-3.0.html), la cual, entre sus novedades, incorpora un tipo de dato dedicado especialmente a las cadenas de texto que se identifica como `str`. Se trata de una variante del tipo de dato `string`, ya existente, con la diferencia de que utiliza `NaN` como indicador de valores faltantes, por lo que resulta consistente con los otros tipos de datos que ya se venían utilizando.
 
+Comencemos verificando con qué versión de la librería estamos trabajando:
+  
 ````{code-cell} python
-import pandas as pd
-
 # Chequeo de la versión de pandas que tenemos instalada
 print('Versión de pandas:', pd.__version__)
-
-# Definimos una Series "de juguete" para ejemplificar y vemos el tipo de dato de Pandas
-ciudades = pd.Series(['Rosario', 'Santa Fe', None])
-ciudades.dtype
 ````
 
-En la salida anterior pueden observarse dos cosas. Primero, el tipo de dato reportado es `str` y no `object`, como ocurría en versiones anteriores de `pandas`. Segundo, el valor `None` que pasamos al construir la `Series` fue convertido automáticamente a `NaN`. Con el nuevo tipo de dato, el valor faltante se representa siempre de la misma manera, de forma consistente con lo que ocurre en las columnas numéricas.
-
-A diferencia de `object`, el tipo `str` **sólo admite cadenas de texto**. Si intentamos asignar un valor de otro tipo, `pandas` devuelve un error:
+Nos fabricamos ahora un `DataFrame` "de juguete", que combina una columna de texto con dos columnas numéricas:
 
 ````{code-cell} python
-:tags: ["raises-exception"]
 
-ciudades[1] = 2.5
+df_juguete = pd.DataFrame({
+    'ciudad': ['Rosario', 'Santa Fe', None],
+    'provincia': ['Santa Fe', 'Santa Fe', 'Chubut'],
+    'habitantes': [1029619, 408572, None],
+    'tasa_natalidad': [9.3, 8.7, None]
+})
+
+df_juguete
+```` 
+
+Observemos que el valor `None` que pasamos al construir el `DataFrame` fue convertido automáticamente por `pandas` a `NaN`. Con el nuevo tipo de dato `str`, el valor faltante se representa siempre de la misma manera, de forma consistente con lo que ocurre en las columnas numéricas.
+
+Analicemos ahora qué tipo de dato asignó `pandas` a cada una de las columnas:
+
+````{code-cell} python
+
+df_juguete.info()
 ````
 
-**¿El tipo `object` desapareció?** No. Cabe aclarar que el tipo `object` sigue existiendo y sigue siendo el que aparece cuando una columna contiene objetos de Python que no son cadenas, o una mezcla de tipos. Por ejemplo:
+La columna `ciudad` es reportada como `str` y no como `object`, que es lo que habríamos obtenido en versiones anteriores de la librería. Notemos, de paso, que `habitantes` fue inferida como `float64` a pesar de contener números enteros: como veremos más adelante, los enteros de NumPy no admiten valores faltantes, de modo que la presencia de un `NaN` fuerza la conversión a punto flotante.
+
+Cabe mencionar que el tipo `str`, a diferencia de lo que ocurre con `object`, **sólo admite cadenas de texto**. Si intentamos asignar un valor de otro tipo, `pandas` devuelve un error.
+
+**¿El tipo `object` desapareció?** No. Es importante mencionar que el tipo `object` sigue existiendo y sigue siendo el que aparece cuando una columna contiene objetos de Python que no son cadenas, o una mezcla de tipos. Por ejemplo:
 
 ```{code-cell} python
 mezcla = pd.Series(['Rosario', 3, [1, 2]])
 
 print(mezcla.dtype)
 ```
-Para más información al respecto, puede consultarse la [guía para la migración hacia el nuevo tipo `str`](https://pandas.pydata.org/docs/dev/user_guide/migration.html#the-new-string-data-type)
+
+También puede solicitarse explícitamente mediante el comando `astype('object')`, algo necesario cuando queremos almacenar valores heterogéneos en una misma columna.
+
+Para más información al respecto, puede consultarse la [guía para la migración hacia el nuevo tipo `str`](https://pandas.pydata.org/docs/dev/user_guide/migration.html#the-new-string-data-type).
 
 ### Selección de subconjuntos de datos
 
