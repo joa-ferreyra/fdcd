@@ -8,9 +8,13 @@
 
 ## Parte 2
 
-*Data Wrangling*. Transposición de DataFrames de forma ancha a larga. Tratamiento de datos faltantes. Combinación de DataFrames con Pandas. Expresiones regulares.
+*Data Wrangling*. Datos ordenados (*tidy data*). Conversión de forma ancha a larga. Manejo de datos faltantes. 
 
 <iframe src="./slides/u2-manipulacion-datos-p2.html" width="100%" height="600px"></iframe>
+
+## Parte 3
+
+Combinación de DataFrames con Pandas. Expresiones regulares. Uso de expresiones regulares para realizar tareas de búsqueda.
 
 ## Descargar slides
 
