@@ -1,0 +1,56 @@
+empleado,sede,registro,resolucion
+Suárez,Centro,"Cliente: Carla Bustamante (ID C-2478) | Canal: mail | 04/06/2026 12:10 | Motivo: facturación | Mensaje: No entiendo el detalle del resumen, hay un ítem que no reconozco...",05/06/2026 10:10
+Rodríguez,Centro,Cliente: Gustavo Miño (ID C-5102) | Canal: mensajería | 06/06/2026 10:40 | Motivo: envío | Mensaje: Cambié de domicilio y el envío salió a la dirección anterior.,07/06/2026 13:55
+Rodríguez,Centro,"Cliente: Sofía Bogado (ID C-8791) | Canal: mensajería | 16/06/2026 09:10 | Motivo: devolución | Mensaje: Me mandaron el color equivocado, quiero cambiarlo.",16/06/2026 20:40
+Molina,Sur,"Cliente: Lorena Peralta (ID C-3689) | Canal: mensajería | 08/06/2026 12:45 | Motivo: envío | Mensaje: El repartidor pasó y no dejó aviso, ahora me dicen que devuelva la factura firmada.",10/06/2026 08:45
+Suárez,Centro,Cliente: Carla Bustamante (ID C-2478) | Canal: web | 19/06/2026 11:30 | Motivo: técnico | Mensaje: La plataforma no me deja cargar el comprobante de pago.,20/06/2026 04:00
+Molina,Sur,Cliente: Ana Sosa (ID C-3310) | Canal: mail | 15/06/2026 15:35 | Motivo: devolución | Mensaje: Devolví el artículo hace 3 semanas y todavía no me acreditaron nada...,18/06/2026 15:35
+Rodríguez,Centro,"Cliente: Gabriela Frías (ID C-8264) | Canal: web | 23/06/2026 11:55 | Motivo: facturación | Mensaje: Solicito factura A en lugar de B, soy responsable inscripta.",24/06/2026 16:10
+Suárez,Centro,Cliente: Marta Giménez (ID C-4471) | Canal: mail | 05/06/2026 16:20 | Motivo: envío | Mensaje: El paquete llegó dañado y la factura no coincide.,08/06/2026 09:50
+Molina,Sur,Cliente: Mariela Sandoval (ID C-6455) | Canal: web | 04/06/2026 15:50 | Motivo: facturación | Mensaje: El descuento del plan premium no se aplicó este mes.,05/06/2026 10:35
+Suárez,Centro,Cliente: Lucía Ibarra (ID C-5500) | Canal: web | 16/06/2026 16:00 | Motivo: consulta | Mensaje: Consulto por el horario de atención de la sede Centro.,16/06/2026 17:30
+Molina,Sur,"Cliente: Silvina Ocampo (ID C-2004) | Canal: mail | 09/06/2026 15:40 | Motivo: técnico | Mensaje: El equipo se apaga solo cada 20 minutos, ya probé de todo...",11/06/2026 23:40
+Molina,Sur,Cliente: Diego Maidana (ID C-3915) | Canal: web | 18/06/2026 13:20 | Motivo: facturación | Mensaje: Me llegaron 2 facturas iguales el mismo día!!!,19/06/2026 14:50
+Rodríguez,Centro,Cliente: Alberto Cabrera (ID C-5768) | Canal: mail | 18/06/2026 16:45 | Motivo: envío | Mensaje: El pedido salió incompleto y sin la factura adentro.,20/06/2026 02:45
+Paz,Norte,"Cliente: Elena Bourdieu (ID C-9410) | Canal: mensajería | 19/06/2026 08:15 | Motivo: envío | Mensaje: Todavía no recibo el primer pedido, van 8 días.",20/06/2026 06:00
+Suárez,Centro,Cliente: Sebastián Aguirre (ID C-6290) | Canal: web | 08/06/2026 09:20 | Motivo: envío | Mensaje: Quisiera saber si puedo retirar por sucursal en vez de esperar el envío.,08/06/2026 17:05
+Rodríguez,Centro,"Cliente: Alberto Cabrera (ID C-5768) | Canal: mensajería | 10/06/2026 09:05 | Motivo: técnico | Mensaje: No puedo ingresar al sistema, me dice usuario inválido.",10/06/2026 11:35
+Suárez,Centro,Cliente: Verónica Ibáñez (ID C-4108) | Canal: mail | 18/06/2026 09:00 | Motivo: consulta | Mensaje: Necesito saber si tienen stock del modelo XR-200.,18/06/2026 17:00
+Molina,Sur,"Cliente: Rubén Ávalos (ID C-7141) | Canal: mail | 19/06/2026 15:00 | Motivo: devolución | Mensaje: El artículo llegó roto, quiero devolverlo y que me devuelvan la plata.",21/06/2026 10:15
+Suárez,Centro,Cliente: Paula Escalante (ID C-4893) | Canal: mensajería | 24/06/2026 09:45 | Motivo: envío | Mensaje: El envío figura demorado y nadie me da una fecha concreta!!!,25/06/2026 16:15
+Suárez,Centro,Cliente: Miriam Ocaranza (ID C-7802) | Canal: web | 15/06/2026 11:50 | Motivo: devolución | Mensaje: Producto defectuoso!!! Exijo el reintegro completo.,17/06/2026 21:05
+Rodríguez,Centro,"Cliente: Néstor Quiroga (ID C-2216) | Canal: mensajería | 02/06/2026 08:30 | Motivo: facturación | Mensaje: Necesito que me reenvíen la factura, no me llegó al mail.",02/06/2026 11:45
+Paz,Norte,Cliente: Natalia Zalazar (ID C-6013) | Canal: web | 22/06/2026 12:50 | Motivo: envío | Mensaje: Necesito cambiar la dirección de entrega antes de que despachen.,22/06/2026 17:50
+Rodríguez,Centro,Cliente: Marta Giménez (ID C-4471) | Canal: mensajería | 01/06/2026 09:15 | Motivo: facturación | Mensaje: Me llegó una factura con un importe que NO corresponde!!!,01/06/2026 17:45
+Paz,Norte,"Cliente: Gabriela Frías (ID C-8264) | Canal: web | 09/06/2026 08:00 | Motivo: envío | Mensaje: El paquete figura en tránsito desde el 28/05, ya son 12 días!!!",10/06/2026 13:00
+Rodríguez,Centro,"Cliente: Ana Sosa (ID C-3310) | Canal: web | 03/06/2026 17:30 | Motivo: facturación | Mensaje: Necesito el comprobante del último pedido, por favor.",04/06/2026 09:00
+Suárez,Centro,Cliente: Hernán Coronel (ID C-4620) | Canal: mensajería | 09/06/2026 11:15 | Motivo: envío | Mensaje: Necesito reprogramar la entrega para el viernes.,09/06/2026 15:30
+Paz,Norte,Cliente: Sebastián Aguirre (ID C-6290) | Canal: mail | 23/06/2026 15:20 | Motivo: devolución | Mensaje: Quiero devolver el producto pero perdí el ticket de compra...,25/06/2026 06:20
+Molina,Sur,Cliente: Mariela Sandoval (ID C-6455) | Canal: mail | 17/06/2026 08:35 | Motivo: consulta | Mensaje: ¿El plan premium incluye envío sin cargo?,17/06/2026 11:35
+Molina,Sur,"Cliente: Marta Giménez (ID C-4471) | Canal: web | 12/06/2026 14:15 | Motivo: devolución | Mensaje: Quiero devolver el producto, no era lo que figuraba en la web.",14/06/2026 15:15
+Suárez,Centro,Cliente: Beatriz Almirón (ID C-1147) | Canal: mensajería | 12/06/2026 09:40 | Motivo: técnico | Mensaje: Se cortó el servicio en toda la cuadra desde ayer a la noche.,13/06/2026 09:25
+Molina,Sur,Cliente: Diego Maidana (ID C-3915) | Canal: web | 06/06/2026 08:15 | Motivo: envío | Mensaje: El seguimiento dice ENTREGADO pero acá no recibimos nada!!!,06/06/2026 20:15
+Paz,Norte,Cliente: Pedro Ojeda (ID C-8802) | Canal: mensajería | 16/06/2026 12:30 | Motivo: consulta | Mensaje: Quería saber si hacen envíos a Funes.,16/06/2026 13:15
+Paz,Norte,Cliente: Verónica Ibáñez (ID C-4108) | Canal: mensajería | 04/06/2026 08:45 | Motivo: facturación | Mensaje: Me cobraron dos veces el mismo importe!!! Quiero la devolución YA.,04/06/2026 18:00
+Paz,Norte,"Cliente: Emiliano Ruiz Díaz (ID C-2731) | Canal: mail | 06/06/2026 14:00 | Motivo: envío | Mensaje: Llegaron 2 de los 3 productos, falta el tercero.",07/06/2026 23:30
+Molina,Sur,Cliente: Rocío Benítez (ID C-5347) | Canal: mail | 02/06/2026 11:20 | Motivo: facturación | Mensaje: La factura figura impaga pero yo transferí el 28/05!!!,04/06/2026 11:20
+Paz,Norte,Cliente: Mauricio Leiva (ID C-3402) | Canal: web | 10/06/2026 13:30 | Motivo: técnico | Mensaje: La app se cierra sola cuando cargo el pedido!!!,12/06/2026 02:15
+Paz,Norte,"Cliente: Néstor Quiroga (ID C-2216) | Canal: mensajería | 15/06/2026 08:20 | Motivo: devolución | Mensaje: Cambié de opinión, ¿tengo los 10 días de arrepentimiento?",15/06/2026 15:05
+Rodríguez,Centro,"Cliente: Facundo Arias (ID C-7509) | Canal: mail | 08/06/2026 16:30 | Motivo: envío | Mensaje: Pedido demorado hace 2 semanas, nadie responde los mails.",10/06/2026 21:00
+Rodríguez,Centro,"Cliente: Elena Bourdieu (ID C-9410) | Canal: web | 17/06/2026 11:05 | Motivo: consulta | Mensaje: Quiero darme de alta como cliente, ¿qué documentación necesito?",17/06/2026 16:20
+Paz,Norte,Cliente: Julián Ferreyra (ID C-1092) | Canal: mensajería | 17/06/2026 14:40 | Motivo: consulta | Mensaje: ¿Puedo pagar la factura en efectivo en la sucursal?,17/06/2026 16:55
+Molina,Sur,"Cliente: Leandro Chávez (ID C-8015) | Canal: mail | 03/06/2026 13:15 | Motivo: facturación | Mensaje: La factura llegó con el CUIT mal cargado, necesito nota de crédito.",04/06/2026 20:45
+Rodríguez,Centro,"Cliente: Cecilia Ledesma (ID C-6988) | Canal: mail | 12/06/2026 17:30 | Motivo: devolución | Mensaje: El talle no corresponde, adjunto foto y la factura de compra.",14/06/2026 11:00
+Molina,Sur,Cliente: Daniela Ponce (ID C-7376) | Canal: mensajería | 11/06/2026 08:50 | Motivo: técnico | Mensaje: Instalaron mal el equipo y ahora no enciende.,13/06/2026 22:05
+Suárez,Centro,Cliente: Mauricio Leiva (ID C-3402) | Canal: mail | 22/06/2026 16:15 | Motivo: consulta | Mensaje: ¿Hasta qué hora puedo modificar un pedido ya confirmado?,23/06/2026 01:45
+Suárez,Centro,Cliente: Ana Sosa (ID C-3310) | Canal: web | 01/06/2026 14:05 | Motivo: facturación | Mensaje: La factura no coincide con el remito!!!,01/06/2026 18:50
+Rodríguez,Centro,Cliente: Hernán Coronel (ID C-4620) | Canal: mensajería | 22/06/2026 09:25 | Motivo: facturación | Mensaje: Hay un cargo de $12000 que no reconozco en el resumen.,22/06/2026 22:25
+Rodríguez,Centro,"Cliente: Ramiro Vázquez (ID C-1583) | Canal: mensajería | 05/06/2026 09:30 | Motivo: facturación | Mensaje: Quiero cambiar el medio de pago, ahora uso débito automático.",05/06/2026 15:00
+Paz,Norte,"Cliente: Natalia Zalazar (ID C-6013) | Canal: web | 02/06/2026 16:45 | Motivo: facturación | Mensaje: Pido anulación de la factura 0001-00045871, fue duplicada.",03/06/2026 13:15
+Rodríguez,Centro,Cliente: Paula Escalante (ID C-4893) | Canal: web | 11/06/2026 12:20 | Motivo: técnico | Mensaje: Error 503 al intentar descargar la factura desde el portal.,12/06/2026 02:20
+Paz,Norte,"Cliente: Martín Olivera (ID C-8530) | Canal: mail | 11/06/2026 16:10 | Motivo: técnico | Mensaje: El sensor marca temperatura negativa, algo está fallando.",13/06/2026 06:40
+Molina,Sur,Cliente: Tomás Vera (ID C-9755) | Canal: mensajería | 23/06/2026 08:40 | Motivo: técnico | Mensaje: El equipo hace un ruido raro desde la instalación.,25/06/2026 08:10
+Paz,Norte,Cliente: Julián Ferreyra (ID C-1092) | Canal: mail | 05/06/2026 11:00 | Motivo: envío | Mensaje: Hace 10 días que espero el pedido y todavía no llegó...,07/06/2026 03:00
+Suárez,Centro,Cliente: Iván Godoy (ID C-6702) | Canal: mail | 10/06/2026 17:00 | Motivo: técnico | Mensaje: El producto vino sin el cable de alimentación.,11/06/2026 12:30
+Suárez,Centro,Cliente: Rubén Ávalos (ID C-7141) | Canal: mensajería | 03/06/2026 09:00 | Motivo: facturación | Mensaje: Me siguen mandando la factura al domicilio viejo.,03/06/2026 15:00
+Paz,Norte,"Cliente: Julián Ferreyra (ID C-1092) | Canal: mail | 01/06/2026 10:40 | Motivo: facturación | Mensaje: Adjunto la factura del mes pasado, tiene un recargo que nadie me explicó.",02/06/2026 12:40
