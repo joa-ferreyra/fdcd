@@ -2281,14 +2281,20 @@ Por ejemplo:
 | `+`       | Una o más ocurrencias                     |
 | `?`       | Cero o una ocurrencia                     |
 | `{n}`     | Exactamente n ocurrencias                 |
+| `{n,m}`   | Entre n y m ocurrencias                   |
 | `[ ]`     | Conjunto de caracteres                    |
 | `[^ ]`    | Negación de conjunto                      |
 | `\d`      | Dígito (0–9)                              |
 | `\D`      | No dígito                                 |
 | `\w`      | Carácter de palabra                       |
 | `\W`      | No carácter de palabra                    |
+| `\s`      | Espacio en blanco                         |
+| `\S`      | Carácter que no sea espacio en blanco     |
 | `\b`      | Límite de palabra                         |
 | `\A`      | Inicio absoluto de la cadena              |
+| `( )`     | Grupo de captura                          |
+| `(?: )`   | Grupo sin captura                         |
+| `\|`      | Alternancia (una opción u otra)           |
 | `\`       | Escape de caracteres especiales           |
 
 Algunos ejemplos:
@@ -2309,10 +2315,12 @@ Algunos ejemplos:
 
 - `\d{4}` → secuencia de exactamente cuatro dígitos.
 
+- `verde|rojo` → coincide con "verde" o con "rojo".
+
 Los caracteres especiales pueden combinarse para construir patrones más complejos. Por ejemplo, la siguiente expresión permite buscar fechas en formato DD/MM/YYYY correspondientes al mes de mayo:
 
 ```python
-\b(?:0[1-9]|[12][0-9]|3[01])\/05\/\d{4}\b
+\b(?:0[1-9]|[12][0-9]|3[01])/05/\d{4}\b
 ```
 
 ```{figure} imagenes/regex_meme.png
@@ -2323,6 +2331,40 @@ align: center
 Cualquier semejanza con la realidad de trabajar con *regex* es pura coincidencia...
 ```
 
+Exploremos algunos ejemplos más.
+
+**Una hora en formato de 24 horas.**
+
+```python
+\b([01]\d|2[0-3]):[0-5]\d\b
+```
+
+La primera parte contempla las dos formas posibles de escribir la hora: `[01]\d`
+cubre de `00` a `19`, y `2[0-3]` cubre de `20` a `23`. La alternancia `|` indica
+que basta con que se cumpla una de las dos. Los minutos, en cambio, admiten una
+única regla: `[0-5]\d`, es decir, de `00` a `59`. Este patrón coincide con
+`09:30` y con `23:59`, pero no con `24:00` ni con `8:5`.
+
+**Un número de CUIT.**
+
+```python
+\b\d{2}-\d{8}-\d\b
+```
+
+Dos dígitos, un guión, ocho dígitos, otro guion y un dígito verificador. 
+
+**Un importe con separador de miles.**
+
+```python
+\$\s?\d{1,3}(?:\.\d{3})*
+```
+
+Este ejemplo introduce dos ideas nuevas. La primera es el **escape**: tanto `$`
+como `.` son caracteres especiales dentro del mundo de las *regex*, por lo que para buscarlos literalmente hay que anteponerles una barra invertida (`\$` y `\.`). La segunda es la aplicación de un cuantificador **a un grupo completo**: `(?:\.\d{3})*` significa "cero o más repeticiones del bloque punto seguido de tres dígitos". Gracias a eso, el mismo patrón reconoce `$500`, `$12.400` y `$ 1.250.000`.
+
+El `\s?` intermedio contempla que pueda haber, o no, un espacio entre el símbolo
+y el número.
+
 ### Expresiones regulares en Python
 
 Python incluye el módulo `re`, que proporciona un conjunto de funciones para trabajar con expresiones regulares. Estas funciones permiten realizar operaciones de búsqueda, extracción, división y sustitución de patrones dentro de cadenas de texto. A continuación, ilustramos las principales herramientas a partir de un ejemplo sencillo. 
@@ -2331,7 +2373,7 @@ Python incluye el módulo `re`, que proporciona un conjunto de funciones para tr
 import re
 ```
 
-Trabajaremos con el siguiente *string*:
+Trabajaremos con la siguiente cadena de texto:
 
 ```{code-cell} python
 texto = 'Se necesitan 30 azulejos para revestir 1 m2'
@@ -2375,11 +2417,82 @@ re.sub() permite reemplazar las coincidencias del patrón por otro valor. Devuel
 re.sub(r'30', '15', texto)
 ```
 
-#### Expresiones regulares en `pandas`
+### Expresiones regulares en pandas
 
-En análisis de datos es muy frecuente necesitar extraer información específica desde columnas que contienen texto. En muchos casos, los datos relevantes se encuentran formando parte de cadenas más largas (por ejemplo, valores numéricos acompañados de símbolos o unidades). Para este tipo de tareas, `pandas` integra el uso de expresiones regulares a través del accesor `str`.
+Las funciones del módulo `re` que presentamos en la sección anterior operan **sobre una cadena a la vez.** Sin embargo, en el análisis de datos es muy frecuente que nos encontremos en la situación de necesitar extraer información específica desde columnas que contienen texto. Para eso, `pandas` integra el uso de expresiones regulares directamente en los métodos del accesor `str`, que ya venimos utilizando a lo largo de la unidad.
 
-Supongamos el siguiente DataFrame:
+Esta integración habilita dos tareas distintas:
+
+- **Tareas de búsqueda:** identificar qué registros contienen un determinado patrón, para filtrarlos o validarlos.
+
+- **Tareas de extracción y transformación:** recuperar la información contenida dentro del texto y convertirla en columnas nuevas, o modificarla.
+
+#### Búsqueda de patrones: `str.contains()`
+
+Ya presentamos este método en la sección *Selección de subconjuntos de datos*, cuando construimos una máscara booleana con todos los sismos ocurridos en Alaska:
+
+```{code-cell} python
+df_quakes['place'].str.contains('Alaska').head()
+```
+
+Lo que no habíamos dicho en aquel momento es que **`str.contains()` interpreta su argumento como una expresión regular de manera predeterminada**. Es decir, `'Alaska'` ya era una expresión regular: una compuesta únicamente por caracteres literales, que por lo tanto coincide consigo misma.
+
+Conociendo esta información, el método se vuelve mucho más interesante. Recordemos la primera consigna del **MANOS A LA OBRA N° 1**, donde había que seleccionar los sismos ocurridos en California teniendo en cuenta que el lugar podía estar escrito como `CA` o como `California`. Con lo que sabíamos hasta ese momento, hacía falta construir dos máscaras y combinarlas con el operador `|` de `pandas`. Con una expresión regular, la alternancia queda contenida en un único patrón:
+
+```{code-cell} python
+sismos_en_california = df_quakes['place'].str.contains(r'\bCA\b|California', na = False)
+
+df_quakes.loc[sismos_en_california, ['place', 'mag']].head()
+```
+
+La inclusión del límite de palabra `\b` en la *regex* evita que la sigla `CA` coincida accidentalmente en medio de otra palabra.
+
+Existen dos parámetros de este método que resultan especialmente útiles:
+
+- **`na`** establece qué valor devolver cuando la celda contiene un valor faltante. Si no se especifica, esas filas producen `NaN` en lugar de `True` o `False`, lo que impide usar el resultado como máscara de filtrado. Indicar `na = False` equivale a decidir que un valor faltante no cumple la condición.
+
+- **`case = False`** hace que la búsqueda no distinga mayúsculas de minúsculas. Es la misma clase de problema que resolvimos anteriormente aplicando el método `str.lower()` sobre la columna `alert` en la sección *Validación de datos*, con una diferencia importante: allí **estandarizamos el dato**, mientras que aquí simplemente **flexibilizamos la búsqueda**, sin modificar el conjunto de datos.
+
+```{admonition} Cuando no se necesita una expresión regular
+:class: note
+
+Si lo único que se busca es una subcadena literal (como cuando buscamos registros que contuvieran la palabra `'Alaska'`) conviene indicarlo explícitamente con `regex = False`. La búsqueda resulta más rápida y, sobre todo, se evita que caracteres como `.`, `+`, `(` o `?` sean interpretados como operadores en lugar de como caracteres comunes. Por ejemplo, `str.contains('m.')` con el comportamiento predeterminado coincide con cualquier "m" seguida de cualquier carácter, y no con la cadena `'m.'`.
+```
+
+#### Coincidencia parcial o total: `contains()`, `match()` y `fullmatch()`
+
+`pandas` ofrece tres métodos emparentados que se diferencian por **dónde** debe producirse la coincidencia dentro de cada valor:
+
+| Método | Devuelve `True` si el patrón... |
+| --- | --- |
+| `str.contains()` | ...aparece **en alguna parte** de la cadena |
+| `str.match()` | ...aparece **al comienzo** de la cadena |
+| `str.fullmatch()` | ...coincide con la **cadena completa** |
+
+Esta distinción es central en tareas de validación de formato, un problema que ya abordamos en la sección *Validación de datos* para variables numéricas y categóricas, y que aquí se extiende a variables de texto con una estructura esperada.
+
+Supongamos una columna que debería contener patentes automotores argentinas en el formato vigente desde 2016: dos letras, tres dígitos y dos letras.
+
+```{code-cell} python
+patentes = pd.Series(['AB123CD', 'patente AB123CD', 'AB123C', 'XY987ZW'])
+
+regex_patente = r'[A-Z]{2}\d{3}[A-Z]{2}'
+
+pd.DataFrame({
+    'valor': patentes,
+    'contains': patentes.str.contains(regex_patente),
+    'match': patentes.str.match(regex_patente),
+    'fullmatch': patentes.str.fullmatch(regex_patente)
+})
+```
+
+El segundo valor **contiene** una patente válida, pero la cadena completa no es una patente; el tercero tiene una letra de menos. Solo `fullmatch()` clasifica correctamente los cuatro casos. La conclusión práctica es que, cuando se quiere verificar que un valor **respeta íntegramente** un formato, `str.contains()` es demasiado permisivo.
+
+#### Extracción de información: `str.extract()`
+
+En muchos casos, los datos relevantes se encuentran formando parte de cadenas más largas (por ejemplo, valores numéricos acompañados de símbolos o unidades). Para este tipo de tareas, `pandas` integra el uso de expresiones regulares a través del accesor `.str`.
+
+Supongamos el siguiente `DataFrame`:
 
 ```{code-cell} python
 
@@ -2398,7 +2511,9 @@ precios_deptos
 
 La expresión regular (\d+) funciona de la siguiente manera: `\d+` busca una secuencia de uno o más dígitos consecutivos, mientras que los paréntesis `()` indican que esa parte del patrón constituye un grupo de captura, es decir, un fragmento cuya coincidencia se almacena y puede recuperarse posteriormente. 
 
-El método `str.extract()` devuelve un DataFrame con las capturas encontradas y permite asignarlas directamente a una nueva columna. Este tipo de operación es muy habitual en procesos de limpieza y estructuración de datos.
+El método `str.extract()` devuelve un `DataFrame` con las capturas encontradas y permite asignarlas directamente a una nueva columna. Este tipo de operación es muy habitual en procesos de limpieza y estructuración de datos.
+
+Es importante tener en cuenta que, aunque la columna `precio_usd` contiene dígitos, su tipo de dato es de texto, ya que `str.extract()` siempre devuelve cadenas de caracteres. Si se necesita operar aritméticamente con ella (por ejemplo, para calcular el precio promedio), hay que convertirla con ayuda de alguno de los métodos vistos anteriormente.
 
 ````{admonition} Importante
 :class: tip
@@ -2425,4 +2540,45 @@ En cada fila existen dos valores numéricos, pero el método extrae únicamente 
 
 En la práctica, la combinación de expresiones regulares con los métodos del accesor `str` convierte a `pandas` en una herramienta muy potente para el preprocesamiento de datos textuales, permitiendo transformar información no estructurada en variables listas para el análisis cuantitativo.
 
+```{admonition} MANOS A LA OBRA N° 3
+:class: manos-a-la-obra
 
+Una empresa de servicios con tres sedes registra los reclamos que recibe de sus
+clientes. El sistema de tickets vuelca toda la información de cada reclamo en un
+único campo de texto, `registro`, donde conviven el nombre del cliente, su
+identificador, el canal por el que se comunicó, la fecha y hora de apertura, el
+motivo asignado por quien lo atendió y el mensaje escrito por el propio cliente.
+
+Se dispone de dos conjuntos de datos, ambos disponibles en la sección de
+*Datasets utilizados* del `README`:
+
+- **`reclamos.csv`**: un registro por cada reclamo recibido, con la sede que lo
+  atendió (`sede`), el texto del registro (`registro`) y la fecha y hora en que
+  el reclamo quedó resuelto (`fecha_resolucion`).
+
+- **`clientes.csv`**: un registro por cada cliente de la empresa, con su
+  identificador (`id_cliente`), nombre, ciudad de residencia y antigüedad en
+  años.
+
+1. Importar ambos conjuntos de datos al entorno de trabajo e inspeccionar su estructura.
+
+2. Crear en la base `reclamos` una nueva columna llamada `id_cliente`, extrayendo el identificador correspondiente desde la columna `registro`. Tener en cuenta que, para todos los clientes de la base, los ID tienen el formato `C-` seguido de **cuatro dígitos**.
+
+3. Generar un nuevo `DataFrame` que contenga **todos** los reclamos registrados y al que se le hayan anexado las columnas con la información del cliente. 
+
+4. Extraer desde la columna `registro` la **fecha y hora de apertura** de cada reclamo y guardarla en una nueva columna con el tipo de dato adecuado. Tener en cuenta que todas las fechas se encuentran escritas en el siguiente formato: `DD/MM/AAAA HH:MM`.
+
+5. Generar una nueva columna llamada `horas_transcurridas` con el tiempo, expresado en horas, que demandó resolver cada reclamo. *Sugerencia: explorar la utilización, a través del accesor `.dt`, del método `total_seconds()` para obtener la cantidad de segundos que corresponden a cada `timedelta`.*
+
+6. Calcular el promedio de horas de resolución para el conjunto de los reclamos y también el promedio por sede. Comentar brevemente lo encontrado.
+
+7. Crear la columna `motivo` con el motivo asignado a cada reclamo. ¿Cuántos motivos diferentes de reclamos se encuentran en el dataset y cuántos reclamos hay dentro de cada motivo?
+
+8. ¿Qué motivo de reclamo demandó, en promedio, un tiempo más largo de resolución?
+
+9. Crear una columna llamada `mensaje` que contenga el texto escrito por el cliente con el texto escrito por el cliente.
+
+10. ¿Cuántos de los mensajes escritos por los clientes mencionan la palabra *factura*? 
+
+11. Algunos clientes escribieron su mensaje con signos de exclamación repetidos (`!!!`), presumiblemente para enfatizar su malestar. Identificar cuántos mensajes presentan esa característica y a qué motivos corresponden. ¿Se resolvieron esos reclamos más rápido que el resto?
+```

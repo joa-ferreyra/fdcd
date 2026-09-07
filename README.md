@@ -53,6 +53,8 @@ Los siguientes archivos se utilizan a lo largo de los diferentes *Materiales de 
 |---|---|---|
 | [`earthquakes.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/earthquakes.csv) | 2 | Terremotos registrados por el USGS (*United States Geological Survey*), descargados directamente desde su API pública: sismos de magnitud 4.5 o mayor, ocurridos entre agosto de 2025 y agosto de 2026. El archivo fue modificado con fines pedagógicos. |
 | [`hogares.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/hogares.xlsx) | 2 | Dataset simulado de propiedades en la ciudad de Rosario, utilizado para ilustrar estrategias de imputación de datos faltantes. |
+| [`reclamos.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/reclamos.csv) | 2 | Dataset simulado con los reclamos recibidos por una empresa de servicios. Se utiliza junto con `clientes.csv` en el **MANOS A LA OBRA N° 3**. |
+| [`clientes.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u2-manipulacion-datos/datasets/clientes.csv) | 2 | Dataset simulado con la cartera de clientes de la empresa de servicios a la que corresponden los reclamos de `reclamos.csv`. |
 | [`enfr2018.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u3-analisis-exploratorio-datos/datasets/enfr2018.txt) | 3 | Encuesta Nacional de Factores de Riesgo 2018. La misma releva información sobre condiciones de salud, hábitos y factores de riesgo en la población adulta argentina. |
 
 

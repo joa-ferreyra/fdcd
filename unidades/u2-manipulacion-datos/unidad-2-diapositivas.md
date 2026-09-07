@@ -14,7 +14,9 @@
 
 ## Parte 3
 
-Combinación de DataFrames con Pandas. Expresiones regulares. Uso de expresiones regulares para realizar tareas de búsqueda.
+Combinación de DataFrames con Pandas. Expresiones regulares. Módulo `re` de Python. Expresiones regulares en `pandas`: tareas de búsqueda y extracción.
+
+<iframe src="./slides/u2-manipulacion-datos-p3.html" width="100%" height="600px"></iframe>
 
 ## Descargar slides
 
