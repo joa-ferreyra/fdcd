@@ -11,13 +11,24 @@ kernelspec:
 
 # Unidad 4. Visualización de datos - Práctica
 
-```{admonition} 📂 Descargar archivos  
-[Descargar los archivos para la práctica desde el Campus Virtual](https://campusv.fceia.unr.edu.ar/course/view.php?id=471)
+```{rubric} Datasets
+:class: rubric-datasets
 ```
 
-### **Ejercicio N°1**
+| Dataset | Ejercicio/s | Descripción |
+|---|---|---|
+| [`iris.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u4-visualizacion-datos/datasets/iris.csv) | 1 y 4 | Conjunto de datos clásico con las medidas del sépalo y del pétalo de 150 flores de iris pertenecientes a tres especies (50 flores de cada una), junto con un identificador numérico de cada flor. |
+| [`registro_temperatura365d_smn.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u4-visualizacion-datos/datasets/registro_temperatura365d_smn.txt) | 2 | Temperaturas máximas y mínimas diarias registradas entre el 11/04/2025 y el 10/04/2026 en las estaciones meteorológicas de superficie del Servicio Meteorológico Nacional (SMN). |
+| [`share-artificial-intelligence-job-postings.csv`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u4-visualizacion-datos/datasets/share-artificial-intelligence-job-postings.csv) | 5 | Porcentaje de ofertas laborales que requieren al menos una habilidad relacionada con inteligencia artificial en 22 países, entre 2014 y 2025. Fuente: Lightcast, vía AI Index Report (2026), publicado por Our World in Data. |
+| [`viajes_tup.xlsx`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u4-visualizacion-datos/datasets/viajes_tup.xlsx) | 6 | Cantidad mensual de validaciones registradas en el Transporte Urbano de Pasajeros (TUP) de la ciudad de Rosario, entre enero de 2015 y diciembre de 2021. |
+| [`partos2022.txt`](https://raw.githubusercontent.com/tuiafceiaunr/fdcd/main/unidades/u4-visualizacion-datos/datasets/partos2022.txt) | 7 | Registros de los nacimientos atendidos durante 2022 en el Hospital Roque Sáenz Peña (HRSP) y la Maternidad Martin (MM), efectores municipales de la ciudad de Rosario. |
 
-El dataset `iris.csv` contiene información sobre 150 flores de iris de tres especies diferentes: *setosa*, *versicolor* y *virginica*. Para cada flor, se midieron cuatro características: longitud y ancho del sépalo (la parte que rodea y protege el capullo de la flor) y longitud y ancho del pétalo (la parte coloreada de la flor).
+
+```{rubric} Ejercicio 1
+:class: rubric-ejercicio
+```
+
+El dataset **`iris.csv`** contiene información sobre 150 flores de iris de tres especies diferentes: *setosa*, *versicolor* y *virginica*. Para cada flor, se midieron cuatro características: longitud y ancho del sépalo (la parte que rodea y protege el capullo de la flor) y longitud y ancho del pétalo (la parte coloreada de la flor).
 
 1. Reproduzca el histograma mostrado en la siguiente figura para visualizar la distribución del ancho de sépalo (`sepal_width_cm`). 
 
@@ -119,8 +130,10 @@ axes[1].set_yticks([]);
 
 5. Construya un gráfico que le permita analizar la relación general que existe entre las variables ancho y largo del pétalo. Realice un comentario acerca de lo observado y complemente el gráfico anterior informando una medida de la fuerza y la dirección de la asociación lineal entre ambas variables.
 
-### **Ejercicio N°2**
-El dataset `registro_temperatura365d_smn.txt` contiene las temperaturas máximas y mínimas registradas diariamente entre el 11/04/2025 y el 10/04/2026 en todas las estaciones meteorológicas de superficie pertenecientes al Servicio Meteorológico Nacional.
+```{rubric} Ejercicio 2
+:class: rubric-ejercicio
+```
+El dataset **`registro_temperatura365d_smn.txt`** contiene las temperaturas máximas y mínimas registradas diariamente entre el 11/04/2025 y el 10/04/2026 en todas las estaciones meteorológicas de superficie pertenecientes al Servicio Meteorológico Nacional.
 
 1. Explore la estructura del archivo. Notará que no se utiliza un delimitador particular para separar las distintas columnas sino que los distintos campos están alineados en columnas con diferente número de espacios que separan uno del otro. Por este motivo, y aprovechando que las primeras columnas son de ancho fijo, se sugiere utilizar la función `read_fwf()` de Pandas, que permite leer este tipo de archivos. 
 
@@ -134,32 +147,34 @@ Al emplear esta función se deben definir los anchos de las columnas mediante el
 **`read_fwf()`** ignora los espacios en blanco al cargar los datos, por lo que no es necesario preocuparse por los espacios adicionales que puedan existir.
 ```
 
-2. Construya una tabla resumen que contenga media, mediana, desviación estándar y rango intercuartílico de las temperaturas mínimas y máximas registradas por mes. 
+2. Construya una tabla resumen que contenga media, mediana, desviación estándar, rango intercuartílico y rango de las temperaturas mínimas y máximas registradas en cada mes entre mayo de 2025 y marzo de 2026 en la estación del Aeropuerto Rosario (”ROSARIO AERO”). 
 
-3. Construya un gráfico que le permita comparar las distribuciones de temperaturas mínimas y máximas diarias entre los últimos 10 meses con datos completos (mayo 2025 a marzo 2026) registradas en la estación del Aeropuerto Rosario (”ROSARIO AERO”).
+3. Construya un gráfico que le permita comparar las distribuciones de temperaturas mínimas y máximas diarias entre los 11 meses con datos completos (mayo de 2025 a marzo de 2026) registradas en la estación del Aeropuerto Rosario (”ROSARIO AERO”).
 
 4. En base a lo realizado en los dos ítems anteriores, responda las siguientes preguntas:
 
-    a. ¿Cuál fue el mes del último año con la mayor temperatura máxima mediana?
+    a. ¿Cuál fue el mes con la mayor temperatura máxima mediana?
 
-    b. ¿Cuál fue el mes del último año con la menor temperatura mínima mediana?
+    b. ¿Cuál fue el mes con la menor temperatura mínima mediana?
 
-    c. Considerando la variabilidad del 50 % central de las temperaturas registradas en el mes, ¿cuál fue el mes del último año con una menor dispersión tanto en sus temperaturas mínimas como en sus temperaturas máximas? 
+    c. Considerando la variabilidad del 50 % central de las temperaturas registradas en el mes, ¿cuál fue el mes con una menor dispersión tanto en sus temperaturas mínimas como en sus temperaturas máximas? 
 
-    d. ¿Cuál fue el mes del último año que presentó una mayor amplitud en sus temperaturas mínimas registradas?
+    d. ¿Cuál fue el mes que presentó una mayor amplitud (diferencia entre el valor máximo y el mínimo) en sus temperaturas mínimas registradas?
 
-    e. Considerando los meses del invierno 2025, ¿existió algún mes en el cual se haya registrado una temperatura máxima atípica en relación al resto de los registros de ese mes?
+    e. Considerando los meses del invierno 2025 (junio, julio y agosto), ¿existió algún mes en el cual se haya registrado una temperatura máxima atípica en relación al resto de los registros de ese mes? 
     
-5. Realice nuevamente el ítem 3 con los datos correspondientes a la estación meteorológica localizada en la Base Marambio de la Antártida Argentina. Compare los dos gráficos y comente las diferencias que encuentra en las distribuciones de las temperaturas registradas en ambas estaciones.
 
-### **Ejercicio N°3**
-El dataset **Penguins** contiene información acerca de un conjunto de pingüinos que habitan el Archipiélago Palmer, un archipiélago del Océano Glacial Antártico que se encuentra conformado por un conjunto de islas montañosas. Sobre cada ejemplar se cuenta con la siguiente información:
+```{rubric} Ejercicio 3
+:class: rubric-ejercicio
+```
 
-- **`species`**: especie a la que pertenece (Chinstrap, Adélie o Gentoo).
+El dataset **Penguins** contiene información acerca de un conjunto de pingüinos que habitan el Archipiélago Palmer, un archipiélago ubicado frente a la costa occidental de la Península Antártica y formado por un conjunto de islas. Sobre cada ejemplar se cuenta con la siguiente información:
 
-- **`culmen_length_mm`**: largo del culmen, cresta superior del pico (mm).
+- **`species`**: especie a la que pertenece (Adelie, Chinstrap o Gentoo).
 
-- **`culmen_depth_mm`**: altura del culmen (mm).
+- **`bill_length_mm`**: largo del pico, medido sobre el culmen (la cresta superior del pico) (mm).
+
+- **`bill_depth_mm`**: altura del pico (mm).
 
 - **`flipper_length_mm`**: largo de la aleta (mm).
 
@@ -207,8 +222,11 @@ for text in legend.get_texts():
 
 4. ¿A cuál de las tres especies se refiere la siguiente frase? **El 90% de los pingüinos presenta una longitud de aleta menor o igual a 198 mm.**
 
-### **Ejercicio N°4**
-Utilizando el dataset `iris.csv` del **Ejercicio N°1**:
+```{rubric} Ejercicio 4
+:class: rubric-ejercicio
+```
+
+Utilizando el dataset **`iris.csv`**:
 
 1. Construya un gráfico que le permita visualizar la distribución de los valores observados del ancho de sépalo. A partir del gráfico realizado, ¿qué puede decir acerca de la simetría de la distribución?
 
@@ -218,21 +236,58 @@ Utilizando el dataset `iris.csv` del **Ejercicio N°1**:
     
 4. Modifique el gráfico realizado en el ítem anterior de tal manera que le permita analizar si la relación general entre el ancho y el largo del pétalo se mantiene según la especie. Comente brevemente lo observado.
     
-5. Construya una matriz de gráficos que le permitan estudiar la asociación que existe entre todos los pares de variables cuantitativas del dataset. *Sugerencia*: utilice la función **`pairplot()`** de **Seaborn**. 
+5. Construya una matriz de gráficos que le permitan estudiar la asociación que existe entre todos los pares de variables cuantitativas del dataset. *Sugerencia*: utilice la función **`pairplot()`** de Seaborn. 
 
 6. Sobre las mismas variables cuantitativas del dataset, genere la matriz de correlación lineal de Pearson y represéntela gráficamente a través de un correlograma.  
     
 7. A partir de lo realizado en los dos ítems anteriores, caracterice el grado de asociación lineal entre los distintos pares de variables de interés, incluyendo fuerza y dirección, y analizando la correspondencia entre los valores calculados y lo observado gráficamente.
 
-### **Ejercicio N°5**
-El set de datos `viajes_tup.xlsx` contiene información sobre el número de viajes mensuales registrados en el Transporte Urbano de Pasajeros (TUP) de la ciudad de Rosario entre los años 2015 y 2021.
+```{rubric} Ejercicio 5
+:class: rubric-ejercicio
+```
+
+El dataset **`share-artificial-intelligence-job-postings.csv`**, publicado por *Our World in Data* a partir de datos de Lightcast (AI Index Report), contiene el porcentaje de ofertas laborales online que requieren al menos una habilidad relacionada con inteligencia artificial (por ejemplo, aprendizaje automático o procesamiento de lenguaje natural) en distintos países. Sus variables son:
+
+- **`Entity`**: país.
+
+- **`Code`**: código del país.
+
+- **`Year`**: año.
+
+- **`Share of artificial intelligence jobs among all job postings`**: porcentaje de ofertas laborales que requieren habilidades de IA.
+
+1. Importe el dataset al entorno de trabajo y explore su estructura. ¿Cuántos países incluye y qué años abarca? ¿Todos los países incluidos cuentan con datos para todos los años?
+
+2. Construya un gráfico para representar el porcentaje de ofertas laborales relacionadas con IA de cada país en el año 2025. ¿Qué países se destacan? 
+
+3. Considerando únicamente los países con datos desde 2014, construya un gráfico que represente, para cada país, la evolución del porcentaje de ofertas laborales vinculadas con IA a lo largo de los años. Comente brevemente lo observado. 
+
+4. Tomando en cuenta solamente aquellos países para los que se dispone de información para los años 2018 y 2025, construya un *scatterplot* para representar, en forma conjunta, el porcentaje de ofertas relacionadas con IA de ambos años, y agregue la recta identidad (y = x) como referencia. **Sugerencia:** utilice los mismos límites en ambos ejes y `ax.set_aspect('equal')` para que la recta se visualice a 45°. 
+
+    ¿Los países con mayor porcentaje en 2018 son también los que tienen mayor porcentaje en 2025? ¿Qué indica la posición de los puntos respecto de la recta identidad?
+
+5. Para los mismos países considerados en el ítem anterior, calcule la variación del porcentaje de ofertas laborales que requieren habilidades relacionadas con la IA entre 2018 y 2025, expresada en puntos porcentuales (es decir, como la diferencia entre ambos porcentajes). 
+
+    a. ¿Qué países crecieron más y qué países crecieron menos? 
+    
+    b. ¿Hubo algún país en el que el porcentaje disminuyera? Relacione la respuesta a esta pregunta con lo observado en el ítem 4.
+
+
+```{rubric} Ejercicio 6
+:class: rubric-ejercicio
+```
+
+El set de datos **`viajes_tup.xlsx`** contiene información sobre el número de viajes mensuales registrados en el Transporte Urbano de Pasajeros (TUP) de la ciudad de Rosario entre los años 2015 y 2021. Cada fila corresponde a un mes (`periodo`) y el número de viajes se mide a través de la cantidad de validaciones registradas en ese mes (`validaciones_totales`).
 
 1. Realice una tabla que resuma el total de viajes realizados por año y represente gráficamente dicha información. ¿Cuál fue el año en el que se registró la mayor cantidad de viajes en el TUP?
 
 2. Construya un gráfico en el que se represente la evolución del número de viajes registrados en el TUP a lo largo de los meses para los años 2019 y 2020. Comente brevemente lo observado.
 
-### **Ejercicio N°6**
-Utilizando el dataset `partos2022.txt`, el cual contiene información sobre los partos atendidos en el 2022 en el Hospital Roque Sáenz Peña (HRSP) y la Maternidad Martin (MR), efectores municipales de la ciudad:
+```{rubric} Ejercicio 7
+:class: rubric-ejercicio
+```
+
+Utilizando el dataset **`partos2022.txt`**, el cual contiene información sobre los partos atendidos en el 2022 en el Hospital Roque Sáenz Peña (HRSP) y la Maternidad Martin (MM), efectores municipales de la ciudad:
 
 1. Indique los meses en los que se registró la mayor y la menor cantidad de partos atendidos. ¿Qué porcentajes del total de partos atendidos en el año representan?
 
@@ -260,53 +315,51 @@ Utilizando el dataset `partos2022.txt`, el cual contiene información sobre los 
 data_partos = pd.read_csv('datasets/partos2022.txt', encoding = 'latin-1', delimiter = '\t')
 
 # Recategorizo rango_edad_mama
-def recategorizar(rango_edad_mama):
-    if (rango_edad_mama == '10 a 14 años') | (rango_edad_mama == '15 a 19 años'):
-        return '10 a 19 años'
-    elif (rango_edad_mama == '20 a 24 años') | (rango_edad_mama == '25 a 29 años'):
-        return '20 a 29 años'
-    elif (rango_edad_mama == '30 a 34 años') | (rango_edad_mama == '35 a 39 años'):
-        return '30 a 39 años'
-    elif (rango_edad_mama == '40 a 44 años') | (rango_edad_mama == '45 a 49 años') | (rango_edad_mama == '50 años y más'):
-        return 'Más de 40'
-    else:
-        return rango_edad_mama
-  
-data_partos['rango_edad_mama_recat'] = data_partos['rango_edad_mama'].apply(recategorizar)
+recategorias_edad = {
+    '10 a 14 años': '10 a 19 años',
+    '15 a 19 años': '10 a 19 años',
+    '20 a 24 años': '20 a 29 años',
+    '25 a 29 años': '20 a 29 años',
+    '30 a 34 años': '30 a 39 años',
+    '35 a 39 años': '30 a 39 años',
+    '40 a 44 años': '40 años o más',
+    '45 a 49 años': '40 años o más',
+    '50 años y más': '40 años o más'
+}
+
+data_partos['rango_edad_mama_recat'] = data_partos['rango_edad_mama'].map(recategorias_edad)
 
 # Recategorizo terminacion_parto
 data_partos['terminacion_parto_recat'] = data_partos['terminacion_parto'].replace('Fórceps', 'Otros')
 
-# Genero tabla de doble entrada con % calculado sobre el total
-tabla_frecuencias = data_partos.groupby(['rango_edad_mama_recat','terminacion_parto_recat']).size().unstack()
+# Genero tabla de doble entrada con frecuencias absolutas
+tabla_frecuencias = data_partos.groupby(['rango_edad_mama_recat', 'terminacion_parto_recat']).size().unstack()
 
-tabla_porcentajes_totales = tabla_frecuencias.div(len(data_partos))*100
+# Tabla con % calculado sobre el total de partos con edad de la madre conocida (n = 4577)
+tabla_porcentajes_totales = tabla_frecuencias.div(tabla_frecuencias.sum().sum()) * 100
 
-# Genero tabla de doble entrada con % calculado sobre total rango_edad_mama_recat
-tabla_porcentajes_relativos = tabla_frecuencias.div(tabla_frecuencias.sum(axis = 1), axis = 0)*100
+# Tabla con % calculado sobre el total de cada rango etario
+tabla_porcentajes_relativos = tabla_frecuencias.div(tabla_frecuencias.sum(axis = 1), axis = 0) * 100
 
 # Construyo gráficos
-# Hago gráfico
+colores = sns.color_palette('deep')
 
-color = sns.set_palette('deep')
+fig, axes = plt.subplots(2, 1, figsize=(8, 12))
+plt.subplots_adjust(hspace = 0.5)
 
-fig, axes = plt.subplots(2, 1, figsize=(8,12))
-plt.subplots_adjust(hspace = 0.5, wspace = 0.3)
-
-#columnas = ['sepal_width_cm', 'petal_width_cm']
-
-tabla_porcentajes_totales.plot.barh(stacked = False, width = 0.85, ax = axes[0], color = color)
+tabla_porcentajes_totales.plot.barh(stacked = False, width = 0.85, ax = axes[0], color = colores)
 axes[0].set_xlabel('Porcentaje (%)', fontweight = 'bold', fontsize = 10)
 axes[0].set_ylabel('Rango etario de la madre', fontweight = 'bold', fontsize = 10)
-axes[0].tick_params(axis='both', labelsize=9)
-axes[0].legend(bbox_to_anchor = (1,1), title='Tipo de parto', fontsize=8, title_fontsize=8)
-axes[0].set_title('Gráfico ítem 7', fontsize=10, fontweight='bold')
-tabla_porcentajes_relativos.plot.barh(stacked = False, width = 0.85, ax = axes[1], color = color)
+axes[0].tick_params(axis = 'both', labelsize = 9)
+axes[0].legend(bbox_to_anchor = (1, 1), title = 'Tipo de parto', fontsize = 8, title_fontsize = 8)
+axes[0].set_title('Gráfico ítem 7', fontsize = 10, fontweight = 'bold')
+
+tabla_porcentajes_relativos.plot.barh(stacked = False, width = 0.85, ax = axes[1], color = colores)
 axes[1].set_xlabel('Porcentaje (%)', fontweight = 'bold', fontsize = 10)
 axes[1].set_ylabel('Rango etario de la madre', fontweight = 'bold', fontsize = 10)
-axes[1].tick_params(axis='both', labelsize=9)
-axes[1].legend(bbox_to_anchor = (1,1), title='Tipo de parto', fontsize=8, title_fontsize=8)
-axes[1].set_title('Gráfico ítem 8', fontsize=10, fontweight='bold');
+axes[1].tick_params(axis = 'both', labelsize = 9)
+axes[1].legend(bbox_to_anchor = (1, 1), title = 'Tipo de parto', fontsize = 8, title_fontsize = 8)
+axes[1].set_title('Gráfico ítem 8', fontsize = 10, fontweight = 'bold');
 ```
     
 9. Compare los gráficos realizados en el ítem anterior. ¿Qué tipo de información brinda cada uno?
