@@ -1990,7 +1990,7 @@ Esquema visual de los distintos tipos de unión entre dos datasets (*inner*, *ou
 
 ##### Ejemplo: encuesta de hogares
 
-Supongamos que contamos con dos tablas provenientes de una encuesta de movilidad. A fines prácticos, ambas tienen escasa cantidad de registros pero podemos imaginar que son un extracto de tablas más grandes.
+Supongamos que contamos con dos tablas provenientes de una encuesta de movilidad. Si bien a fines prácticos ambas tienen una cantidad de registros muy pequeña, podemos imaginar que son un extracto de tablas más grandes.
 
 **Tabla hogares**
 
@@ -2006,7 +2006,7 @@ Notar que cada fila representa un hogar y cada hogar pertenece a un único barri
 
 **Tabla personas**
 
-En la siguiente tabla, cada fila representa una persona encuestada, `id_persona` identifica a cada individuo y `id_hogar` indica a qué hogar pertenece. Además, se registra el motivo del viaje, el género, la edad y la distancia recorrida en el viaje (en km).
+En la siguiente tabla, cada fila representa una persona encuestada, `id_persona` identifica a cada individuo y `id_hogar` indica a qué hogar pertenece. Además, se registran el género y la edad de cada persona, junto con el motivo y la distancia (en km) de su viaje principal del día relevado.
 
 | id_persona | motivo_viaje | genero    | edad | distancia_km | id_hogar |
 | ---------- | ------------ | --------- | ---- | ------------ | -------- |
@@ -2018,6 +2018,8 @@ En la siguiente tabla, cada fila representa una persona encuestada, `id_persona`
 | 3454       | estudio      | masculino | 8    | 0.9          | 450959   |
 | 3455       | trabajo      | masculino | 51   | 15.2         | 450960   |
 | 3456       | trabajo      | femenino  | 48   | 9.6          | 450960   |
+
+Notar que el hogar `450957` no tiene personas asociadas en la tabla de personas: si bien el hogar fue relevado, ninguno de sus integrantes completó el cuestionario individual.
 
 A continuación, creamos ambas tablas utilizando funciones de `pandas`:
 
@@ -2041,7 +2043,7 @@ tabla_personas = pd.DataFrame({
 })
 ```
 
-El propósito es conocer en qué barrio vive cada una de las personas encuestadas. Como se observa, la información del barrio está en `tabla_hogares`, mientras que la información individual está en `tabla_personas`. **Necesitamos combinar ambas tablas usando la columna común `id_hogar`.** De esta forma. realizamos el *merge* utilizando la mencionada columna como *key*:
+El propósito es conocer en qué barrio vive cada una de las personas encuestadas. Como se observa, la información del barrio está en `tabla_hogares`, mientras que la información individual está en `tabla_personas`. **Necesitamos combinar ambas tablas usando la columna común `id_hogar`.** De esta forma, realizamos el *merge* utilizando la mencionada columna como *key*:
 
 ```{code-cell} python
 df = pd.merge(
@@ -2117,7 +2119,7 @@ resumen_hogares = tabla_personas.groupby('id_hogar').agg(
 resumen_hogares
 ```
 
-El resultado es un `DataFrame` con una fila por hogar y una columna por cada medida calculada, listo para combinarse con otra tabla (previo `reset_index()`, como hicimos anteriormente).
+El resultado es un `DataFrame` con una fila por hogar y una columna por cada medida calculada, listo para combinarse con otra tabla (previo `reset_index()`, como ya comentamos anteriormente).
 
 #### Unión cruzada (*cross join*)
 
