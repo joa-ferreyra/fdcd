@@ -1996,36 +1996,48 @@ Supongamos que contamos con dos tablas provenientes de una encuesta de movilidad
 
 Notar que cada fila representa un hogar y cada hogar pertenece a un único barrio.
 
-| id_hogar | barrio   |
-| -------- | -------- |
-| 450956   | Centro   |
-| 450957   | Belgrano |
-| 450958   | Lourdes  |
+| id_hogar | barrio    |
+| -------- | --------- |
+| 450956   | Centro    |
+| 450957   | Belgrano  |
+| 450958   | Lourdes   |
+| 450959   | Echesortu |
+| 450960   | Centro    |
 
 **Tabla personas**
 
-En la siguiente tabla, cada fila representa una persona encuestada, `id_persona` identifica a cada individuo y `id_hogar` indica a qué hogar pertenece
+En la siguiente tabla, cada fila representa una persona encuestada, `id_persona` identifica a cada individuo y `id_hogar` indica a qué hogar pertenece. Además, se registra el motivo del viaje, el género, la edad y la distancia recorrida en el viaje (en km).
 
-| id_persona | motivo_viaje | genero    | id_hogar |
-| ---------- | ------------ | --------- | -------- |
-| 3449       | trabajo      | femenino  | 450956   |
-| 3450       | no_trabajo   | masculino | 450956   |
-| 3451       | trabajo      | masculino | 450958   |
+| id_persona | motivo_viaje | genero    | edad | distancia_km | id_hogar |
+| ---------- | ------------ | --------- | ---- | ------------ | -------- |
+| 3449       | trabajo      | femenino  | 42   | 8.5          | 450956   |
+| 3450       | estudio      | masculino | 17   | 2.1          | 450956   |
+| 3451       | trabajo      | masculino | 35   | 12.3         | 450958   |
+| 3452       | trabajo      | femenino  | 29   | 5.0          | 450959   |
+| 3453       | salud        | femenino  | 63   | 1.8          | 450959   |
+| 3454       | estudio      | masculino | 8    | 0.9          | 450959   |
+| 3455       | trabajo      | masculino | 51   | 15.2         | 450960   |
+| 3456       | trabajo      | femenino  | 48   | 9.6          | 450960   |
 
 A continuación, creamos ambas tablas utilizando funciones de `pandas`:
 
 ```{code-cell} python
 
 tabla_hogares = pd.DataFrame({
-    'id_hogar': ['450956','450957','450958'],
-    'barrio': ['Centro','Belgrano','Lourdes']
+    'id_hogar': ['450956', '450957', '450958', '450959', '450960'],
+    'barrio': ['Centro', 'Belgrano', 'Lourdes', 'Echesortu', 'Centro']
 })
 
 tabla_personas = pd.DataFrame({
-    'id_persona': ['3449','3450','3451'],
-    'motivo_viaje': ['trabajo','no_trabajo','trabajo'],
-    'genero': ['femenino','masculino','masculino'],
-    'id_hogar': ['450956','450956','450958']
+    'id_persona': ['3449', '3450', '3451', '3452', '3453', '3454', '3455', '3456'],
+    'motivo_viaje': ['trabajo', 'estudio', 'trabajo', 'trabajo',
+                     'salud', 'estudio', 'trabajo', 'trabajo'],
+    'genero': ['femenino', 'masculino', 'masculino', 'femenino',
+               'femenino', 'masculino', 'masculino', 'femenino'],
+    'edad': [42, 17, 35, 29, 63, 8, 51, 48],
+    'distancia_km': [8.5, 2.1, 12.3, 5.0, 1.8, 0.9, 15.2, 9.6],
+    'id_hogar': ['450956', '450956', '450958', '450959',
+                 '450959', '450959', '450960', '450960']
 })
 ```
 
@@ -2057,6 +2069,55 @@ Aquí:
 
 🤔 ¿Cómo cambiaría el dataset `df` si, sobre el mismo código utilizado actualmente, modificamos el parámetro `how` por cada una de las otras posibilidades?
 ```
+
+##### Ejemplo (bis): resumir antes de combinar
+
+En muchos casos la información que queremos incorporar a una tabla se encuentra en otra, pero con un nivel de detalle distinto: en `tabla_personas` hay una fila por persona, mientras que en `tabla_hogares` hay una fila por hogar. Si queremos agregar a cada hogar la cantidad de personas encuestadas, primero debemos **resumir** `tabla_personas` por hogar con `groupby()`, y recién después combinar.
+
+```{code-cell} python
+# Cantidad de personas encuestadas por hogar
+personas_por_hogar = tabla_personas.groupby('id_hogar')['id_persona'].count()
+
+personas_por_hogar
+```
+
+El mismo conteo puede obtenerse con el método `value_counts()`, que ya utilizamos en la sección *Validación de datos*: `tabla_personas['id_hogar'].value_counts()`. La diferencia es que `value_counts()` sólo permite contar, mientras que `groupby()` permite aplicar cualquier otra función de resumen sobre cada grupo, como `sum()` o `mean()`, tal como veremos a continuación.
+
+Es importante notar que el resultado de `groupby()` tiene a `id_hogar` como **índice** y no como columna. Para poder usarlo como clave en `merge()`, debemos convertirlo en columna con el método `reset_index()`, asignándole además un nombre a la columna resumen:
+
+```{code-cell} python
+personas_por_hogar = personas_por_hogar.reset_index(name = 'cant_personas')
+
+df_hogares = pd.merge(tabla_hogares, personas_por_hogar,
+                      on = 'id_hogar', how = 'left')
+
+print(df_hogares)
+```
+
+Además de `count()`, sobre cada grupo pueden aplicarse otras funciones de resumen, como `sum()`, `mean()`, `min()`, `max()` o `nunique()` (que devuelve la cantidad de valores únicos).
+
+**Varias medidas resumen a la vez con `agg()`**
+
+Cuando necesitamos calcular más de una medida resumen por grupo, el método `agg()` permite obtenerlas en un solo paso. Si le pasamos una lista de funciones, estas se aplican sobre una misma columna:
+
+```{code-cell} python
+tabla_personas.groupby('id_hogar')['edad'].agg(['mean', 'min', 'max'])
+```
+
+Si, en cambio, queremos resumir **distintas columnas** y elegir el nombre de cada resultado, podemos usar la siguiente sintaxis, en la que cada nueva columna se define como `nombre = ('columna_original', 'función')`:
+
+```{code-cell} python
+resumen_hogares = tabla_personas.groupby('id_hogar').agg(
+    cant_personas = ('id_persona', 'count'),
+    edad_promedio = ('edad', 'mean'),
+    km_totales = ('distancia_km', 'sum'),
+    motivos_distintos = ('motivo_viaje', 'nunique')
+)
+
+resumen_hogares
+```
+
+El resultado es un `DataFrame` con una fila por hogar y una columna por cada medida calculada, listo para combinarse con otra tabla (previo `reset_index()`, como hicimos anteriormente).
 
 #### Unión cruzada (*cross join*)
 
@@ -2150,7 +2211,7 @@ Aquí ocurre lo siguiente: primero convertimos `A` en índice de `df3`, y poster
 
 ### Listado de métodos útiles
 
-Llegados a este punto de este capítulo, ya hemos echado mano a una buena cantidad de métodos de `pandas` a lo largo de las secciones previas: `astype()`, `to_numeric()`, `sort_values()`, `pd.melt()`, `pivot()`, `dropna()`, `fillna()`, `groupby()` junto con `transform()`, `describe()`, `value_counts()`, `str.lower()`, `replace()`, `duplicated()`, `drop_duplicates()`, `map()`, entre otros. Esta sección suma las herramientas que todavía faltaban, para completar una caja de herramientas básica de *data wrangling* con `pandas`.
+Llegados a este punto de este capítulo, ya hemos echado mano a una buena cantidad de métodos de `pandas` a lo largo de las secciones previas: `astype()`, `to_numeric()`, `sort_values()`, `pd.melt()`, `pivot()`, `reset_index()`, `dropna()`, `fillna()`, `groupby()` (junto con `transform()`, `count()` y `agg()`), `describe()`, `value_counts()`, `str.lower()`, `replace()`, `duplicated()`, `drop_duplicates()`, `map()`, entre otros. Esta sección suma las herramientas que todavía faltaban, para completar una caja de herramientas básica de *data wrangling* con `pandas`.
 
 #### Renombrar columnas
 
@@ -2198,7 +2259,7 @@ El método `unique()` devuelve un array con los valores únicos observados en un
 df_quakes_val['alert'].unique()
 ```
 
-Cuando sólo interesa **cuántos** valores distintos hay, sin necesidad de listarlos, es más directo usar `nunique()`:
+Cuando sólo interesa **cuántos** valores distintos hay, sin necesidad de listarlos, es más directo usar `nunique()`, método que ya aplicamos por grupos en la sección de combinaciones:
 
 ```{code-cell} python
 df_quakes_val['alert'].nunique()
