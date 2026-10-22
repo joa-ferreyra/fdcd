@@ -2121,6 +2121,35 @@ resumen_hogares
 
 El resultado es un `DataFrame` con una fila por hogar y una columna por cada medida calculada, listo para combinarse con otra tabla (previo `reset_index()`, como ya comentamos anteriormente).
 
+##### Combinar más de dos tablas
+
+El método `merge()` solo permite combinar **de a dos** `DataFrames`. Cuando la información que necesitamos está repartida en tres o más tablas, la unión se realiza **en pasos sucesivos**: primero combinamos dos de ellas y, luego, combinamos el resultado con la tercera, y así sucesivamente.
+
+A modo de ejemplo, supongamos que la encuesta registró, en otra tabla, la cantidad de vehículos en cada hogar:
+
+```{code-cell} python
+tabla_vehiculos = pd.DataFrame({
+    'id_hogar': ['450956', '450958', '450959', '450960'],
+    'cant_vehiculos': [1, 2, 0, 1]
+})
+```
+
+Para reunir en una única tabla los datos de cada hogar, el resumen de sus personas encuestadas y sus vehículos, realizamos dos uniones consecutivas:
+
+```{code-cell} python
+# Paso 1: hogares + resumen de personas por hogar
+df_hogares_completo = pd.merge(tabla_hogares, resumen_hogares.reset_index(),
+                               on = 'id_hogar', how = 'left')
+
+# Paso 2: resultado anterior + vehículos por hogar
+df_hogares_completo = pd.merge(df_hogares_completo, tabla_vehiculos,
+                               on = 'id_hogar', how = 'left')
+
+print(df_hogares_completo)
+```
+
+Es importante que, en cada paso, nos detengamos a revisar qué tipo de unión utilizamos, ya que de ello depende qué registros se conservan. En este caso, al usar `how = 'left'` partiendo de `tabla_hogares`, **el resultado conserva los cinco hogares relevados**. El hogar `450957`, que no tiene personas encuestadas ni información sobre vehículos, queda con `NaN` en las columnas incorporadas.
+
 #### Unión cruzada (*cross join*)
 
 Una unión cruzada genera todas las combinaciones posibles entre dos tablas.
