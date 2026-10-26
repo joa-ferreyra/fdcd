@@ -13,10 +13,6 @@ execute:
 
 html:
   use_repository_button: true
-  use_thebe: true
-
-launch_buttons:
-  thebe: true
   
 exclude_patterns:
   - .venv
@@ -58,5 +54,3 @@ sphinx:
       header_organisation: Fundamentos de Ciencia de Datos
       header_organisation_url: https://tuia-fceia-unr.github.io/fdcd/
       color_scheme: none
-    thebe_config:
-      use_thebe_lite: true
