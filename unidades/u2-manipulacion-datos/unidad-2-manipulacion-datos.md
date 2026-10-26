@@ -2120,8 +2120,6 @@ resumen_hogares
 ```
 
 El resultado es un `DataFrame` con una fila por hogar y una columna por cada medida calculada, listo para combinarse con otra tabla (previo `reset_index()`, como ya comentamos anteriormente).
-<<<<<<< HEAD
-=======
 
 ##### Combinar más de dos tablas
 
@@ -2151,7 +2149,6 @@ print(df_hogares_completo)
 ```
 
 Es importante que, en cada paso, nos detengamos a revisar qué tipo de unión utilizamos, ya que de ello depende qué registros se conservan. En este caso, al usar `how = 'left'` partiendo de `tabla_hogares`, **el resultado conserva los cinco hogares relevados**. El hogar `450957`, que no tiene personas encuestadas ni información sobre vehículos, queda con `NaN` en las columnas incorporadas.
->>>>>>> 8ddaae2f33b7c39a5dc3676414517a999cf63995
 
 #### Unión cruzada (*cross join*)
 
