@@ -19,6 +19,9 @@ jobs:
             - name: Build Jupyter Book Documentation
               run: |
                   jupyter-book build . --config docs/_config.yml --toc docs/_toc.yml
+            - name: Copy slides
+              run: |
+                  find unidades -path '*/slides/*.html' -exec cp --parents {} _build/html/ \;
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               if: github.ref == 'refs/heads/main' && job.status == 'success'
